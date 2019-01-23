@@ -1,0 +1,26 @@
+#ifndef _GRILLE_H
+#define _GRILLE_H
+
+class grille{
+ private:
+  size_t dimension;
+  size_t **tab;
+
+ public:
+  //constructeurs
+  grille();
+  grille(size_t);
+  //destructeur
+  ~grille();
+  //accesseur en lecture
+  size_t getDimension()const;
+  size_t getVal(size_t,size_t)const;
+  //acesseur en ecriture 
+  void setVal(size_t val,size_t x,size_t y);
+  
+  //methodes
+  void random_init(size_t nb_cellules_numerot);
+  void print();
+  
+};
+#endif

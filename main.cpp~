@@ -1,0 +1,10 @@
+#include"grille.cpp"
+#include<iostream>
+
+int main(int argv,char** argc){
+  Grille g(5,5);
+  g.GrillePrint();
+
+  
+  return 0;
+}

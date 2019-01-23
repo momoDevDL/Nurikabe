@@ -1,0 +1,40 @@
+#include"grille.h"
+#include<iostream>
+using namespace std;
+#define CHECK_BOUND(i,j,x)			\
+  if(i>x || j > x){ \
+  cerr<<"une ou les  valeur(s) depasse(nt) la dimension de la grille"<<endl; \
+  }
+
+grille::grille():dimension(5),tab(new size_t(5)){
+  for(size_t i=0;i<dimension;++i){
+    tab[i]=new size_t(5);
+  }
+}
+
+
+grille::grille(size_t dim):dimension(dim),tab(new size_t(dim)){
+  for(size_t i=0;i<dim;++i){
+    tab[i]=new size_t(dim);
+  }
+}
+
+grille::~grille(){
+  size_t i=0;
+  while(tab[i]){
+    delete [] tab[i];
+    i++;
+  }
+  delete [] tab;
+}
+
+size_t grille::getDimension()const{return dimension;}
+size_t grille::getVal(size_t x,size_t y)const{
+  CHECK_BOUND(x,y,dimension);
+  return tab[x][y];
+}
+
+void grille::setVal(size_t val, size_t x,size_t y){ CHECK_BOUND(x,y,dimension);
+  tab[x][y]=val;
+}
+
