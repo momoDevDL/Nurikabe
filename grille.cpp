@@ -31,7 +31,7 @@ Grille::~Grille(){
 
  size_t Grille::getDimensionX()const{return dimensionX;}
  size_t Grille::getDimensionY()const{return dimensionY;}
- Cell Grille::getCell(size_t x,size_t y)const{
+ Cell& Grille::getCell(size_t x,size_t y)const{
    CHECK_BOUND(x,y,dimensionX,dimensionY);
   return tab[x][y];
 }
@@ -51,7 +51,7 @@ void Grille::addEtat(int etat,size_t x,size_t y){
 void Grille::GrillePrint(){
   /* for(size_t i=0;i<dimensionX;i++){
     cout<<" +";
-  }*/
+    }*/
   for(size_t k=0;k<dimensionX;k++){
     cout<<endl;
     //cout<<"+";

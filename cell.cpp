@@ -30,6 +30,7 @@ void Cell::print(){
   case 3:
     cout<<"\033[1;30m \033[0m";
     break;
+ 
   }
 }
 

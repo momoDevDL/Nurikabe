@@ -17,7 +17,7 @@ class Grille{
   //accesseur en lecture
   size_t getDimensionX()const;
   size_t getDimensionY()const;
-  Cell getCell(size_t,size_t)const;
+  Cell& getCell(size_t,size_t)const;
   
   
   //methodes
