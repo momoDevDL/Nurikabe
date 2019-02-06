@@ -1,6 +1,6 @@
 CXX=g++
 CXX_FLAGS= -ansi -Wall -pedantic -g
-SOURCE= BlockCell.cpp cell.cpp grille.cpp ListeCell.cpp main.cpp
+SOURCE= BlockCell.cpp cell.cpp option.cpp grille.cpp ListeCell.cpp main.cpp
 PROG=Nurikabe
 MSG_OK = @ echo "\t\t\t........................OK"
 
