@@ -6,26 +6,21 @@ class ListeCell{
   
  private:
   BlockCell* head;
-  BlockCell* tail;
   size_t size;
+  
  public:
   ListeCell();
   ListeCell(BlockCell* _head);
 
-  //  void  setNextBlock(BlockCell* thisBlock,BlockCell* NextBlock);
   size_t  getSize()const;
   
-  BlockCell* getTail()const;
-  void setTail(BlockCell* BC);
   BlockCell* getHead()const;
   
   //Methodes
-  BlockCell* getNextBlock(BlockCell* BC)const;
   BlockCell* getSucc(BlockCell*)const;
-  void addAfter(BlockCell* BC,BlockCell* cell);
-  // void addBefore(BlockCell BC,Cell* cell);
+  void addAfter(BlockCell* bc,BlockCell* cell);
+  void fusion(BlockCell* bc,BlockCell* cell);
   bool est_Vide()const;
-
   void printListe()const;
 };
 

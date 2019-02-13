@@ -2,38 +2,76 @@
 using namespace std;
 #include"ListeCell.h"
 
-ListeCell::ListeCell():head(NULL),tail(NULL),size(0){}
+ListeCell::ListeCell():head(NULL),size(0){}
 
-ListeCell::ListeCell(BlockCell* Bcell):head(Bcell),tail(Bcell),size(1){}
+ListeCell::ListeCell(BlockCell* bcell):head(bcell),size(1){}
 
 /*void ListeCell::setNextBlock(BlockCell* thisBlock,BlockCell* NextBlock){
   thisBlock->setNextBlockCell(NextBlock);
 }*/
 
 size_t ListeCell::getSize()const{ return size;}
-void ListeCell::setTail(BlockCell* BC){ tail=BC;}
 
 bool ListeCell::est_Vide()const{return size==0;}
 
-BlockCell* ListeCell::getTail()const{ return tail;}
 BlockCell* ListeCell::getHead()const{ return head;}
 
-BlockCell* ListeCell::getSucc(BlockCell* BC)const{ return BC->getNextBlock();}
+BlockCell* ListeCell::getSucc(BlockCell* bc)const{ return bc->getNextBlock();}
 
-void ListeCell::addAfter(BlockCell* BC,BlockCell* blockC){
+void ListeCell::addAfter(BlockCell* bc,BlockCell* blockC){
   //BlockCell* blockC=new BlockCell(cell);
-  if(getSucc(BC)==NULL){
-    BC->setNextBlockCell(blockC);
+  if(getSucc(bc)==NULL){
+    bc->setNextBlockCell(blockC);
     size++;
-    setTail(blockC);
-  }else{
-    BlockCell* tmp= BC->getNextBlock();
-    BC->setNextBlockCell(blockC);
+  }else {
+    BlockCell* tmp= bc->getNextBlock();
+    bc->setNextBlockCell(blockC);
     blockC->setNextBlockCell(tmp);
     size++;
     delete tmp;
   }
 }
+
+void ListeCell::fusion(BlockCell* bc,BlockCell* blockC){
+  if(getSucc(blockC) == NULL){
+    if(getSucc(bc) == NULL){
+      bc->setNextBlockCell(blockC);
+      size++;
+    } else {
+      BlockCell* tmp = bc->getNextBlock();
+      bc->setNextBlockCell(blockC);
+      blockC->setNextBlockCell(tmp);
+      size++;
+     
+    }
+  } else {
+    int buf = 0;
+    if (getSucc(bc) != NULL) {
+      BlockCell* tmp = bc->getNextBlock();
+      BlockCell* tmp1 = blockC->getNextBlock();
+      buf++;
+      while (getSucc(tmp1) != NULL){
+	tmp1 = tmp1->getNextBlock();
+	buf++;
+      }
+      tmp1->setNextBlockCell(tmp);
+      bc->setNextBlockCell(blockC);
+      size = size + buf;
+    } else {
+      BlockCell* tmp = bc;
+      BlockCell* tmp1 = blockC->getNextBlock();
+      buf++;
+      while (getSucc(tmp1) != NULL){
+	tmp1 = tmp1->getNextBlock();
+	buf++;
+      }
+      tmp1->setNextBlockCell(tmp);
+      bc->setNextBlockCell(blockC);
+      size = size + buf;
+    }
+  }
+}
+
 
 void ListeCell::printListe()const{
   BlockCell* tmp=getHead();
