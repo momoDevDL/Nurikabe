@@ -28,3 +28,7 @@ void BlockCell::printBlock()const{
   cout<<" => etat de cell : " <<getEtatCell()<<"/==/ Num= "<<getCellNum()<<"\t";
   getCellPointer()->print();
 }
+
+void BlockCell::printBlockListe()const{
+  getCellPointer()->print();
+}

@@ -13,20 +13,21 @@ void Myprogram(int dimX,int dimY){
   g.addVal(3,2,3);
   g.GrillePrint();
   g.addEtat(1,1,2);
+  g.addEtat(1,1,1);
   g.addEtat(2,0,3);
   g.GrillePrint();
   cout<<endl;
   
   BlockCell cell6(&(g.getCell(0,2)));
-  BlockCell cell7(&(g.getCell(0,3)));
-  // cell6.setEtatCell((g.getCell(0,4)).getEtat());
+  BlockCell cell7(&(g.getCell(1,1)));
+  BlockCell cell8(&(g.getCell(1,2)));
+  
   ListeCell L1(&cell6);
-  // cout<<L1.getSize()<<endl;
-  // L1.addAfter(L1.getTail(),&cell7);
-  //L1.addAfter(L1.getTail(),&(g.getCell(1,3)));
-  // cout<<L1.getSize()<<endl;
+  
+  L1.fusion(L1.getHead(),& cell7);
   L1.printListe();
-  g.GrillePrint();
+  L1.fusion(L1.getHead(),& cell8);
+  L1.printListe();
 }
 
 void MyProgram(int argc,char** argv){

@@ -21,6 +21,7 @@ class BlockCell{
   int getCellNum()const;
   
   void printBlock()const;
+  void printBlockListe()const;
 
 };
 
