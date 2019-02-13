@@ -61,14 +61,15 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC){
 
 
 void ListeCell::printListe()const{
+  
+  std::cout<<"La liste de cellule est : [";
   BlockCell* tmp=getHead();
-  int i=0;
   while(getSucc(tmp)){
-    tmp->printBlock();
+    tmp->printBlockListe();
+    std::cout<<" | ";
     tmp=getSucc(tmp);
-    i++;
   }
-  tmp->printBlock();
-  cout<<i<<endl;
+  tmp->printBlockListe();
+  std::cout<<"]"<<endl;
 }
 
