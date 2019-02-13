@@ -18,19 +18,6 @@ BlockCell* ListeCell::getHead()const{ return head;}
 
 BlockCell* ListeCell::getSucc(BlockCell* bc)const{ return bc->getNextBlock();}
 
-void ListeCell::addAfter(BlockCell* bc,BlockCell* blockC){
-  //BlockCell* blockC=new BlockCell(cell);
-  if(getSucc(bc)==NULL){
-    bc->setNextBlockCell(blockC);
-    size++;
-  }else {
-    BlockCell* tmp= bc->getNextBlock();
-    bc->setNextBlockCell(blockC);
-    blockC->setNextBlockCell(tmp);
-    size++;
-    delete tmp;
-  }
-}
 
 void ListeCell::fusion(BlockCell* bc,BlockCell* blockC){
   if(getSucc(blockC) == NULL){

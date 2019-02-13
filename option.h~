@@ -48,7 +48,7 @@ enum Type{
   
   void print() const;
 };
-void launchOption(Option*,Option &o,int &i,char**);
+void launchOption(Option::Ido);
 //transformer mon type en string
 std::string Type2String(Option::Type);
 

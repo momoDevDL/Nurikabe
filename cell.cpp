@@ -8,6 +8,14 @@ int Cell::getEtat()const{ return etat;}
 
 int Cell::getCellNum()const{ return cellNum;}
 
+int Cell::getPosX()const{return posX;}
+
+int Cell::getPosY()const{return posY;}
+
+void Cell::setPosX(int pos){posX=pos;}
+
+void Cell::setPosY(int pos){posY=pos;}
+
 void Cell::setEtat(int e){ etat=e;}
 
 void Cell::setCellNum(int cNum){cellNum=cNum;}

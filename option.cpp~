@@ -1,8 +1,6 @@
 #include<iostream>
 #include"option.h"
-#include"grille.h"
-#include<istream>
-void Myprogram(int,int);
+void MyProgram(int,int);
 using namespace std;
 
 //les constructeurs de terrain par defaut et paramétré
@@ -130,11 +128,7 @@ int launchDimensionY(){
   return dimY;
 }
 
-void launchConfig(){
-  
-}
-
-void launchOption(Option* tab,Option &o,int &i,char** argv){
+void launchOption(Option* tab,Option &o){
   int dimensionX;
   int dimensionY;
   switch(o.getId()){
@@ -151,25 +145,10 @@ void launchOption(Option* tab,Option &o,int &i,char** argv){
   case Option::DIMENSION:
      dimensionX=launchDimensionX(o);
      dimensionY=launchDimensionY();
-     Myprogram(dimensionX,dimensionY);
+    MyProgram(dimensionX,dimensionY);
     break;
   case Option::CONFIG:
-    /* istream read(argv[i+1]);
-    i++;
-    if(!read.is_open()){
-    cout<<"Erreur d'ouverture de flux"<<endl;
-    }else{
-      string s;
-      while(getline(read,s,":");
-      s="";
-      getline(read,s,"#");
-      dimensionX=atoi(s);
-      // MyProgram(findDimensionX(),findDimensionY());
-      getline(read);
-      while(getline(read)){
-	read.ignore(8,"(");
-	atoi(read.peek())
-	}*/
+    cout<<"veuilleiz entrer votre config"<<endl;
     break;
   case Option::NONE:
     break;
