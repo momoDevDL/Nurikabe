@@ -30,7 +30,9 @@ Grille::~Grille(){
 }
 
  size_t Grille::getDimensionX()const{return dimensionX;}
+
  size_t Grille::getDimensionY()const{return dimensionY;}
+
  Cell& Grille::getCell(size_t x,size_t y)const{
    CHECK_BOUND(x,y,dimensionX,dimensionY);
   return tab[x][y];

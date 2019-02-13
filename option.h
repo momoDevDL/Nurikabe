@@ -1,6 +1,7 @@
 #ifndef __OPTION_H
 #define __OPTION_H
 #include <string>
+#include <map>
 class Option{
   
  public:
@@ -48,7 +49,7 @@ enum Type{
   
   void print() const;
 };
-void launchOption(Option*,Option &o,int &i,char**);
+void launchOption(Option*,Option &o,int &i,char**,std::map<std::string,std::string>& data);
 //transformer mon type en string
 std::string Type2String(Option::Type);
 

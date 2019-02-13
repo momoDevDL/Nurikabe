@@ -1,10 +1,11 @@
 #include<iostream>
 #include"option.h"
 #include"grille.h"
-#include<istream>
-void Myprogram(int,int);
-using namespace std;
+#include<fstream>
+#include<map>
 
+using namespace std;
+void initGrille(map<string,string> &data );
 //les constructeurs de terrain par defaut et paramétré
 Option::Option():id(Option::NONE),type(AUCUN),raccourci(""),description("UNKNOWN"){}
 Option::Option(Ido identifiant,Type t,string racc,string descr):id(identifiant),type(t),raccourci(racc),description(descr){}
@@ -115,28 +116,63 @@ void launchAuthors(Option &o){
   cout<<"-> \033[1;33mAyoub Benhamdi\033[0m"<<endl;
 }
 
-int launchDimensionX(Option &o){
-  int dimX;
+string launchDimensionX(Option &o){
+  string dimX;
   cout<<o.getdescription()<<endl;
   cout<<"Veuillez saisir la dimension X de la grille souhaitée : "<<endl;
   cin>>dimX;
   return dimX;
 }
 
-int launchDimensionY(){
-  int dimY;
+string launchDimensionY(){
+  string dimY;
   cout<<"Veuillez saisir la dimension Y de la grille souhaitée : "<<endl;
   cin>>dimY;
   return dimY;
 }
 
-void launchConfig(){
+
+
   
+void launchConfig(char* f,map<string,string>& data){
+  
+  ifstream read(f);
+  
+  if(!read.is_open()){
+    cerr<<"erreur d'ouverture de fichier"<< f <<endl;
+  }else{
+    
+    while(!read.eof()){
+      string line ;
+      getline(read,line);
+	if(!line.empty()){
+	  unsigned int posTag = line.find("//");
+	  if(posTag != line.size() ){
+	    line  = line.substr(0,posTag);
+	  }
+	}
+
+	if(!line.empty()){
+	  unsigned int posEgale = line.find("=");
+	  if( posEgale != line.size()){
+	    string key = line.substr(0,posEgale);
+	    string value = line.substr(posEgale+1);
+	    
+	    if( ! key.empty() && !value.empty()){
+	      data[key]=value;
+	    }
+	  }else{
+	    cerr<<"erreur de configuration de " << line<<endl;
+	  }
+	}	
+    }
+  }
+  read.close();
 }
 
-void launchOption(Option* tab,Option &o,int &i,char** argv){
-  int dimensionX;
-  int dimensionY;
+void launchOption(Option* tab,Option &o,int &i,char** argv,map<string,string>& data){
+  string  dimensionX;
+  string dimensionY;
   switch(o.getId()){
     
   case Option::HELP:
@@ -151,25 +187,14 @@ void launchOption(Option* tab,Option &o,int &i,char** argv){
   case Option::DIMENSION:
      dimensionX=launchDimensionX(o);
      dimensionY=launchDimensionY();
-     Myprogram(dimensionX,dimensionY);
+     data.insert(std::pair<string,string>("dimensionX",dimensionX));
+     data.insert(std::pair<string,string>("dimensionY",dimensionY));
+     initGrille(data);
+     data.erase(data.begin(),data.end());
     break;
   case Option::CONFIG:
-    /* istream read(argv[i+1]);
+    launchConfig(argv[i+1],data);
     i++;
-    if(!read.is_open()){
-    cout<<"Erreur d'ouverture de flux"<<endl;
-    }else{
-      string s;
-      while(getline(read,s,":");
-      s="";
-      getline(read,s,"#");
-      dimensionX=atoi(s);
-      // MyProgram(findDimensionX(),findDimensionY());
-      getline(read);
-      while(getline(read)){
-	read.ignore(8,"(");
-	atoi(read.peek())
-	}*/
     break;
   case Option::NONE:
     break;
