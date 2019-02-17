@@ -132,8 +132,6 @@ string launchDimensionY(){
 }
 
 
-
-  
 void launchConfig(char* f,map<string,string>& data){
   
   ifstream read(f);
