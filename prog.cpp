@@ -32,7 +32,7 @@ void addCells(map<string,string> &data,Grille &g){
  int num;
  
  map<string,string>::iterator itr;
- itr = data.find("numCell");
+ itr = data.find("nbrDeCell");
  int i = atoi(itr->second.c_str());
  
  while(i>0){
@@ -78,15 +78,15 @@ void initGrille(map<string,string>& data){
 
 void MyProgram(int argc,char** argv){
   map<string,string> data;
-  Option tabOption[5]={Option(Option::HELP,Option::AUCUN,"-h","L'aide de Jeu et affichage des options"),
-		       Option(Option::DIMENSION,Option::AUCUN,"-d","determiner les dimensions dimension de la grille"),
-		       Option(Option::CONFIG,Option::STRING,"-cfg","Configurer les cellules en passant un ficher de config"),
-		       Option(Option::VERSION,Option::AUCUN,"-v","Version de programme"),
-  		       Option(Option::AUTHORS,Option::AUCUN,"-a","auteurs de Programme")};
+  Option tabOption[5]={Option(Option::HELP,Option::AUCUN,"-h","==>L'aide de Jeu et affichage des options"),
+		       Option(Option::DIMENSION,Option::AUCUN,"-d","==>determiner les dimensions dimension de la grille"),
+		       Option(Option::CONFIG,Option::STRING,"-cfg","==>Configurer les cellules en passant un ficher de config"),
+		       Option(Option::VERSION,Option::AUCUN,"-v","==>Version de programme"),
+  		       Option(Option::AUTHORS,Option::AUCUN,"-a","==>auteurs de Programme")};
   if(argc==1){
     data.insert(std::pair<string,string>("dimensionX","15"));
     data.insert(std::pair<string,string>("dimensionY","15"));
-    data.insert(std::pair<string,string>("numCell","3"));
+    data.insert(std::pair<string,string>("nbrDeCell","3"));
     data.insert(std::pair<string,string>("C1","(0,2,5,1)"));
     data.insert(std::pair<string,string>("C2","(0,6,2,1)"));
     data.insert(std::pair<string,string>("C3","(2,2,1,1)"));
