@@ -32,7 +32,7 @@ void addCells(map<string,string> &data,Grille &g){
  int num;
  
  map<string,string>::iterator itr;
- itr = data.find("numCell");
+ itr = data.find("nbrDeCell");
  int i = atoi(itr->second.c_str());
  
  while(i>0){
