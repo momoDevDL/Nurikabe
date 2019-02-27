@@ -17,8 +17,14 @@ class BlockCell{
   void setNextBlockCell(BlockCell*);
   void setCellPointer(Cell*);
   void setEtatCell(int etat);
+  void setRefCell(Cell*);
+  void setRivCell(Riviere*);
+  void setIleCell(Ile*);
   int getEtatCell()const;
   int getCellNum()const;
+  Cell* getRefCell();
+  Riviere* getRivCell();
+  Ile* getIleCell();
   
   void printBlock()const;
   void printBlockListe()const;

@@ -21,6 +21,16 @@ BlockCell* ListeCell::getSucc(BlockCell* bc)const{ return bc->getNextBlock();}
 
 void ListeCell::fusion(BlockCell* bc,BlockCell* blockC){
   if(getSucc(blockC) == NULL){
+    //-------------------------------------------
+    if(getRefCell == NULL){
+      blockC->setRefCell(bc->getCellPointer());
+      if (blockC->getRivCell != NULL){
+	Riviere* buf = blockC->getRivCell;   //Pour la fusion d'ile/riviere
+	blockC->setRivCell(NULL);
+	buf->supprimeRiv();
+      }
+    }
+    //-------------------------------------------
     if(getSucc(bc) == NULL){
       bc->setNextBlockCell(blockC);
       size++;
@@ -33,12 +43,15 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC){
     }
   } else {
     int buf = 0;
+    blockC->setRefCell(bc->getCellPointer());
     if (getSucc(bc) != NULL) {
       BlockCell* tmp = bc->getNextBlock();
       BlockCell* tmp1 = blockC->getNextBlock();
+      tmp1->setRefCell(bc->getCellPointer());
       buf++;
       while (getSucc(tmp1) != NULL){
 	tmp1 = tmp1->getNextBlock();
+	tmp1->setRefCell(bc->getCellPointer());
 	buf++;
       }
       tmp1->setNextBlockCell(tmp);
@@ -47,9 +60,11 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC){
     } else {
       BlockCell* tmp = bc;
       BlockCell* tmp1 = blockC->getNextBlock();
+      tmp1->setRefCell(bc->getCellPointer());
       buf++;
       while (getSucc(tmp1) != NULL){
 	tmp1 = tmp1->getNextBlock();
+	tmp1->setRefCell(bc->getCellPointer());
 	buf++;
       }
       tmp1->setNextBlockCell(tmp);
