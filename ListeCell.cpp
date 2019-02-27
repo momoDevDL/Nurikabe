@@ -2,6 +2,7 @@
 using namespace std;
 #include"ListeCell.h"
 #include"Riviere.h"
+#include"GlobalRiviere.h"
 
 ListeCell::ListeCell():head(NULL),size(0){}
 
@@ -18,6 +19,7 @@ bool ListeCell::est_Vide()const{return size==0;}
 BlockCell* ListeCell::getHead()const{ return head;}
 
 BlockCell* ListeCell::getSucc(BlockCell* bc)const{ return bc->getNextBlock();}
+
 
 
 void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
