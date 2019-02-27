@@ -2,4 +2,4 @@
 #include<iostream>
 Iles::Iles():whiteCells(ListeCell(NULL)){}
 
-Iles::Iles(BlockCell *b):whiteCells(ListeCell(b)){}
+Iles::Iles(BlockCell *b, int i):whiteCells(ListeCell(b)),indice(i){}

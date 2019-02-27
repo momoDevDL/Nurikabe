@@ -21,6 +21,7 @@ class Grille{
   size_t getDimensionX()const;
   size_t getDimensionY()const;
   Cell& getCell(size_t,size_t)const;
+  BlockCell& getBlockCell(size_t,size_t)const;
   void setCellPointerInBlockCell(size_t,size_t);
   
   
