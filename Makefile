@@ -1,7 +1,7 @@
 CXX=g++ -std=c++11
 CXX_FLAGS= -ansi -Wall -pedantic -g
 
-SOURCE=   ListeCell.cpp  Iles.cpp  cell.cpp BlockCell.cpp  Riviere.cpp   grille.cpp option.cpp prog.cpp GlobalRiviere.cpp main.cpp
+SOURCE=   ListeCell.cpp  Iles.cpp  cell.cpp BlockCell.cpp  Riviere.cpp   grille.cpp option.cpp prog.cpp GlobalRiviere.cpp GlobalIles.cpp main.cpp
 
 PROG=Nurikabe
 

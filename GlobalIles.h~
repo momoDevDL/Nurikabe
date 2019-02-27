@@ -1,0 +1,22 @@
+#ifndef __GLOBALILES_H
+#define __GLOBALILES_H
+
+#include "Riviere.h"
+#include <vector>
+#include <iostream>
+
+class GlobalIles{
+
+ private:
+  std::vector<Riviere> GlobalIle;
+
+ public:
+  
+  GlobalIles();
+  ~GlobalIles();
+  std::vector<Riviere>& getGlobalIle();
+  void AddIle(Iles &I);
+  
+};
+
+#endif

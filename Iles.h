@@ -11,6 +11,17 @@ class Iles {
  public :
   Iles();
   Iles(BlockCell* b, int i);
+
+  int getRemaining();
+
+  int getIndice();
+
+  void setRemaining(int r);
+
+  void estPresqueComplet1();
+
+  void estPresqueComplet2();
+
 };
 
 
