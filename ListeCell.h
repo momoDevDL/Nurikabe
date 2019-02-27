@@ -1,6 +1,8 @@
 #ifndef __LISTECELL_H
 #define __LISTECELL_H
+#include<iostream>
 #include "BlockCell.h"
+class GlobalRiviere;
 
 class ListeCell{
   
@@ -18,8 +20,8 @@ class ListeCell{
   
   //Methodes
   BlockCell* getSucc(BlockCell*)const;
-  void addAfter(BlockCell* bc,BlockCell* cell);
-  void fusion(BlockCell* bc,BlockCell* cell);
+  void addAfter(BlockCell* cell);
+  void fusion(BlockCell* bc,BlockCell* cell,GlobalRiviere &gb);
   bool est_Vide()const;
   void printListe()const;
 };

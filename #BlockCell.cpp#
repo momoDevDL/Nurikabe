@@ -16,37 +16,12 @@ void BlockCell::setEtatCell(int etat){
   getCellPointer()->setEtat(etat);
 }
 
-void BlockCell::setRefCell(Cell* c){
-  getCellPointer()->setRef(c);
-}
-
-void BlockCell::setRivCell(Riviere* r){
-  getCellPointer()->setRiv(r);
-}
-
-
-void BlockCell::setIlesCell(Iles* i){
-  getCellPointer()->setIles(i);
-}
-
 int BlockCell::getEtatCell()const{
   return getCellPointer()->getEtat();
 }
 
 int BlockCell::getCellNum()const{
   return getCellPointer()->getCellNum();
-}
-
-Cell* BlockCell::getRefCell(){
-  return getCellPointer()->getRef();
-}
-
-Riviere* BlockCell::getRivCell(){
-  return getCellPointer()->getRiv();
-}
-
-Iles* BlockCell::getIlesCell(){
-  return getCellPointer()->getIles();
 }
 
 void BlockCell::printBlock()const{

@@ -1,12 +1,15 @@
 #ifndef __GRILLE_H
 #define __GRILLE_H
 #include"cell.h"
+#include"BlockCell.h"
 #include<iostream>
+
 class Grille{
  private:
   size_t dimensionX;
   size_t dimensionY;
-  Cell ** tab;
+  Cell ** tabCell;
+  BlockCell ** tabBlockCell;
 
  public:
   //constructeurs
@@ -18,6 +21,7 @@ class Grille{
   size_t getDimensionX()const;
   size_t getDimensionY()const;
   Cell& getCell(size_t,size_t)const;
+  void setCellPointerInBlockCell(size_t,size_t);
   
   
   //methodes

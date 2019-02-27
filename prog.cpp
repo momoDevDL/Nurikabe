@@ -6,6 +6,7 @@
 #include<map>
 #include<cstdlib>
 #include<cstdio>
+#include "GlobalRiviere.h"
 
 using namespace std;
 
@@ -20,8 +21,10 @@ void CellValuesTreatment(string &val,int &x,int &y,int &etat,int &num){
   size_t res = val.find_first_of(',');
   x = atoi((val.substr(0,res)).c_str());
   val = val.substr(res+1);
+  res = val.find_first_of(',');
   y = atoi((val.substr(0,res)).c_str());
   val = val.substr(res+1);
+  res = val.find_first_of(',');
   num = atoi((val.substr(0,res)).c_str());
 }
 
@@ -51,7 +54,7 @@ void addCells(map<string,string> &data,Grille &g){
 void initGrille(map<string,string>& data){
  int dimX;
  int dimY;
-
+ GlobalRiviere GR;
  
  getDataDimension(data,"dimensionX",dimX);
  getDataDimension(data,"dimensionY",dimY);
@@ -65,10 +68,10 @@ void initGrille(map<string,string>& data){
   BlockCell cell8(&(g.getCell(1,2)));
 
   ListeCell L1(&cell6);
-  L1.fusion(L1.getHead(),& cell7);
+  L1.fusion(L1.getHead(),& cell7,GR);
   cout << endl;
   L1.printListe();
-  L1.fusion(L1.getHead(),& cell8);
+  L1.fusion(L1.getHead(),& cell8,GR);
   L1.printListe();
 
   g.GrillePrint();

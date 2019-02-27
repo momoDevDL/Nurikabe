@@ -1,8 +1,10 @@
 CXX=g++ -std=c++11
 CXX_FLAGS= -ansi -Wall -pedantic -g
 
-SOURCE= BlockCell.cpp cell.cpp  grille.cpp ListeCell.cpp prog.cpp Riviere.cpp Iles.cpp option.cpp main.cpp
+SOURCE=   ListeCell.cpp  Iles.cpp  cell.cpp BlockCell.cpp  Riviere.cpp   grille.cpp option.cpp prog.cpp GlobalRiviere.cpp main.cpp
+
 PROG=Nurikabe
+
 MSG_OK = @ echo "\t\t\t........................OK"
 
 .SUFFIXES : .cpp .h .o

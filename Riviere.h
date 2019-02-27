@@ -1,7 +1,8 @@
 #ifndef __RIVIERE_H
 #define __RIVIERE_H
 
-#include"ListeCell.h"
+class GlobalRiviere;
+#include "ListeCell.h"
 
 class Riviere{
  private :
@@ -16,8 +17,11 @@ class Riviere{
 
   BlockCell* getCellReferante()const;
 
+  int getIndice()const;
+
   void addBlockCellToRiviere(BlockCell &b);
 
+  void supprimeRiv(GlobalRiviere &GR);
 
 
 };

@@ -2,7 +2,6 @@
 #define __ILES_H
 
 #include"ListeCell.h"
-
 class Iles {
  private :
   ListeCell whiteCells;

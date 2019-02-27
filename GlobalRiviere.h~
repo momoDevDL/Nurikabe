@@ -1,0 +1,21 @@
+#ifndef __GLOBALRIVIERE_H
+#define __GLOBALRIVIERE_H
+
+#include <vector>
+class Riviere;
+
+class GlobalRiviere{
+
+ private:
+  std::vector<Riviere> GlobalRiv;
+
+ public:
+  
+  GlobalRiviere();
+  ~GlobalRiviere();
+  std::vector<Riviere>& getGlobalRiv();
+  void AddRiviere(Riviere &r);
+  
+};
+
+#endif

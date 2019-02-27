@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
 #include"ListeCell.h"
+#include"Riviere.h"
 
 ListeCell::ListeCell():head(NULL),size(0){}
 
@@ -19,15 +20,15 @@ BlockCell* ListeCell::getHead()const{ return head;}
 BlockCell* ListeCell::getSucc(BlockCell* bc)const{ return bc->getNextBlock();}
 
 
-void ListeCell::fusion(BlockCell* bc,BlockCell* blockC){
+void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
   if(getSucc(blockC) == NULL){
     //-------------------------------------------
-    if(getRefCell == NULL){
+    if(blockC->getRefCell() == NULL){
       blockC->setRefCell(bc->getCellPointer());
-      if (blockC->getRivCell != NULL){
-	Riviere* buf = blockC->getRivCell;   //Pour la fusion d'ile/riviere
+      if (blockC->getRivCell() != NULL){
+	Riviere* buf = blockC->getRivCell();   //Pour la fusion d'ile/riviere
 	blockC->setRivCell(NULL);
-	buf->supprimeRiv();
+	buf->supprimeRiv(gb);
       }
     }
     //-------------------------------------------

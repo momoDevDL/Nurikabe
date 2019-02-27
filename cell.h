@@ -13,7 +13,8 @@ class Cell{
   int cellNum;
   Cell* ref;
   Riviere* riv;
-  Iles* ile;
+  Iles* iles;
+  
  public:
   Cell();
   Cell(int etat,int cellNum);
@@ -24,7 +25,9 @@ class Cell{
   int getPosY()const;
   Cell* getRef();
   Riviere* getRiv();
-  Iles* getIle();
+  
+  Iles* getIles();
+
 
   //accesseur en ecriture
   void setEtat(int);
@@ -33,7 +36,9 @@ class Cell{
   void setPosY(int);
   void setRef(Cell*);
   void setRiv(Riviere*);
-  void setIle(Iles*);
+  
+  void setIles(Iles*);
+
   void print();
 
   bool conflit();
