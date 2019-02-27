@@ -53,6 +53,12 @@ void addCells(map<string,string> &data,Grille &g){
  }
 }
 
+
+void setPotentiel(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){
+
+}
+
+
 void initGrille(map<string,string>& data){
  int dimX;
  int dimY;
@@ -78,7 +84,7 @@ void initGrille(map<string,string>& data){
   L1.printListe();
  */
   g.GrillePrint();
-
+  
   //---------------------------------------
   //Debut initialisation
   //---------------------------------------
@@ -87,20 +93,24 @@ void initGrille(map<string,string>& data){
   int y = 0;
 
   while (x < dimX){
+    y = 0;
     while (y < dimY){
       g.getCell(x,y).setPosX(x);
       g.getCell(x,y).setPosY(y);
+      g.setCellPointerInBlockCell(x,y);
       if (g.getCell(x,y).getEtat() == 0){
 	g.getCell(x,y).setEtat(3);
       } else if (g.getCell(x,y).getEtat() == 1){
 	Iles *obj = new Iles(&g.getBlockCell(x,y),1);
-	GI.AddIle(obj);
+	GI.AddIle(*obj);
 	setPotentiel(&g,&GR,&GI,x,y);
       }
       y++;
     }
     x++;
   }
+
+  
   x = 0;
   y = 0;
   //--------------------------------------
@@ -108,10 +118,11 @@ void initGrille(map<string,string>& data){
   //--------------------------------------
 
   while (x < dimX){
+    y=0;
     while (y < dimY){
-      if (g.getCell(x,y).getEtat() == 3){
-	noircir(&g,&GR,&GI,x,y);
-      }
+      /* if (g.getCell(x,y).getEtat() == 3){
+	 noircir(&g,&GR,&GI,x,y);*/
+      g.getBlockCell(x,y).printBlock();
       y++;
     }
     x++;

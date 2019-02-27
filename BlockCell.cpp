@@ -52,6 +52,7 @@ Iles* BlockCell::getIlesCell(){
 void BlockCell::printBlock()const{
   cout<<" => etat de cell : " <<getEtatCell()<<"/==/ Num= "<<getCellNum()<<"\t";
   getCellPointer()->print();
+  cout<<endl;
 }
 
 void BlockCell::printBlockListe()const{
