@@ -16,7 +16,7 @@ Cell* Cell::getRef(){return ref;}
 
 Riviere* Cell::getRiv(){return riv;}
 
-Ile* Cell::getIle(){return ile;}
+Iles* Cell::getIle(){return ile;}
 
 void Cell::setPosX(int pos){posX=pos;}
 
@@ -30,25 +30,25 @@ void Cell::setRef(Cell* c){ref = c;}
 
 void Cell::setRiv(Riviere* r){riv = r;}
 
-void Cell::setIle(Ile* i){ile = i;}
+void Cell::setIle(Iles* i){ile = i;}
 
 void Cell::print(){
   switch(etat){
   case 1:
     if(cellNum){
-    cout<<"\033[30;47m"<<cellNum<<"\033[0m";
+    cout<<"\033[30;47m "<<cellNum<<" \033[0m";
     }else{
-      cout<<"\033[1;47m \033[0m";
+      cout<<"\033[1;47m   \033[0m";
     }
     break;
   case 0:
-    cout<<"\033[1;44m \033[0m";
+    cout<<"\033[1;44m   \033[0m";
     break;
   case 2 :
-    cout<<"\033[1;30m \033[0m";
+    cout<<"\033[1;30m   \033[0m";
     break;
   case 3:
-    cout<<"\033[1;30m \033[0m";
+    cout<<"\033[1;30m   \033[0m";
     break;
  
   }

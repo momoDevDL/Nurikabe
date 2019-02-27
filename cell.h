@@ -1,6 +1,9 @@
 #ifndef __CELL_H
 #define __CELL_H
 
+class Riviere;
+class Iles;
+
 class Cell{
 
  private:
@@ -10,7 +13,7 @@ class Cell{
   int cellNum;
   Cell* ref;
   Riviere* riv;
-  Ile* ile;
+  Iles* ile;
  public:
   Cell();
   Cell(int etat,int cellNum);
@@ -21,7 +24,7 @@ class Cell{
   int getPosY()const;
   Cell* getRef();
   Riviere* getRiv();
-  Ile* getIle();
+  Iles* getIle();
 
   //accesseur en ecriture
   void setEtat(int);
@@ -30,7 +33,7 @@ class Cell{
   void setPosY(int);
   void setRef(Cell*);
   void setRiv(Riviere*);
-  void setIle(Ile*);
+  void setIle(Iles*);
   void print();
 
   bool conflit();
