@@ -16,7 +16,7 @@ Cell* Cell::getRef(){return ref;}
 
 Riviere* Cell::getRiv(){return riv;}
 
-Ile* Cell::getIle(){return ile;}
+Iles* Cell::getIles(){return iles;}
 
 void Cell::setPosX(int pos){posX=pos;}
 
@@ -30,7 +30,7 @@ void Cell::setRef(Cell* c){ref = c;}
 
 void Cell::setRiv(Riviere* r){riv = r;}
 
-void Cell::setIle(Ile* i){ile = i;}
+void Cell::setIles(Iles* i){iles = i;}
 
 void Cell::print(){
   switch(etat){

@@ -25,8 +25,8 @@ void BlockCell::setRivCell(Riviere* r){
 }
 
 
-void BlockCell::setIleCell(Ile* i){
-  getCellPointer()->setIle(i);
+void BlockCell::setIlesCell(Iles* i){
+  getCellPointer()->setIles(i);
 }
 
 int BlockCell::getEtatCell()const{
@@ -45,8 +45,8 @@ Riviere* BlockCell::getRivCell(){
   return getCellPointer()->getRiv();
 }
 
-Ile* BlockCell::getIleCell(){
-  return getCellPointer()->getRiv();
+Iles* BlockCell::getIlesCell(){
+  return getCellPointer()->getIles();
 }
 
 void BlockCell::printBlock()const{

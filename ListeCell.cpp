@@ -22,10 +22,10 @@ BlockCell* ListeCell::getSucc(BlockCell* bc)const{ return bc->getNextBlock();}
 void ListeCell::fusion(BlockCell* bc,BlockCell* blockC){
   if(getSucc(blockC) == NULL){
     //-------------------------------------------
-    if(getRefCell == NULL){
+    if(blockC->getRefCell() == NULL){
       blockC->setRefCell(bc->getCellPointer());
-      if (blockC->getRivCell != NULL){
-	Riviere* buf = blockC->getRivCell;   //Pour la fusion d'ile/riviere
+      if (blockC->getRivCell() != NULL){
+	Riviere* buf = blockC->getRivCell();   //Pour la fusion d'ile/riviere
 	blockC->setRivCell(NULL);
 	buf->supprimeRiv();
       }

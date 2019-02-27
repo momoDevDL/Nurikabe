@@ -19,12 +19,12 @@ class BlockCell{
   void setEtatCell(int etat);
   void setRefCell(Cell*);
   void setRivCell(Riviere*);
-  void setIleCell(Ile*);
+  void setIlesCell(Iles*);
   int getEtatCell()const;
   int getCellNum()const;
   Cell* getRefCell();
   Riviere* getRivCell();
-  Ile* getIleCell();
+  Iles* getIlesCell();
   
   void printBlock()const;
   void printBlockListe()const;
