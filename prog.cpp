@@ -90,6 +90,7 @@ void initGrille(map<string,string>& data){
     while (y < dimY){
       g.getCell(x,y).setPosX(x);
       g.getCell(x,y).setPosY(y);
+      g.setCellPointerInBlockCell(x,y);
       if (g.getCell(x,y).getEtat() == 0){
 	g.getCell(x,y).setEtat(3);
       } else if (g.getCell(x,y).getEtat() == 1){
@@ -111,9 +112,13 @@ void initGrille(map<string,string>& data){
     while (y < dimY){
       if (g.getCell(x,y).getEtat() == 3){
 	noircir(&g,&GR,&GI,x,y);
+      } else if (g.getCell(x,y).getCellNum() != 0){
+	g.getCell(x,y).getIles()->estPresqueComplet1();
+	g.getCell(x,y).getIles()->estPresqueComplet2();
       }
       y++;
     }
+    y = 0;
     x++;
   }
     
