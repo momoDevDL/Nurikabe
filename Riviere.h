@@ -1,13 +1,15 @@
 #ifndef __RIVIERE_H
 #define __RIVIERE_H
-#include "ListeCell.h"
+
+#include"ListeCell.h"
 
 class Riviere{
  private :
   ListeCell riviere;
+  int indiceDeCreation;
  public :
   Riviere();
-  Riviere(BlockCell *b);
+  Riviere(BlockCell *b,int indice);
   //methods
 
   bool A_UnSeulReferant()const;
