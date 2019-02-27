@@ -7,6 +7,7 @@
 #include<cstdlib>
 #include<cstdio>
 #include "GlobalRiviere.h"
+#include "GlobalIles.h"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ void CellValuesTreatment(string &val,int &x,int &y,int &etat,int &num){
   val = val.substr(res+1);
   res = val.find_first_of(',');
   num = atoi((val.substr(0,res)).c_str());
+  etat = 1;
 }
 
 void addCells(map<string,string> &data,Grille &g){
@@ -55,6 +57,7 @@ void initGrille(map<string,string>& data){
  int dimX;
  int dimY;
  GlobalRiviere GR;
+ GlobalIles GI;
  
  getDataDimension(data,"dimensionX",dimX);
  getDataDimension(data,"dimensionY",dimY);
@@ -63,7 +66,7 @@ void initGrille(map<string,string>& data){
 
  addCells(data,g);
 
-  BlockCell cell6(&(g.getCell(5,4)));
+ /* BlockCell cell6(&(g.getCell(5,4)));
   BlockCell cell7(&(g.getCell(1,1)));
   BlockCell cell8(&(g.getCell(1,2)));
 
@@ -73,8 +76,46 @@ void initGrille(map<string,string>& data){
   L1.printListe();
   L1.fusion(L1.getHead(),& cell8,GR);
   L1.printListe();
-
+ */
   g.GrillePrint();
+
+  //---------------------------------------
+  //Debut initialisation
+  //---------------------------------------
+
+  int x = 0;
+  int y = 0;
+
+  while (x < dimX){
+    while (y < dimY){
+      g.getCell(x,y).setPosX(x);
+      g.getCell(x,y).setPosY(y);
+      if (g.getCell(x,y).getEtat() == 0){
+	g.getCell(x,y).setEtat(3);
+      } else if (g.getCell(x,y).getEtat() == 1){
+	Iles *obj = new Iles(&g.getBlockCell(x,y),1);
+	GI.AddIle(obj);
+	setPotentiel(&g,&GR,&GI,x,y);
+      }
+      y++;
+    }
+    x++;
+  }
+  x = 0;
+  y = 0;
+  //--------------------------------------
+  //Fin initialisation
+  //--------------------------------------
+
+  while (x < dimX){
+    while (y < dimY){
+      if (g.getCell(x,y).getEtat() == 3){
+	noircir(&g,&GR,&GI,x,y);
+      }
+      y++;
+    }
+    x++;
+  }
     
 }
 
@@ -121,3 +162,10 @@ void MyProgram(int argc,char** argv){
     initGrille(data);    
   }
 }
+
+void noircir(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){}
+  
+void setPotentiel(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){}
+
+void applicationRegle(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){}
+

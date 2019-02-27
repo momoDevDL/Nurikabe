@@ -42,6 +42,11 @@ Grille::~Grille(){
   return tabCell[x][y];
 }
 
+BlockCell& Grille::getBlockCell(size_t x,size_t y)const{
+   CHECK_BOUND(x,y,dimensionX,dimensionY);
+  return tabBlockCell[x][y];
+}
+
 void Grille::setCellPointerInBlockCell(size_t i,size_t j){
   CHECK_BOUND(i,j,dimensionX,dimensionY);
   tabBlockCell[i][j].setCellPointer( &tabCell[i][j] );

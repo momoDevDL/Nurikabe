@@ -6,10 +6,11 @@ class Iles {
  private :
   ListeCell whiteCells;
   int remaining;
+  int indice;
 
  public :
   Iles();
-  Iles(BlockCell* b);
+  Iles(BlockCell* b, int i);
 };
 
 

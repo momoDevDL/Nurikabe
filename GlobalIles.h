@@ -15,8 +15,7 @@ class GlobalIles{
   GlobalIles();
   ~GlobalIles();
   std::vector<Iles>& getGlobalIle();
-  void AddIle(Iles &I);
-  
+  void AddIle(Iles& I);
 };
 
 #endif
