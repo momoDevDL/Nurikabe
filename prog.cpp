@@ -54,6 +54,14 @@ void addCells(map<string,string> &data,Grille &g){
 }
 
 
+void noircir(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){}
+  
+void setPotentiel(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){
+  
+}
+
+void applicationRegle(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){}
+
 
 void initGrille(map<string,string>& data){
  int dimX;
@@ -116,17 +124,11 @@ void initGrille(map<string,string>& data){
   while (x < dimX){
     y=0;
     while (y < dimY){
-
-      if (g.getCell(x,y).getEtat() == 3){
-	noircir(&g,&GR,&GI,x,y);
-      } else if (g.getCell(x,y).getCellNum() != 0){
-	g.getCell(x,y).getIles()->estPresqueComplet1();
-	g.getCell(x,y).getIles()->estPresqueComplet2();
-      }
-
+      /* if (g.getCell(x,y).getEtat() == 3){
+	 noircir(&g,&GR,&GI,x,y);*/
+      g.getBlockCell(x,y).printBlock();
       y++;
     }
-    y = 0;
     x++;
   }
     
@@ -176,9 +178,5 @@ void MyProgram(int argc,char** argv){
   }
 }
 
-void noircir(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){}
-  
-void setPotentiel(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){}
 
-void applicationRegle(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){}
 

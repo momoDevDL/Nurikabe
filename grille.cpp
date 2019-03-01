@@ -65,11 +65,13 @@ void Grille::addEtat(int etat,size_t x,size_t y){
 }
 
 void Grille::GrillePrint(){
-
+  
   for(size_t k=0;k<dimensionX;k++){
     cout<<endl;
+    cout<<'|';
     for(size_t j=0;j<dimensionY;j++){
       tabCell[k][j].print();
+      cout<<'|';
     }
    
   }
