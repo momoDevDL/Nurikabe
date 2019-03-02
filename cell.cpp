@@ -48,12 +48,14 @@ void Cell::print(){
     cout<<"\033[1;44m   \033[0m";
     break;
   case 2 :
-    cout<<"\033[1;30m   \033[0m";
+    cout<<"\033[1;40m   \033[0m";
     break;
   case 3:
-    cout<<"\033[1;30m   \033[0m";
+    cout<<"\033[1;42m   \033[0m";
     break;
- 
+  case 4:
+    cout<<"\033[1;44m   \033[0m";
+    break;
   }
 }
 

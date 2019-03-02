@@ -19,8 +19,8 @@ void initGrille(std::map<std::string,std::string>& data);
 
 void MyProgram(int argc,char** argv);
 
-void noircir(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y);
+void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y);
 
-void setPotentiel(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y);
+void setPotentiel(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y);
 
-void applicationRegle(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y);
+void applicationRegle(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y);

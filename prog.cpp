@@ -54,13 +54,92 @@ void addCells(map<string,string> &data,Grille &g){
 }
 
 
-void noircir(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){}
+void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){}
   
-void setPotentiel(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){
-  
+void setPotentiel(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){
+  int X = x;
+  int Y = y;
+  int j = 0;
+  int num = g.getCell(x,y).getCellNum();
+  int n = 0;
+
+  if( x < num ){
+    
+    if( X == 0 ){
+      j = num -1;
+      int J = j;
+      //---------------------------------
+      //horizontal top section left and right----
+      //----------------------------------
+      while (J > 0 ){
+	if( (Y + J <= g.getDimensionY() - 1) && (Y - J >= 0)){
+	  
+	  if( (g.getCell(X,Y+J).getEtat() != 1) && (g.getCell(X,Y-J).getEtat() != 1) ){
+	    
+	    g.addEtat(4,X,Y+J);
+	    g.addEtat(4,X,Y-J);
+	    
+	  }
+
+	  if(g.getCell(X,Y+J).getEtat() != 1 && g.getCell(X,Y-J).getEtat() == 1 ){
+	    g.addEtat(4,X,Y+J);
+	  }
+
+	  if(g.getCell(X,Y+J).getEtat() == 1 && g.getCell(X,Y-J).getEtat() != 1){
+	    g.addEtat(4,X,Y-J);
+	  }
+	  
+	}else{
+	  if( Y+J >= g.getDimensionY()){
+	    if(g.getCell(X,Y - J ).getEtat() != 1)
+	      g.addEtat(4,X,Y-J);
+	  }else{
+	    if(g.getCell(X,Y+J).getEtat() != 1)
+	      g.addEtat(4,X,Y+J);
+	  }
+	  
+	    
+	}
+	J--;
+      }
+      //-------------------------------------
+      //Vertical Down Section left and right
+      //-------------------------------------
+      J = j ;
+      n = 0;
+      while( J > 0){
+	int tmp = n;
+	while( tmp >= 0 ){
+	  if( X + J <= g.getDimensionX() - 1){ 
+	    if(g.getCell(X+J,Y).getEtat() != 1){
+	      g.addEtat(4,X+J,Y);
+	    }
+	    if(g.getCell(X+J,Y+tmp).getEtat() != 1 && g.getCell(X+J,Y-tmp).getEtat() != 1){
+	      g.addEtat(4,X+J,Y+tmp);
+	      g.addEtat(4,X+J,Y-tmp);
+	    }else{
+	      if(g.getCell(X+J,Y+tmp).getEtat() == 1){
+		g.addEtat(4,X+J,Y-tmp); 
+	      }else{
+		g.addEtat(4,X+J,Y+tmp);
+	      }
+	    }
+	    
+	  }
+	  
+	  tmp--;
+	}
+	n++;
+	J--;
+      }
+      
+    }/*else{
+
+}*/
+  }
 }
 
-void applicationRegle(Grille* g,GlobalRiviere* GR,GlobalIles* GI,int x,int y){}
+void applicationRegle(Grille& g,GlobalRiviere& GR,GlobalIles& GI,int x,int y){}
 
 
 void initGrille(map<string,string>& data){
@@ -107,7 +186,7 @@ void initGrille(map<string,string>& data){
       } else if (g.getCell(x,y).getEtat() == 1){
 	Iles *obj = new Iles(&g.getBlockCell(x,y),1);
 	GI.AddIle(*obj);
-	setPotentiel(&g,&GR,&GI,x,y);
+	setPotentiel(g,GR,GI,x,y);
       }
       y++;
     }
@@ -120,19 +199,22 @@ void initGrille(map<string,string>& data){
   //--------------------------------------
   //Fin initialisation
   //--------------------------------------
-
+  
   while (x < dimX){
     y=0;
     while (y < dimY){
-      /* if (g.getCell(x,y).getEtat() == 3){
-	 noircir(&g,&GR,&GI,x,y);*/
+      /*if (g.getCell(x,y).getEtat() == 3){
+	/*	noircir(g,GR,GI,x,y);
+	}*/
       g.getBlockCell(x,y).printBlock();
       y++;
     }
     x++;
   }
-    
+  
+  g.GrillePrint();
 }
+
 
 
 void MyProgram(int argc,char** argv){
