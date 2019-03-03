@@ -5,8 +5,9 @@
 class Iles {
  private :
   ListeCell whiteCells;
-  int remaining;
   int indice;
+  int remaining;
+  
 
  public :
   Iles();

@@ -45,7 +45,7 @@ void Cell::print(){
     }
     break;
   case 0:
-    cout<<"\033[1;44m   \033[0m";
+    cout<<"\033[1;41m   \033[0m";
     break;
   case 2 :
     cout<<"\033[1;40m   \033[0m";

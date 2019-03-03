@@ -59,85 +59,92 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){}
 void setPotentiel(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){
   int X = x;
   int Y = y;
-  int j = 0;
   int num = g.getCell(x,y).getCellNum();
-  int n = 0;
+  int ntop = 0;
+  int nbot = 0;
+  int j = num - 1 ;
+  int J =j;
 
-  if( x < num ){
-    
-    if( X == 0 ){
-      j = num -1;
-      int J = j;
-      //---------------------------------
-      //horizontal top section left and right----
-      //----------------------------------
-      while (J > 0 ){
-	if( (Y + J <= g.getDimensionY() - 1) && (Y - J >= 0)){
-	  
-	  if( (g.getCell(X,Y+J).getEtat() != 1) && (g.getCell(X,Y-J).getEtat() != 1) ){
-	    
-	    g.addEtat(4,X,Y+J);
-	    g.addEtat(4,X,Y-J);
-	    
-	  }
-
-	  if(g.getCell(X,Y+J).getEtat() != 1 && g.getCell(X,Y-J).getEtat() == 1 ){
-	    g.addEtat(4,X,Y+J);
-	  }
-
-	  if(g.getCell(X,Y+J).getEtat() == 1 && g.getCell(X,Y-J).getEtat() != 1){
-	    g.addEtat(4,X,Y-J);
-	  }
-	  
-	}else{
-	  if( Y+J >= g.getDimensionY()){
-	    if(g.getCell(X,Y - J ).getEtat() != 1)
-	      g.addEtat(4,X,Y-J);
+  while ( J > 0){
+    int tmp = ntop ;
+    // cout << "J = "<< J << " >----< " << tmp << endl; 
+    while (tmp >=0 ){
+      if( X-J >= 0){
+	if( Y+tmp < g.getDimensionY() && Y-tmp >=0){
+	  if(g.getCell(X-J,Y+tmp).getEtat() != 1 && g.getCell(X-J,Y-tmp).getEtat() != 1){
+	    g.addEtat(4,X-J,Y+tmp);
+	    g.addEtat(4,X-J,Y-tmp);
 	  }else{
-	    if(g.getCell(X,Y+J).getEtat() != 1)
-	      g.addEtat(4,X,Y+J);
+	    if(g.getCell(X-J,Y+tmp).getEtat() == 1 && g.getCell(X-J,Y-tmp).getEtat() != 1){
+	      g.addEtat(4,X-J,Y-tmp); 
+	    }
+	    if(g.getCell(X-J,Y-tmp).getEtat() == 1 && g.getCell(X-J,Y+tmp).getEtat() != 1){
+	      g.addEtat(4,X-J,Y+tmp);
+	    }
+	  }
+	}else{
+	  
+	  if( Y+tmp >= g.getDimensionY() && Y-tmp>=0){
+	    if(g.getCell(X-J,Y-tmp).getEtat() != 1){
+	      g.addEtat(4,X-J,Y-tmp);
+	    }
 	  }
 	  
-	    
+	  if( Y-tmp < 0 && Y+tmp < g.getDimensionY()){
+	    if(g.getCell(X-J,Y+tmp).getEtat() != 1){
+	      g.addEtat(4,X-J,Y+tmp);
+	    }
+	  }	    
 	}
-	J--;
       }
-      //-------------------------------------
-      //Vertical Down Section left and right
-      //-------------------------------------
-      J = j ;
-      n = 0;
-      while( J > 0){
-	int tmp = n;
-	while( tmp >= 0 ){
-	  if( X + J <= g.getDimensionX() - 1){ 
-	    if(g.getCell(X+J,Y).getEtat() != 1){
-	      g.addEtat(4,X+J,Y);
+      tmp--;
+    }
+    ntop++;
+    J--;
+  }
+  
+  J = j;
+  
+  while ( J >= 0){
+    int tmp1 = nbot ;
+    // cout << "J = "<< J << " >----< " << tmp1 << endl; 
+    while (tmp1 >=0 ){
+      if( X+J < g.getDimensionX()){
+	if( Y+tmp1 < g.getDimensionY() && Y-tmp1 >=0){
+	  if(g.getCell(X+J,Y+tmp1).getEtat() != 1 && g.getCell(X+J,Y-tmp1).getEtat() != 1){
+	    g.addEtat(4,X+J,Y+tmp1);
+	    g.addEtat(4,X+J,Y-tmp1);
+	  }else{
+	    if(g.getCell(X+J,Y+tmp1).getEtat() == 1 && g.getCell(X+J,Y-tmp1).getEtat() != 1){
+	      g.addEtat(4,X+J,Y-tmp1); 
 	    }
-	    if(g.getCell(X+J,Y+tmp).getEtat() != 1 && g.getCell(X+J,Y-tmp).getEtat() != 1){
-	      g.addEtat(4,X+J,Y+tmp);
-	      g.addEtat(4,X+J,Y-tmp);
-	    }else{
-	      if(g.getCell(X+J,Y+tmp).getEtat() == 1){
-		g.addEtat(4,X+J,Y-tmp); 
-	      }else{
-		g.addEtat(4,X+J,Y+tmp);
-	      }
+	    if(g.getCell(X+J,Y-tmp1).getEtat() == 1 && g.getCell(X+J,Y+tmp1).getEtat() != 1){
+	      g.addEtat(4,X+J,Y+tmp1);
 	    }
-	    
+	  }
+	}else{
+	  
+	  if( Y+tmp1 >= g.getDimensionY() && Y-tmp1>=0){
+	    if(g.getCell(X+J,Y-tmp1).getEtat() != 1){
+	      g.addEtat(4,X+J,Y-tmp1);
+	    }
 	  }
 	  
-	  tmp--;
+	  if( Y-tmp1 < 0 && Y+tmp1 < g.getDimensionY()){
+	    if(g.getCell(X+J,Y+tmp1).getEtat() != 1){
+	      g.addEtat(4,X+J,Y+tmp1);
+	    }
+	  }	    
 	}
-	n++;
-	J--;
       }
-      
-    }/*else{
-
-}*/
+      tmp1--;
+    }
+    nbot++;
+    J--;
   }
 }
+
+
 
 void applicationRegle(Grille& g,GlobalRiviere& GR,GlobalIles& GI,int x,int y){}
 
@@ -187,6 +194,7 @@ void initGrille(map<string,string>& data){
 	Iles *obj = new Iles(&g.getBlockCell(x,y),1);
 	GI.AddIle(*obj);
 	setPotentiel(g,GR,GI,x,y);
+	g.GrillePrint();
       }
       y++;
     }
@@ -199,13 +207,13 @@ void initGrille(map<string,string>& data){
   //--------------------------------------
   //Fin initialisation
   //--------------------------------------
-  
-  while (x < dimX){
+
+   while(x < dimX){
     y=0;
     while (y < dimY){
-      /*if (g.getCell(x,y).getEtat() == 3){
-	/*	noircir(g,GR,GI,x,y);
-	}*/
+      /*  //if(g.getCell(x,y).getEtat() == 3){
+      //	noircir(g,GR,GI,x,y);
+      //	}*/
       g.getBlockCell(x,y).printBlock();
       y++;
     }
