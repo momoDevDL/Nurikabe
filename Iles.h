@@ -1,13 +1,13 @@
 #ifndef __ILES_H
 #define __ILES_H
 
+#include"grille.h"
 #include"ListeCell.h"
 class Iles {
  private :
   ListeCell whiteCells;
-  int indice;
   int remaining;
-  
+  int indice;
 
  public :
   Iles();
@@ -19,9 +19,9 @@ class Iles {
 
   void setRemaining(int r);
 
-  void estPresqueComplet1();
+  void checkRegles(Grille &g);
 
-  void estPresqueComplet2();
+  bool estPleine();
 
 };
 

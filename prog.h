@@ -21,6 +21,8 @@ void MyProgram(int argc,char** argv);
 
 void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y);
 
+void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y);
+
 void setPotentiel(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y);
 
 void applicationRegle(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y);

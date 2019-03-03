@@ -55,6 +55,8 @@ void addCells(map<string,string> &data,Grille &g){
 
 
 void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){}
+
+void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){}
   
 void setPotentiel(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){
   int X = x;
@@ -211,9 +213,11 @@ void initGrille(map<string,string>& data){
    while(x < dimX){
     y=0;
     while (y < dimY){
-      /*  //if(g.getCell(x,y).getEtat() == 3){
-      //	noircir(g,GR,GI,x,y);
-      //	}*/
+      if(g.getCell(x,y).getEtat() == 3){
+      	noircir(g,GR,GI,x,y);
+      }else if(g.getCell(x,y).getEtat() == 5){
+      	blanchir(g,GR,GI,x,y);
+      }
       g.getBlockCell(x,y).printBlock();
       y++;
     }
