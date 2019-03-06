@@ -180,7 +180,7 @@ void initGrille(map<string,string>& data){
   //---------------------------------------
   //Debut initialisation
   //---------------------------------------
-
+  cout << "============= DEBUT D'INIT DES POTENIELS =================="<<endl;
   int x = 0;
   int y = 0;
 
@@ -209,7 +209,7 @@ void initGrille(map<string,string>& data){
   //--------------------------------------
   //Fin initialisation
   //--------------------------------------
-
+  cout << " ================== AFFICHAGE DE LA GRILLE DES BLOCKCELLS ================" <<endl;
    while(x < dimX){
     y=0;
     while (y < dimY){
@@ -223,8 +223,11 @@ void initGrille(map<string,string>& data){
     }
     x++;
   }
-  
+   cout << " ============= AFFICHAGE DE LA GRILLE APRES L'INIT DES ZONES POTENTIELS =========== "<<endl;
   g.GrillePrint();
+
+  cout << "============= AFFICHAGE DE CONTENU DE GLOBAL ILE ====================" <<endl;
+  GI.printGlobalIles();
 }
 
 

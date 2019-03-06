@@ -17,11 +17,15 @@ class Iles {
 
   int getIndice();
 
+  void setIndice(int);
+
   void setRemaining(int r);
 
   void checkRegles(Grille &g);
 
   bool estPleine();
+
+  void print();
 
 };
 
