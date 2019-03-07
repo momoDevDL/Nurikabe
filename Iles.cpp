@@ -2,7 +2,7 @@
 #include<iostream>
 Iles::Iles():whiteCells(ListeCell(NULL)){}
 
-Iles::Iles(BlockCell *b, int i):whiteCells(ListeCell(b)),indice(i),remaining(b->getCellNum() -1){}
+Iles::Iles(BlockCell *b, int i):whiteCells(ListeCell(b)),remaining(b->getCellNum() -1),indice(i){}
 
 int Iles::getRemaining(){
   return remaining;
