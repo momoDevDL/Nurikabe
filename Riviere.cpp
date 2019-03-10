@@ -18,3 +18,44 @@ void Riviere::supprimeRiv(GlobalRiviere &GR){
   }
   
 }
+
+/*bool Riviere::A_UnSeulReferant()const{
+  bool unSeulRef = true;
+  int nbRef = 0;
+  BlockCell* buf = riviere.getHead();
+
+  while (riviere.getSucc(buf) != NULL){
+    if (buf->getRefCell == NULL){
+      nbRef++;
+    }
+    buf = riviere.getSucc(buf);
+  }
+  if (nbRef != 1){
+    unSeulRef = false;
+  }
+  return unSeulRef;
+}
+
+Cell* Riviere::getCellReferante()const{
+
+  BlockCell* buf = riviere.getHead();
+  if (this->A_UnSeulReferant()){
+    while (buf->getRefCell !=){
+      buf = riviere.getSucc(buf);
+    }
+    return buf->getCellPointer();     
+  }
+  }*/
+
+void Riviere::addBlockCellToRiviere(BlockCell &b, GlobalRiviere &GR){
+  riviere.fusion(riviere.getHead(), &b, GR);
+}
+
+int Riviere::getTailleRiviere()const{
+  return riviere.getSize();
+}
+
+void Riviere::printRiv(){
+  riviere.printListe();
+}
+

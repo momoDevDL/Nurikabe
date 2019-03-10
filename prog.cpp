@@ -54,9 +54,163 @@ void addCells(map<string,string> &data,Grille &g){
 }
 
 
-void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){}
+void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
+  if(g.getCell(x,y).getEtat() == 3){
+    
+    g.getCell(x,y).setEtat(2);
 
-void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){}
+    bool fusion = false;
+
+    //-----------Premiere-fusion---------------------------------------
+    
+    if ((y > 0)&&(g.getCell(x,y-1).getEtat() == 2)){
+
+      if (g.getCell(x,y-1).getRef() == NULL){
+	
+	g.getCell(x,y-1).getRiv()->addBlockCellToRiviere(g.getBlockCell(x,y), GR);
+	
+      } else {
+
+	Cell* buf = g.getCell(x,y-1).getRef();
+	
+	while (buf->getRef() != NULL){
+	  buf = buf->getRef();
+	}
+	
+        buf->getRiv()->addBlockCellToRiviere(g.getBlockCell(x,y), GR);
+	buf = NULL;
+	
+      }
+
+      fusion = true;
+      g.getCell(x,y).getRef()->getRiv()->printRiv();
+      
+    }
+    
+    //-----------Deuxieme-fusion---------------------------------------
+    
+    if ((y < g.getDimensionY()-1)&&(g.getCell(x,y+1).getEtat() == 2)){
+
+      //-----------Verification-de-la-riviere-la-plus-petite-----------
+      
+      Cell* buf = &g.getCell(x,y);
+      Cell* buf2 = &g.getCell(x,y+1);
+      
+      while (buf2->getRef() != NULL){
+	buf2 = buf2->getRef();
+      }
+      
+      while (buf->getRef() != NULL){
+	buf = buf->getRef();
+      }
+      
+      if (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere()){
+	
+	//-------------------------------------------------------------
+	
+	buf2->getRiv()->addBlockCellToRiviere(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	
+      } else {
+	
+	buf->getRiv()->addBlockCellToRiviere(g.getBlockCell(buf2->getPosX(),buf2->getPosY()), GR);
+	
+      }
+      
+      fusion = true;
+      g.getCell(x,y).getRef()->getRiv()->printRiv();
+
+    }
+
+    //-----------Troisieme-fusion---------------------------------------
+
+    if ((x < g.getDimensionX()-1)&&(g.getCell(x+1,y).getEtat() == 2)){
+
+      //-----------Verification-de-la-riviere-la-plus-petite-----------
+      
+      Cell* buf = &g.getCell(x,y);
+      Cell* buf2 = &g.getCell(x+1,y);
+      
+      while (buf2->getRef() != NULL){
+	buf2 = buf2->getRef();
+      }
+      
+      while (buf->getRef() != NULL){
+	buf = buf->getRef();
+      }
+      
+      if (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere()){
+	
+	//-------------------------------------------------------------
+	
+	buf2->getRiv()->addBlockCellToRiviere(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	
+      } else {
+	
+	buf->getRiv()->addBlockCellToRiviere(g.getBlockCell(buf2->getPosX(),buf2->getPosY()), GR);
+	
+      }
+      
+      fusion = true;
+      g.getCell(x,y).getRef()->getRiv()->printRiv();
+      
+    }
+
+    //-----------Quatrieme-fusion---------------------------------------
+
+    if ((x > 0)&&(g.getCell(x-1,y).getEtat() == 2)){
+
+      //-----------Verification-de-la-riviere-la-plus-petite-----------
+     
+      Cell* buf = &g.getCell(x,y);
+      Cell* buf2 = &g.getCell(x-1,y);
+      std::cout<<"A"<<std::endl;
+      while (buf2->getRef() != NULL){
+	buf2 = buf2->getRef();
+	std::cout<<"B"<<std::endl;
+      }
+      std::cout<<"C"<<std::endl;
+      while (buf->getRef() != NULL){
+	std::cout<<"D"<<std::endl;
+	buf = buf->getRef();
+      }
+      std::cout<<"E"<<std::endl;
+      
+      if (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere()){
+	
+	//-------------------------------------------------------------
+	std::cout<<"F"<<std::endl;
+	buf2->getRiv()->addBlockCellToRiviere(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	std::cout<<"G"<<std::endl;
+      } else {
+	std::cout<<"H"<<std::endl;
+	buf->getRiv()->addBlockCellToRiviere(g.getBlockCell(buf2->getPosX(),buf2->getPosY()), GR);
+	std::cout<<"I"<<std::endl;
+      }
+      std::cout<<"J"<<std::endl;
+      fusion = true;
+      g.getCell(x,y).getRef()->getRiv()->printRiv();
+      std::cout<<"K"<<std::endl;
+    }
+    //----------------------------------------------------------------
+    std::cout<<"L"<<std::endl;
+    if (!fusion){
+
+      Riviere* riv = new Riviere(&g.getBlockCell(x,y),intR);
+      g.getCell(x,y).setRiv(riv);
+      intR++;
+      GR.AddRiviere(*riv);
+      g.getCell(x,y).getRiv()->printRiv();
+      
+    }
+    
+  }
+  
+  
+}
+
+void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI){
+
+}
   
 void setPotentiel(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){
   int X = x;
@@ -154,6 +308,8 @@ void applicationRegle(Grille& g,GlobalRiviere& GR,GlobalIles& GI,int x,int y){}
 void initGrille(map<string,string>& data){
  int dimX;
  int dimY;
+ int indiceRiviere = 0;
+ int indiceIles = 0;
  GlobalRiviere GR;
  GlobalIles GI;
  
@@ -193,7 +349,9 @@ void initGrille(map<string,string>& data){
       if (g.getCell(x,y).getEtat() == 0){
 	g.getCell(x,y).setEtat(3);
       } else if (g.getCell(x,y).getEtat() == 1){
-	Iles *obj = new Iles(&g.getBlockCell(x,y),1);
+	Iles *obj = new Iles(&g.getBlockCell(x,y),indiceIles);
+	g.getCell(x,y).setIles(obj);
+	indiceIles++;
 	GI.AddIle(*obj);
 	setPotentiel(g,GR,GI,x,y);
 	g.GrillePrint();
@@ -202,6 +360,7 @@ void initGrille(map<string,string>& data){
     }
     x++;
   }
+  g.GrillePrint();
 
   
   x = 0;
@@ -214,9 +373,9 @@ void initGrille(map<string,string>& data){
     y=0;
     while (y < dimY){
       if(g.getCell(x,y).getEtat() == 3){
-      	noircir(g,GR,GI,x,y);
+	noircir(g,GR,GI,x,y,indiceRiviere);
       }else if(g.getCell(x,y).getEtat() == 5){
-      	blanchir(g,GR,GI,x,y);
+      	blanchir(g,GR,GI,x,y,indiceIles);
       }
       g.getBlockCell(x,y).printBlock();
       y++;
