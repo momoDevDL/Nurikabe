@@ -65,7 +65,7 @@ void setPotentiel(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){
   int ntop = 0;
   int nbot = 0;
   int j = num - 1 ;
-  int J =j;
+  int J = j;
 
   while ( J > 0){
     int tmp = ntop ;
