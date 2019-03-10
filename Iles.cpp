@@ -2,7 +2,7 @@
 #include<iostream>
 Iles::Iles():whiteCells(ListeCell(NULL)){}
 
-Iles::Iles(BlockCell *b, int i):whiteCells(ListeCell(b)),indice(i),remaining(b->getCellNum()){}
+Iles::Iles(BlockCell *b, int i):whiteCells(ListeCell(b)),remaining(b->getCellNum() -1),indice(i){}
 
 int Iles::getRemaining(){
   return remaining;
@@ -10,6 +10,10 @@ int Iles::getRemaining(){
 
 int Iles::getIndice(){
   return indice;
+}
+
+void Iles::setIndice(int i){
+  indice = i ;
 }
 
 void Iles::setRemaining(int r){
@@ -30,6 +34,7 @@ void Iles::checkRegles(Grille &g){
     Cell* buf = NULL;
     Cell* buf2 = NULL;
     BlockCell* tmp = whiteCells.getHead();
+    
     while ((nbChoix < 3)&&(tmp->getNextBlock() != NULL)){
       
       if (!(((g.getCell((tmp->getCellPointer()->getPosX() - 1),(tmp->getCellPointer()->getPosY()))).getEtat() > 0) && ((g.getCell((tmp->getCellPointer()->getPosX() - 1),(tmp->getCellPointer()->getPosY()))).getEtat() < 4))) {
@@ -144,3 +149,10 @@ void Iles::checkRegles(Grille &g){
   }
 }
 
+
+void Iles::print(){
+
+  whiteCells.printListe();
+  std::cout<< " -> reste : "<< remaining << " >-----< indice De creation : " << indice << std::endl;
+
+}
