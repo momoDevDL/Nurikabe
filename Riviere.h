@@ -13,15 +13,19 @@ class Riviere{
   Riviere(BlockCell *b,int indice);
   //methods
 
-  bool A_UnSeulReferant()const;
+  /*bool A_UnSeulReferant()const;
 
-  BlockCell* getCellReferante()const;
+    Cell* getCellReferante()const;*/
 
   int getIndice()const;
 
-  void addBlockCellToRiviere(BlockCell &b);
+  void addBlockCellToRiviere(BlockCell &b, GlobalRiviere &GR);
 
   void supprimeRiv(GlobalRiviere &GR);
+
+  int getTailleRiviere()const;
+
+  void printRiv();
 
 
 };
