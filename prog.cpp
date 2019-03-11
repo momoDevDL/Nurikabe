@@ -55,9 +55,12 @@ void addCells(map<string,string> &data,Grille &g){
 
 
 void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
+  
   if(g.getCell(x,y).getEtat() == 3){
     
     g.getCell(x,y).setEtat(2);
+    //  g.getCell(x,y).setRiv(new Riviere(&g.getBlockCell(x,y),1));
+    
 
     bool fusion = false;
 
@@ -174,6 +177,9 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
 	buf = buf->getRef();
       }
       std::cout<<"E"<<std::endl;
+      cout << buf->getRiv()->getTailleRiviere()<< endl;
+      cout << buf2->getRiv()->getTailleRiviere()<<endl;
+
       
       if (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere()){
 	
@@ -193,15 +199,16 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
     }
     //----------------------------------------------------------------
     std::cout<<"L"<<std::endl;
-    if (!fusion){
 
+    if(!fusion){
+      
       Riviere* riv = new Riviere(&g.getBlockCell(x,y),intR);
       g.getCell(x,y).setRiv(riv);
       intR++;
       GR.AddRiviere(*riv);
       g.getCell(x,y).getRiv()->printRiv();
-      
     }
+    
     
   }
   
