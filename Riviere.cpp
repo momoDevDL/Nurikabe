@@ -3,7 +3,7 @@
 #include "GlobalRiviere.h"
 #include<iostream>
 
-Riviere::Riviere():riviere(ListeCell(NULL)),indiceDeCreation(-1){}
+Riviere::Riviere():riviere(ListeCell(NULL)),indiceDeCreation(0){}
 Riviere::Riviere(BlockCell *b, int indice):riviere(ListeCell(b)),indiceDeCreation(indice){}
 
 
@@ -56,6 +56,8 @@ int Riviere::getTailleRiviere()const{
 }
 
 void Riviere::printRiv(){
+  
   riviere.printListe();
+  std::cout<< ">-----< indice De creation : " << indiceDeCreation << std::endl;
 }
 

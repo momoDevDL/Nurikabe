@@ -38,6 +38,9 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
       bc->setNextBlockCell(blockC);
       size++;
     } else {
+      // cout<<endl;
+      // cout<<"ON EST LA"<<endl;
+      // cout<<endl;
       BlockCell* tmp = bc->getNextBlock();
       bc->setNextBlockCell(blockC);
       blockC->setNextBlockCell(tmp);

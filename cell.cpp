@@ -1,7 +1,7 @@
 #include"cell.h"
 #include<iostream>
 using namespace std;
-Cell::Cell():etat(0),cellNum(0){}
+Cell::Cell():etat(0),cellNum(0),ref(NULL),riv(NULL),iles(NULL){}
 Cell::Cell(int e,int c):etat(e),cellNum(c){}
 
 int Cell::getEtat()const{ return etat;}
@@ -29,7 +29,7 @@ void Cell::setCellNum(int cNum){cellNum=cNum;}
 
 void Cell::setRef(Cell* c){ref = c;}
 
-void Cell::setRiv(Riviere* r){riv = r;}
+void Cell::setRiv(Riviere* r){ riv = r;}
 
 
 void Cell::setIles(Iles* i){iles = i;}

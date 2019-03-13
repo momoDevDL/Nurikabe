@@ -68,10 +68,10 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
     
     if ((y > 0)&&(g.getCell(x,y-1).getEtat() == 2)){
 
-      if (g.getCell(x,y-1).getRef() == NULL){
-	
+      /* if (g.getCell(x,y-1).getRef() == NULL){
+
 	g.getCell(x,y-1).getRiv()->addBlockCellToRiviere(g.getBlockCell(x,y), GR);
-	
+	cout << "ON EST LA"<< endl;
       } else {
 
 	Cell* buf = g.getCell(x,y-1).getRef();
@@ -86,8 +86,37 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       }
 
       fusion = true;
+      // if( g.getCell(x,y).getRef() != NULL){
       g.getCell(x,y).getRef()->getRiv()->printRiv();
+	// cout << "ON EST LA"<< endl;
+	// }
+      cout << "ON EST LA"<< endl;*/
+      Cell* buf = &g.getCell(x,y);
+      Cell* buf2 = &g.getCell(x,y-1);
+
+      while (buf2->getRef() != NULL){
+	buf2 = buf2->getRef();
+      }
+    
+      while (buf->getRef() != NULL){
+	buf = buf->getRef();
       
+      }
+      
+      if ((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
+	
+	//-------------------------------------------------------------
+	
+	buf2->getRiv()->addBlockCellToRiviere(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	
+      } else {
+	
+	buf->getRiv()->addBlockCellToRiviere(g.getBlockCell(buf2->getPosX(),buf2->getPosY()), GR);
+	
+      }
+      
+      fusion = true;
+      //  g.getCell(x,y).getRef()->getRiv()->printRiv();
     }
     
     //-----------Deuxieme-fusion---------------------------------------
@@ -107,7 +136,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
 	buf = buf->getRef();
       }
       
-      if (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere()){
+      if ((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
 	
 	//-------------------------------------------------------------
 	
@@ -120,7 +149,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       }
       
       fusion = true;
-      g.getCell(x,y).getRef()->getRiv()->printRiv();
+      //  g.getCell(x,y).getRef()->getRiv()->printRiv();
 
     }
 
@@ -141,7 +170,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
 	buf = buf->getRef();
       }
       
-      if (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere()){
+       if((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
 	
 	//-------------------------------------------------------------
 	
@@ -154,7 +183,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       }
       
       fusion = true;
-      g.getCell(x,y).getRef()->getRiv()->printRiv();
+      // g.getCell(x,y).getRef()->getRiv()->printRiv();
       
     }
 
@@ -166,39 +195,37 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
      
       Cell* buf = &g.getCell(x,y);
       Cell* buf2 = &g.getCell(x-1,y);
-      std::cout<<"A"<<std::endl;
+      
       while (buf2->getRef() != NULL){
 	buf2 = buf2->getRef();
-	std::cout<<"B"<<std::endl;
+
       }
-      std::cout<<"C"<<std::endl;
+
       while (buf->getRef() != NULL){
-	std::cout<<"D"<<std::endl;
+
 	buf = buf->getRef();
       }
-      std::cout<<"E"<<std::endl;
-      cout << buf->getRiv()->getTailleRiviere()<< endl;
-      cout << buf2->getRiv()->getTailleRiviere()<<endl;
+
 
       
-      if (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere()){
+      if ((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
 	
 	//-------------------------------------------------------------
-	std::cout<<"F"<<std::endl;
+
 	buf2->getRiv()->addBlockCellToRiviere(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
-	std::cout<<"G"<<std::endl;
+
       } else {
-	std::cout<<"H"<<std::endl;
+
 	buf->getRiv()->addBlockCellToRiviere(g.getBlockCell(buf2->getPosX(),buf2->getPosY()), GR);
-	std::cout<<"I"<<std::endl;
+
       }
-      std::cout<<"J"<<std::endl;
+
       fusion = true;
-      g.getCell(x,y).getRef()->getRiv()->printRiv();
-      std::cout<<"K"<<std::endl;
+      //  g.getCell(x,y).getRef()->getRiv()->printRiv();
+      
     }
     //----------------------------------------------------------------
-    std::cout<<"L"<<std::endl;
+   
 
     if(!fusion){
       
@@ -206,9 +233,8 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       g.getCell(x,y).setRiv(riv);
       intR++;
       GR.AddRiviere(*riv);
-      g.getCell(x,y).getRiv()->printRiv();
+      // g.getCell(x,y).getRiv()->printRiv();
     }
-    
     
   }
   
@@ -315,8 +341,8 @@ void applicationRegle(Grille& g,GlobalRiviere& GR,GlobalIles& GI,int x,int y){}
 void initGrille(map<string,string>& data){
  int dimX;
  int dimY;
- int indiceRiviere = 0;
- int indiceIles = 0;
+ int indiceRiviere = 1;
+ int indiceIles = 1;
  GlobalRiviere GR;
  GlobalIles GI;
  
@@ -394,6 +420,9 @@ void initGrille(map<string,string>& data){
 
   cout << "============= AFFICHAGE DE CONTENU DE GLOBAL ILE ====================" <<endl;
   GI.printGlobalIles();
+
+  cout << "============= AFFICHAGE DE CONTENU DE GLOBAL RIVIERE ====================" <<endl;
+  GR.printGlobalRiviere();
 }
 
 

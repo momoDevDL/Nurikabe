@@ -57,6 +57,7 @@ void Grille::setCellPointerInBlockCell(size_t x,size_t y){
   if(!CHECK_BOUND(x,y,dimensionX,dimensionY)){
     tabBlockCell[x][y].setCellPointer( &tabCell[x][y] );
   }
+  return;
 }
 
 void Grille::addVal(int val, size_t x,size_t y){
@@ -64,11 +65,13 @@ void Grille::addVal(int val, size_t x,size_t y){
     tabCell[x][y].setCellNum(val);
     tabCell[x][y].setEtat(1);
   }
+  return;
 }
 void Grille::addEtat(int etat,size_t x,size_t y){
   if(!CHECK_BOUND(x,y,dimensionX,dimensionY)){
     tabCell[x][y].setEtat(etat);
   }
+  return;
 }
 
 void Grille::GrillePrint(){
@@ -83,4 +86,5 @@ void Grille::GrillePrint(){
     
   }
   cout<<endl;
+  return;
 }

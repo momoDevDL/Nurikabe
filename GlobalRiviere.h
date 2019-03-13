@@ -16,6 +16,7 @@ class GlobalRiviere{
   ~GlobalRiviere();
   std::vector<Riviere>& getGlobalRiv();
   void AddRiviere(Riviere &r);
+  void printGlobalRiviere();
   
 };
 
