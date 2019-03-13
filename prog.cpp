@@ -135,8 +135,10 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       while (buf->getRef() != NULL){
 	buf = buf->getRef();
       }
+
       
-      if ((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
+      if ((buf->getRiv() == NULL)||(buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
+
 	
 	//-------------------------------------------------------------
 	
@@ -169,8 +171,9 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       while (buf->getRef() != NULL){
 	buf = buf->getRef();
       }
-      
-       if((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
+
+      if((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
+
 	
 	//-------------------------------------------------------------
 	
@@ -209,6 +212,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
 
       
       if ((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
+
 	
 	//-------------------------------------------------------------
 
