@@ -21,7 +21,7 @@ class Iles {
 
   void setRemaining(int r);
 
-  void checkRegles(Grille &g);
+  void friendsIles(Grille &g);
 
   bool estPleine();
 

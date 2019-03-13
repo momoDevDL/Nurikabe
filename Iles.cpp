@@ -28,7 +28,7 @@ bool Iles::estPleine(){
   return plein;
 }
 
-void Iles::checkRegles(Grille &g){
+void Iles::friendsIles(Grille &g){
   if (remaining > 0){
     int nbChoix = 0;
     Cell* buf = NULL;
