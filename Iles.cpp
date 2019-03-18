@@ -46,6 +46,7 @@ void Iles::print(){
 
 void Iles::addBlockCellToIles(BlockCell &b, GlobalRiviere &GR){
   whiteCells.fusion(whiteCells.getHead(), &b, GR);
+  setRemaining((whiteCells.getHead()->getCellNum())-(whiteCells.getSize()));
 }
 
 int Iles::getTailleIles()const{
