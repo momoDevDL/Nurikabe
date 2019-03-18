@@ -4,7 +4,7 @@
 using namespace std;
 
 bool CHECK_BOUND(size_t x, size_t y ,size_t dimX, size_t dimY){	
-  if(x > dimX || y > dimY){ 
+  if(x > dimX - 1 || y > dimY - 1){ 
     cerr<<"une ou les  valeur(s) depasse(nt) la dimension de la grille"<<endl; 
     return true;							
   }
@@ -33,8 +33,8 @@ Grille::~Grille(){
     delete [] tabBlockCell[i];
     i++;
   }
-  delete tabCell;
-  delete tabBlockCell;
+  delete[] tabCell;
+  delete[] tabBlockCell;
 }
 
 size_t Grille::getDimensionX()const{return dimensionX;}

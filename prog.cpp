@@ -55,11 +55,8 @@ void addCells(map<string,string> &data,Grille &g){
 
 
 void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
-  
-  if(g.getCell(x,y).getEtat() == 3){
     
     g.getCell(x,y).setEtat(2);
-    //  g.getCell(x,y).setRiv(new Riviere(&g.getBlockCell(x,y),1));
     
 
     bool fusion = false;
@@ -68,29 +65,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
     
     if ((y > 0)&&(g.getCell(x,y-1).getEtat() == 2)){
 
-      /* if (g.getCell(x,y-1).getRef() == NULL){
-
-	g.getCell(x,y-1).getRiv()->addBlockCellToRiviere(g.getBlockCell(x,y), GR);
-	cout << "ON EST LA"<< endl;
-      } else {
-
-	Cell* buf = g.getCell(x,y-1).getRef();
-	
-	while (buf->getRef() != NULL){
-	  buf = buf->getRef();
-	}
-	
-        buf->getRiv()->addBlockCellToRiviere(g.getBlockCell(x,y), GR);
-	buf = NULL;
-	
-      }
-
-      fusion = true;
-      // if( g.getCell(x,y).getRef() != NULL){
-      g.getCell(x,y).getRef()->getRiv()->printRiv();
-	// cout << "ON EST LA"<< endl;
-	// }
-      cout << "ON EST LA"<< endl;*/
+      
       Cell* buf = &g.getCell(x,y);
       Cell* buf2 = &g.getCell(x,y-1);
 
@@ -237,17 +212,159 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       g.getCell(x,y).setRiv(riv);
       intR++;
       GR.AddRiviere(*riv);
-      // g.getCell(x,y).getRiv()->printRiv();
+    }
+
+}
+  
+  
+
+
+void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,int &intR){
+
+  g.getCell(x,y).setEtat(1);
+
+  bool fusion = false;
+  bool endWhile = false;
+  
+  
+  while (!endWhile){
+    //---------------------------------------------------------------------------------------------------------------
+    if ((y-1 > 0)&&(g.getCell(x,y-1).getEtat() == 1)){
+      if (!fusion){
+	
+	Cell* buf = &g.getCell(x,y);
+	Cell* buf2 = &g.getCell(x,y-1);
+	while (buf2->getRef() != NULL){
+	  buf2 = buf2->getRef();
+	}
+	if (buf2->getIles() != NULL){
+	  
+	  buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	  fusion = true;
+	}
+
+      } else if((fusion) && (g.getCell(x,y-1).getIles() == NULL)){
+
+	blanchirAndRegleIles(g,GR,GI,x,y-1,intI,intR);
+	endWhile = true;
+	
+	
+      } else {
+
+	g.getCell(x,y).setEtat(6);
+	endWhile = true;
+	
+      }
+      
+    } 
+    //------------------------------------------------------------------------------------------------------
+    if ((y+1 < g.getDimensionY()-1)&&(g.getCell(x,y+1).getEtat() == 1)){
+     
+      if (!fusion){
+	
+	Cell* buf = &g.getCell(x,y);
+	Cell* buf2 = &g.getCell(x,y+1);
+      
+	while (buf2->getRef() != NULL){
+	  buf2 = buf2->getRef();
+	}
+	
+	if (buf2->getIles() != NULL){
+	
+	  buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	  fusion = true;
+	  
+	}
+      } else if((fusion) && (g.getCell(x,y-1).getIles() == NULL)){
+
+	blanchirAndRegleIles(g,GR,GI,x,y+1,intI,intR);
+	endWhile = true;
+
+	
+      } else {
+
+	g.getCell(x,y).setEtat(6);
+	endWhile = true;
+
+	
+      }
+    }
+     //------------------------------------------------------------------------------------------------------
+    if ((x+1 < g.getDimensionX()-1)&&(g.getCell(x+1,y).getEtat() == 1)){
+      
+      if (!fusion){
+	
+	Cell* buf = &g.getCell(x,y);
+	Cell* buf2 = &g.getCell(x+1,y);
+      
+	while (buf2->getRef() != NULL){
+	  buf2 = buf2->getRef();
+	}
+	
+	if (buf2->getIles() != NULL){
+	  
+	  buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	  fusion = true;
+	 
+	}
+	else if((fusion) && (g.getCell(x,y-1).getIles() == NULL)){
+
+	  blanchirAndRegleIles(g,GR,GI,x+1,y,intI,intR);
+	  endWhile = true;
+	 
+	} else {
+
+	  g.getCell(x,y).setEtat(6);
+	  endWhile = true;
+	  
+	
+	}
+      }
+    }
+   //------------------------------------------------------------------------------------------------------
+      
+    if ((x-1 > 0)&&(g.getCell(x-1,y).getEtat() == 1)){
+      
+      if (!fusion){
+	
+	Cell* buf = &g.getCell(x,y);
+	Cell* buf2 = &g.getCell(x-1,y);
+	
+	while (buf2->getRef() != NULL){
+	  buf2 = buf2->getRef();
+	}
+
+	if (buf2->getIles() != NULL){
+	  
+	  buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	  fusion = true;
+	  
+	}
+      } else if((fusion) && (g.getCell(x,y-1).getIles() == NULL)){
+	
+	blanchirAndRegleIles(g,GR,GI,x-1,y,intI,intR);
+	endWhile = true;
+	
+      } else {
+	g.getCell(x,y).setEtat(6);
+	endWhile = true;
+	
+	
+      }
     }
     
+    if (!endWhile){
+      
+      endWhile = true;
+    }
+
+    
+    //------------------------------------------------------------------------------------------------------
   }
-  
-  
+  //------------------------------------------------------------------------------------------------------
 }
 
-void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI){
 
-}
   
 void setPotentiel(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){
   int X = x;
@@ -338,9 +455,323 @@ void setPotentiel(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){
 }
 
 
+void friendsIles(Grille &g, Iles &ile, GlobalRiviere& GR,GlobalIles& GI, int& intI, int& intR){
+  
+  if (ile.getRemaining() > 0){
+    
+    int nbChoix = 0;
+    Cell* buf = NULL;
+    Cell* buf2 = NULL;
+    BlockCell* tmp = ile.getWhiteCells()->getHead();
+    bool fin = false;
+    
+    while ((nbChoix < 3)&&(!fin)){
 
-void applicationRegle(Grille& g,GlobalRiviere& GR,GlobalIles& GI,int x,int y){}
+      if (tmp->getNextBlock() == NULL){
+	fin = true;
+      }
+     
+      if ((tmp->getCellPointer()->getPosX() - 1 >= 0)&&!(((g.getCell((tmp->getCellPointer()->getPosX() - 1),(tmp->getCellPointer()->getPosY()))).getEtat() > 0) && ((g.getCell((tmp->getCellPointer()->getPosX() - 1),(tmp->getCellPointer()->getPosY()))).getEtat() < 3))) {
+	
+	if (buf != NULL){
+	  
+	  buf2 = &g.getCell((tmp->getCellPointer()->getPosX() - 1),(tmp->getCellPointer()->getPosY()));
+	  
+	} else {
+	  
+	  buf = &g.getCell((tmp->getCellPointer()->getPosX() - 1),(tmp->getCellPointer()->getPosY()));
+	  
+	}
+	nbChoix++;
+	
+      }
+      if ((tmp->getCellPointer()->getPosX() + 1 <= g.getDimensionX()-1)&&!(((g.getCell((tmp->getCellPointer()->getPosX() + 1),(tmp->getCellPointer()->getPosY()))).getEtat() > 0) && ((g.getCell((tmp->getCellPointer()->getPosX() + 1),(tmp->getCellPointer()->getPosY()))).getEtat() < 3))){
+	
+	if (buf != NULL){
+	  
+	  buf2 = &g.getCell((tmp->getCellPointer()->getPosX() + 1),(tmp->getCellPointer()->getPosY()));
+	  
+	} else {
+	  
+	  buf = &g.getCell((tmp->getCellPointer()->getPosX() + 1),(tmp->getCellPointer()->getPosY()));
+	  
+	}
+	nbChoix++;
+      }
+      if ((tmp->getCellPointer()->getPosY() - 1 >= 0)&&!(((g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() - 1))).getEtat() > 0) && ((g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() - 1))).getEtat() < 3))){
+	
+	if (buf != NULL){
+	  
+	  buf2 = &g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() - 1));
+	  
+	} else {
+	  
+	  buf = &g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() - 1));
+	  
+	}
+	nbChoix++;
+      }
+      if ((tmp->getCellPointer()->getPosY() + 1 <= g.getDimensionY()-1)&&!(((g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() + 1))).getEtat() > 0) && ((g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() + 1))).getEtat() < 3))){
+	
+	if (buf != NULL){
+	  
+	  buf2 = &g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() + 1));
+	  
+	} else {
+	  
+	  buf = &g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() + 1));
+	  
+	}
+	nbChoix++;
+      }
+      tmp = tmp->getNextBlock();
+      
+    }
+    cout<<"Le nombre de choix est: "<<nbChoix<<endl;
+    if (nbChoix == 1){  // Première régle: si il n'y a qu'une case possible adjacente à l'Ile
+      cout<<"Ouverture "<<endl;
+      blanchirAndRegleIles(g,GR,GI,buf->getPosX(),buf->getPosY(),intI,intR);
+      cout<<"Fermeture "<<endl;
+      
+    } else if (nbChoix == 2){ // Deuxième régle: si il n'y a que deux case possible adjacente à l'Ile et qu'elles sont en diagonal l'une de l'autre;
+      if (ile.getRemaining() == 1){
 
+	cout<<"ATTENTION BUG IN COMING"<<endl;
+	
+	if ((buf->getPosX() == (buf2->getPosX() + 1)) && (buf->getPosY() == (buf2->getPosY() + 1))){
+	  
+	  if (g.getCell(buf2->getPosX(),(buf2->getPosY() + 1)).getEtat() == 1){
+
+	    noircirAndRegleRiviere(g,GR,GI,buf2->getPosX()+1,buf2->getPosY(),intI,intR);
+	    
+	  } else {
+
+	    noircirAndRegleRiviere(g,GR,GI,buf2->getPosX(),buf2->getPosY()+1,intI,intR);
+	    
+	  }
+	  
+	} else if ((buf->getPosX() == (buf2->getPosX() - 1)) && (buf->getPosY() == (buf2->getPosY() - 1))){
+	  
+	  if (g.getCell((buf2->getPosX() - 1),buf2->getPosY()).getEtat() == 1){
+
+	    noircirAndRegleRiviere(g,GR,GI,buf2->getPosX(),buf2->getPosY()-1,intI,intR);
+	    
+	  } else {
+
+	    noircirAndRegleRiviere(g,GR,GI,buf2->getPosX()-1,buf2->getPosY(),intI,intR);
+	    
+	  }
+	  
+	} else if ((buf->getPosX() == (buf2->getPosX() + 1)) && (buf->getPosY() == (buf2->getPosY() - 1))){
+	  
+	  if (g.getCell((buf2->getPosX() + 1),buf2->getPosY()).getEtat() == 1){
+	    
+	    noircirAndRegleRiviere(g,GR,GI,buf2->getPosX(),buf2->getPosY()-1,intI,intR);
+	    
+	  } else {
+
+	    noircirAndRegleRiviere(g,GR,GI,buf2->getPosX()+1,buf2->getPosY(),intI,intR);
+	    
+	  }
+	  
+	} else if ((buf->getPosX() == (buf2->getPosX() - 1)) && (buf->getPosY() == (buf2->getPosY() + 1))){
+	  
+	  if (g.getCell((buf2->getPosX() - 1),buf2->getPosY()).getEtat() == 1){
+	    
+	    noircirAndRegleRiviere(g,GR,GI,buf2->getPosX(),buf2->getPosY()+1,intI,intR);
+	    
+	  } else {
+
+	    noircirAndRegleRiviere(g,GR,GI,buf2->getPosX()-1,buf2->getPosY(),intI,intR);
+	    
+	  }
+	}
+      }
+    }
+    
+  }
+}
+
+void friendsRiviere(Grille &g,Riviere &riv, GlobalRiviere& GR,GlobalIles& GI, int& intI, int& intR){
+ 
+  int nbChoix = 0;
+  Cell* buf = NULL;
+  BlockCell* tmp = riv.getRiviere()->getHead();
+  bool fin = false;
+ 
+  while ((nbChoix < 2)&&(!fin)){
+
+     if (tmp->getNextBlock() == NULL){
+	fin = true;
+	
+      }
+    
+    if ((tmp->getCellPointer()->getPosX() - 1 >= 0)&&!(((g.getCell((tmp->getCellPointer()->getPosX() - 1),(tmp->getCellPointer()->getPosY()))).getEtat() > 0) && ((g.getCell((tmp->getCellPointer()->getPosX() - 1),(tmp->getCellPointer()->getPosY()))).getEtat() < 3))) {
+	
+      buf = &g.getCell((tmp->getCellPointer()->getPosX() - 1),(tmp->getCellPointer()->getPosY()));
+      nbChoix++;
+      
+    }
+    if ((tmp->getCellPointer()->getPosX() + 1 <= g.getDimensionX()-1)&&!(((g.getCell((tmp->getCellPointer()->getPosX() + 1),(tmp->getCellPointer()->getPosY()))).getEtat() > 0) && ((g.getCell((tmp->getCellPointer()->getPosX() + 1),(tmp->getCellPointer()->getPosY()))).getEtat() < 3))){
+  
+      buf = &g.getCell((tmp->getCellPointer()->getPosX() + 1),(tmp->getCellPointer()->getPosY()));
+      nbChoix++;
+    }
+    if ((tmp->getCellPointer()->getPosY() - 1 >= 0)&&!(((g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() - 1))).getEtat() > 0) && ((g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() - 1))).getEtat() < 3))){
+	
+      buf = &g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() - 1));
+      nbChoix++;
+     
+    }
+    if ((tmp->getCellPointer()->getPosY() + 1 <= g.getDimensionY()-1)&&!(((g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() + 1))).getEtat() > 0) && ((g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() + 1))).getEtat() < 3))){
+	
+      buf = &g.getCell((tmp->getCellPointer()->getPosX()),(tmp->getCellPointer()->getPosY() + 1));
+      nbChoix++;
+     
+    }
+    tmp = tmp->getNextBlock();
+  }
+  if (nbChoix == 1){  // Première régle: si il n'y a qu'une case possible adjacente à l'Ile
+    
+    if(buf->getPosX()-1 >= 0){
+      Cell* xUn = &g.getCell(buf->getPosX()-1,buf->getPosY());
+      if (xUn->getRef() != NULL){
+	xUn = xUn->getRef();
+      }
+      if (xUn->getIles() != NULL){
+	friendsIles(g,*xUn->getIles(),GR,GI,intI,intR);
+      }
+    }
+
+    if(buf->getPosX()+1 <= g.getDimensionX()-1){
+      Cell* xDeux = &g.getCell(buf->getPosX()+1,buf->getPosY());
+      if (xDeux->getRef() != NULL){
+	xDeux = xDeux->getRef();
+      }
+      if (xDeux->getIles() != NULL){
+	friendsIles(g,*xDeux->getIles(),GR,GI,intI,intR);
+      }
+    }
+
+    if(buf->getPosY()-1 >= 0){
+      Cell* xTrois = &g.getCell(buf->getPosX(),buf->getPosY()-1);
+      if (xTrois->getRef() != NULL){
+	xTrois = xTrois->getRef();
+      }
+      if (xTrois->getIles() != NULL){
+	friendsIles(g,*xTrois->getIles(),GR,GI,intI,intR);
+      }
+    }
+
+    if(buf->getPosY()+1 <= g.getDimensionY()-1){
+      Cell* xQuatre = &g.getCell(buf->getPosX(),buf->getPosY()+1);
+      if (xQuatre->getRef() != NULL){
+	xQuatre = xQuatre->getRef();
+      }
+      if (xQuatre->getIles() != NULL){
+	friendsIles(g,*xQuatre->getIles(),GR,GI,intI,intR);
+      }
+    }
+    if ((buf->getEtat() != 1)||(buf->getEtat() != 2)||(buf->getEtat() != 5)){
+       
+      noircirAndRegleRiviere(g,GR,GI,buf->getPosX(),buf->getPosY(),intI,intR);
+       
+    }
+  }
+}
+
+void unFriendsRiviere(Grille &g, GlobalRiviere& GR,GlobalIles& GI,int x,int y, int& intI, int& intR){
+  if (g.getCell(x,y).getEtat() == 2){
+   
+    if((x+1 <= g.getDimensionX()-1)&&(y+1 <= g.getDimensionY()-1)&&(g.getCell(x+1,y+1).getEtat() == 2)&&(g.getCell(x+1,y).getEtat() == 2)){
+      
+      blanchirAndRegleIles(g,GR,GI,x,y+1,intI,intR);
+     
+    }
+   
+    if((x+1 <= g.getDimensionX()-1)&&(y-1 >= 0)&&(g.getCell(x+1,y-1).getEtat() == 2)&&(g.getCell(x+1,y).getEtat() == 2)){
+      blanchirAndRegleIles(g,GR,GI,x,y-1,intI,intR);
+      
+    }
+    
+    if((x+1 <= g.getDimensionX()-1)&&(y+1 <= g.getDimensionY()-1)&&(g.getCell(x+1,y+1).getEtat() == 2)&&(g.getCell(x,y+1).getEtat() == 2)){
+      blanchirAndRegleIles(g,GR,GI,x+1,y,intI,intR);
+     
+    }
+    
+    if((x-1 >= 0)&&(y+1 <= g.getDimensionY()-1)&&(g.getCell(x-1,y+1).getEtat() == 2)&&(g.getCell(x,y+1).getEtat() == 2)){
+      blanchirAndRegleIles(g,GR,GI,x-1,y,intI,intR);
+      
+    }
+    
+    if((x-1 >= 0)&&(y+1 <= g.getDimensionY()-1)&&(g.getCell(x-1,y).getEtat() == 2)&&(g.getCell(x-1,y+1).getEtat() == 2)){
+      blanchirAndRegleIles(g,GR,GI,x,y+1,intI,intR);
+     
+    }
+    
+    if((x-1 >= 0)&&(y-1 >= 0)&&(g.getCell(x-1,y).getEtat() == 2)&&(g.getCell(x-1,y-1).getEtat() == 2)){
+      
+      blanchirAndRegleIles(g,GR,GI,x,y-1,intI,intR);
+      
+    }
+    
+    if((x-1 >= 0)&&(y-1 >= 0)&&(g.getCell(x,y-1).getEtat() == 2)&&(g.getCell(x-1,y-1).getEtat() == 2)){
+      blanchirAndRegleIles(g,GR,GI,x-1,y,intI,intR);
+      
+    }
+    
+    if((x+1 <= g.getDimensionX()-1)&&(y-1 >= 0)&&(g.getCell(x,y-1).getEtat() == 2)&&(g.getCell(x+1,y-1).getEtat() == 2)){
+      blanchirAndRegleIles(g,GR,GI,x+1,y,intI,intR);
+      
+    }
+    if((x-1 >= 0)&&(y-1 >= 0)&&(g.getCell(x-1,y).getEtat() == 2)&&(g.getCell(x,y-1).getEtat() == 2)){
+      blanchirAndRegleIles(g,GR,GI,x-1,y-1,intI,intR);
+      
+    }
+    if((x+1 <= g.getDimensionX()-1)&&(y+1 <= g.getDimensionY()-1)&&(g.getCell(x+1,y).getEtat() == 2)&&(g.getCell(x,y+1).getEtat() == 2)){
+      blanchirAndRegleIles(g,GR,GI,x+1,y+1,intI,intR);
+      
+    }
+    if((x-1 >= 0)&&(y+1 <= g.getDimensionY()-1)&&(g.getCell(x-1,y).getEtat() == 2)&&(g.getCell(x,y+1).getEtat() == 2)){
+      blanchirAndRegleIles(g,GR,GI,x-1,y+1,intI,intR);
+      
+    }
+    if((x+1 <= g.getDimensionX()-1)&&(y-1 >= 0)&&(g.getCell(x+1,y).getEtat() == 2)&&(g.getCell(x,y-1).getEtat() == 2)){
+      blanchirAndRegleIles(g,GR,GI,x+1,y-1,intI,intR);
+      
+    }
+  }
+}
+void noircirAndRegleRiviere(Grille &g, GlobalRiviere& GR,GlobalIles& GI,int x,int y, int& intI, int& intR){
+  noircir(g,GR,GI,x,y,intR);
+  
+  Cell* buf = &g.getCell(x,y);
+  while (buf->getRef() != NULL){
+    buf = buf->getRef();
+  }
+  
+  friendsRiviere( g, *buf->getRiv(), GR, GI, intI, intR);
+  unFriendsRiviere( g, GR, GI, x, y, intI, intR);
+  g.getBlockCell(x,y).printBlock();
+}
+
+void blanchirAndRegleIles(Grille &g, GlobalRiviere& GR,GlobalIles& GI,int x,int y, int& intI, int& intR){
+  blanchir(g,GR,GI,x,y,intI,intR);
+  
+  Cell* buf = &g.getCell(x,y);
+  
+  while (buf->getRef() != NULL){
+    buf = buf->getRef();
+  }
+  
+  
+  if (buf->getIles() != NULL){
+   friendsIles( g,*buf->getIles(), GR, GI, intI, intR);
+  }
+  
+  
+  g.getBlockCell(x,y).printBlock();
+}
 
 void initGrille(map<string,string>& data){
  int dimX;
@@ -356,77 +787,67 @@ void initGrille(map<string,string>& data){
  Grille g(dimX,dimY);
 
  addCells(data,g);
-
- /* BlockCell cell6(&(g.getCell(5,4)));
-  BlockCell cell7(&(g.getCell(1,1)));
-  BlockCell cell8(&(g.getCell(1,2)));
-
-  ListeCell L1(&cell6);
-  L1.fusion(L1.getHead(),& cell7,GR);
-  cout << endl;
-  L1.printListe();
-  L1.fusion(L1.getHead(),& cell8,GR);
-  L1.printListe();
- */
-  g.GrillePrint();
+ 
+ g.GrillePrint();
+ 
+ //---------------------------------------
+ //Debut initialisation
+ //---------------------------------------
+ cout << "============= DEBUT D'INIT DES POTENIELS =================="<<endl;
+ int x = 0;
+ int y = 0;
+ while (x < dimX){
+   y = 0;
+   while (y < dimY){
+     g.getCell(x,y).setPosX(x);
+     g.getCell(x,y).setPosY(y);
+     g.setCellPointerInBlockCell(x,y);
+     if (g.getCell(x,y).getEtat() == 0){
+       g.getCell(x,y).setEtat(3);
+     } else if (g.getCell(x,y).getEtat() == 1){
+       Iles *obj = new Iles(&g.getBlockCell(x,y),indiceIles);
+       g.getCell(x,y).setIles(obj);
+       indiceIles++;
+       GI.AddIle(*obj);
+       setPotentiel(g,GR,GI,x,y);
+       g.GrillePrint();
+     }
+     y++;
+   }
+   x++;
+ }
+ g.GrillePrint();
   
-  //---------------------------------------
-  //Debut initialisation
-  //---------------------------------------
-  cout << "============= DEBUT D'INIT DES POTENIELS =================="<<endl;
-  int x = 0;
-  int y = 0;
+ x = 0;
+ y = 0;
+ //--------------------------------------
+ //Fin initialisation
+ //--------------------------------------
+ cout << " ================== AFFICHAGE DE LA GRILLE DES BLOCKCELLS ================" <<endl;
+ while(x < dimX){
+   y=0;
+   while (y < dimY){
+     if(g.getCell(x,y).getEtat() == 3){
+       noircirAndRegleRiviere(g,GR,GI,x,y,indiceIles,indiceRiviere);
+	
+     }else if(g.getCell(x,y).getEtat() == 5){
+       blanchirAndRegleIles(g,GR,GI,x,y,indiceIles,indiceRiviere);
+     }
+     //g.getBlockCell(x,y).printBlock();
+     y++;
+   }
+   x++;
+ }
+   
+   
+ cout << " ============= AFFICHAGE DE LA GRILLE APRES L'INIT DES ZONES POTENTIELS =========== "<<endl;
+ g.GrillePrint();
 
-  while (x < dimX){
-    y = 0;
-    while (y < dimY){
-      g.getCell(x,y).setPosX(x);
-      g.getCell(x,y).setPosY(y);
-      g.setCellPointerInBlockCell(x,y);
-      if (g.getCell(x,y).getEtat() == 0){
-	g.getCell(x,y).setEtat(3);
-      } else if (g.getCell(x,y).getEtat() == 1){
-	Iles *obj = new Iles(&g.getBlockCell(x,y),indiceIles);
-	g.getCell(x,y).setIles(obj);
-	indiceIles++;
-	GI.AddIle(*obj);
-	setPotentiel(g,GR,GI,x,y);
-	g.GrillePrint();
-      }
-      y++;
-    }
-    x++;
-  }
-  g.GrillePrint();
+ cout << "============= AFFICHAGE DE CONTENU DE GLOBAL ILE ====================" <<endl;
+ GI.printGlobalIles();
 
-  
-  x = 0;
-  y = 0;
-  //--------------------------------------
-  //Fin initialisation
-  //--------------------------------------
-  cout << " ================== AFFICHAGE DE LA GRILLE DES BLOCKCELLS ================" <<endl;
-   while(x < dimX){
-    y=0;
-    while (y < dimY){
-      if(g.getCell(x,y).getEtat() == 3){
-	noircir(g,GR,GI,x,y,indiceRiviere);
-      }else if(g.getCell(x,y).getEtat() == 5){
-      	blanchir(g,GR,GI,x,y,indiceIles);
-      }
-      g.getBlockCell(x,y).printBlock();
-      y++;
-    }
-    x++;
-  }
-   cout << " ============= AFFICHAGE DE LA GRILLE APRES L'INIT DES ZONES POTENTIELS =========== "<<endl;
-  g.GrillePrint();
-
-  cout << "============= AFFICHAGE DE CONTENU DE GLOBAL ILE ====================" <<endl;
-  GI.printGlobalIles();
-
-  cout << "============= AFFICHAGE DE CONTENU DE GLOBAL RIVIERE ====================" <<endl;
-  GR.printGlobalRiviere();
+ cout << "============= AFFICHAGE DE CONTENU DE GLOBAL RIVIERE ====================" <<endl;
+ GR.printGlobalRiviere();
 }
 
 

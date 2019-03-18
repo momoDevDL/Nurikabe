@@ -21,11 +21,15 @@ class Iles {
 
   void setRemaining(int r);
 
-  void friendsIles(Grille &g);
-
   bool estPleine();
 
   void print();
+
+  void addBlockCellToIles(BlockCell &b, GlobalRiviere &GI);
+
+  int getTailleIles()const;
+
+  ListeCell* getWhiteCells();
 
 };
 

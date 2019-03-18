@@ -28,9 +28,10 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
     if(blockC->getRefCell() == NULL){
       blockC->setRefCell(bc->getCellPointer());
       if (blockC->getRivCell() != NULL){
-	Riviere* buf = blockC->getRivCell();   //Pour la fusion d'ile/riviere
+	Riviere* buf = blockC->getRivCell();   //Pour la fusion de riviere
 	blockC->setRivCell(NULL);
 	buf->supprimeRiv(gb);
+	
       }
     }
     //-------------------------------------------
@@ -48,6 +49,16 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
      
     }
   } else {
+    //-------------------------------------------
+    
+    if (blockC->getCellPointer()->getRiv() != NULL){
+      Riviere* buf = blockC->getRivCell();   //Pour la fusion de riviere
+      blockC->setRivCell(NULL);
+      buf->supprimeRiv(gb);
+      
+    }
+    
+    //-------------------------------------------
     int buf = 0;
     blockC->setRefCell(bc->getCellPointer());
     if (getSucc(bc) != NULL) {
