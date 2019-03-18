@@ -61,3 +61,7 @@ void Riviere::printRiv(){
   std::cout<< ">-----< indice De creation : " << indiceDeCreation << std::endl;
 }
 
+ListeCell* Riviere::getRiviere(){
+  
+  return &riviere;
+}

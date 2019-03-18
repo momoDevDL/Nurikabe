@@ -8,6 +8,17 @@ ListeCell::ListeCell():head(NULL),size(0){}
 
 ListeCell::ListeCell(BlockCell* bcell):head(bcell),size(1){}
 
+void ListeCell::supprimer(BlockCell* b){
+  if(b->getNextBlock() == NULL){
+    delete b;
+  }else{
+    supprimer(b->getNextBlock());
+  }
+}
+
+/*ListeCell::~ListeCell(){
+  supprimer(head);
+}*/
 /*void ListeCell::setNextBlock(BlockCell* thisBlock,BlockCell* NextBlock){
   thisBlock->setNextBlockCell(NextBlock);
 }*/
@@ -19,8 +30,6 @@ bool ListeCell::est_Vide()const{return size==0;}
 BlockCell* ListeCell::getHead()const{ return head;}
 
 BlockCell* ListeCell::getSucc(BlockCell* bc)const{ return bc->getNextBlock();}
-
-
 
 void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
   if(getSucc(blockC) == NULL){

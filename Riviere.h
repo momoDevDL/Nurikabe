@@ -1,8 +1,10 @@
 #ifndef __RIVIERE_H
 #define __RIVIERE_H
 
+
 class GlobalRiviere;
 #include "ListeCell.h"
+#include"grille.h"
 
 class Riviere{
  private :
@@ -26,6 +28,8 @@ class Riviere{
   int getTailleRiviere()const;
 
   void printRiv();
+
+  ListeCell* getRiviere();
 
 
 };

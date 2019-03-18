@@ -28,8 +28,9 @@ class Grille{
   //methodes
   void random_init(size_t nb_cellules_numerotee);
   void GrillePrint();
-  void addVal(int val,size_t x,size_t y);
-  void addEtat(int etat,size_t,size_t);
+  void addVal(size_t val,size_t x,size_t y);
+  void addEtat(size_t etat,size_t,size_t);
+  bool CHECK_BOUND(size_t,size_t,size_t,size_t)const;
 };
 
 #endif

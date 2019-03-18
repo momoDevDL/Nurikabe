@@ -1,0 +1,8 @@
+#include<iostream>
+#include<progSup.h>
+#include<prog.h>
+
+void applicationRegleRiv(Grille &g,Riviere &riv,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int& intI, int& intR){
+  friendsRiviere(g,*buf->getRiv(), GR, GI, intI, intR);
+  unFriendsRiviere( g, GR, GI,buf->getPosX(),buf->getPosY(),intI, intR);
+}

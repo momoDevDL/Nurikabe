@@ -3,6 +3,7 @@
 
 #include"grille.h"
 #include"ListeCell.h"
+class GlobalIles;
 class Iles {
  private :
   ListeCell whiteCells;
@@ -21,15 +22,15 @@ class Iles {
 
   void setRemaining(int r);
 
+  ListeCell* getWhiteCells();
+ 
   bool estPleine();
-
+  
   void print();
 
   void addBlockCellToIles(BlockCell &b, GlobalRiviere &GI);
 
   int getTailleIles()const;
-
-  ListeCell* getWhiteCells();
 
 };
 

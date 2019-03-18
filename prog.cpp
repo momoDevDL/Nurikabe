@@ -54,18 +54,20 @@ void addCells(map<string,string> &data,Grille &g){
 }
 
 
+
 void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
-    
+
+  if( g.getCell(x,y).getEtat() != 2){
     g.getCell(x,y).setEtat(2);
     
-
+    
     bool fusion = false;
-
+    
     //-----------Premiere-fusion---------------------------------------
     
     if ((y > 0)&&(g.getCell(x,y-1).getEtat() == 2)){
 
-      
+
       Cell* buf = &g.getCell(x,y);
       Cell* buf2 = &g.getCell(x,y-1);
 
@@ -78,7 +80,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       
       }
       
-      if ((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
+      if ((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() >= buf->getRiv()->getTailleRiviere())){
 	
 	//-------------------------------------------------------------
 	
@@ -91,7 +93,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       }
       
       fusion = true;
-      //  g.getCell(x,y).getRef()->getRiv()->printRiv();
+      g.getCell(x,y).getRef()->getRiv()->printRiv();
     }
     
     //-----------Deuxieme-fusion---------------------------------------
@@ -112,7 +114,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       }
 
       
-      if ((buf->getRiv() == NULL)||(buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
+      if ((buf->getRiv() == NULL)||(buf2->getRiv()->getTailleRiviere() >= buf->getRiv()->getTailleRiviere())){
 
 	
 	//-------------------------------------------------------------
@@ -126,7 +128,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       }
       
       fusion = true;
-      //  g.getCell(x,y).getRef()->getRiv()->printRiv();
+      g.getCell(x,y).getRef()->getRiv()->printRiv();
 
     }
 
@@ -147,7 +149,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
 	buf = buf->getRef();
       }
 
-      if((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
+      if((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() >= buf->getRiv()->getTailleRiviere())){
 
 	
 	//-------------------------------------------------------------
@@ -161,7 +163,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       }
       
       fusion = true;
-      // g.getCell(x,y).getRef()->getRiv()->printRiv();
+      g.getCell(x,y).getRef()->getRiv()->printRiv();
       
     }
 
@@ -186,7 +188,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
 
 
       
-      if ((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() > buf->getRiv()->getTailleRiviere())){
+      if ((buf->getRiv() == NULL) || (buf2->getRiv()->getTailleRiviere() >= buf->getRiv()->getTailleRiviere())){
 
 	
 	//-------------------------------------------------------------
@@ -200,7 +202,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       }
 
       fusion = true;
-      //  g.getCell(x,y).getRef()->getRiv()->printRiv();
+      g.getCell(x,y).getRef()->getRiv()->printRiv();
       
     }
     //----------------------------------------------------------------
@@ -208,14 +210,136 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
 
     if(!fusion){
       
-      Riviere* riv = new Riviere(&g.getBlockCell(x,y),intR);
-      g.getCell(x,y).setRiv(riv);
+      Riviere* r = new Riviere(&g.getBlockCell(x,y),intR);
+      g.getCell(x,y).setRiv(r);
       intR++;
-      GR.AddRiviere(*riv);
+      GR.AddRiviere(*r);
+      g.getCell(x,y).getRiv()->printRiv();
     }
 
-}
+  }
   
+}
+ 
+ 
+ void UnfriendedIles(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,int &intR){
+										
+  Cell* Ref = g.getCell(x,y).getRef();
+  int indice = g.getCell(x,y).getIles()->getIndice();
+  int X = g.getCell(x,y).getPosX();
+  int Y = g.getCell(x,y).getPosY();
+
+
+  if(!g.CHECK_BOUND(X+1,Y+1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X+1,Y+1).getEtat() == 1){
+
+    if( Ref != g.getCell(X+1,Y+1).getRef()){
+      noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+      noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+    }else{
+      if(indice != g.getCell(X+1,Y+1).getIles()->getIndice()){
+	noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+	noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+      }
+    }
+  }
+
+  if(!g.CHECK_BOUND(X+1,Y-1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X+1,Y-1).getEtat() == 1){
+    
+    if( Ref != g.getCell(X+1,Y-1).getRef()){
+      noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+      noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+    }else{
+      
+      if(indice != g.getCell(X+1,Y-1).getIles()->getIndice()){
+
+	noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+
+	noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+
+      }
+    }
+  }
+
+  if(!g.CHECK_BOUND(X-1,Y-1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X-1,Y-1).getEtat() == 1){
+    
+    if( Ref != g.getCell(X-1,Y-1).getRef()){
+      noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+      noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+    }else{
+      if(indice != g.getCell(X-1,Y-1).getIles()->getIndice()){
+	noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+	noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+      }
+    }
+    	
+  }
+
+  if(!g.CHECK_BOUND(X-1,Y+1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X-1,Y+1).getEtat() == 1 ){
+
+    if( Ref != g.getCell(X-1,Y+1).getRef()){
+      noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+      noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+    }else{
+      if(indice != g.getCell(X-1,Y+1).getIles()->getIndice()){
+	noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+	noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+      }
+    }
+    	
+  }
+
+  
+  //===============DEbut de traitement des zones horiz et vertic =================//
+  
+
+  if(!g.CHECK_BOUND(X+2,Y,g.getDimensionX(),g.getDimensionY()) && g.getCell(X+2,Y).getEtat() == 1){
+    
+    if(Ref != g.getCell(X+2,Y).getRef()){
+      noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+    }else{
+      if(indice != g.getCell(X+2,Y).getIles()->getIndice()){
+	noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+      }
+    }
+  }
+ 
+  if(!g.CHECK_BOUND(X-2,Y,g.getDimensionX(),g.getDimensionY()) && g.getCell(X-2,Y).getEtat() == 1 ){
+ 
+    if(Ref != g.getCell(X-2,Y).getRef()){
+      noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+    }else{
+ 
+      if(indice != g.getCell(X-2,Y).getIles()->getIndice()){
+	noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+      }
+    }
+    
+  }
+ 
+  if(!g.CHECK_BOUND(X,Y+2,g.getDimensionX(),g.getDimensionY()) && g.getCell(X,Y+2).getEtat() == 1 ){
+ 
+    if(Ref != g.getCell(X,Y+2).getRef()){
+      noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+    }else{
+
+      if(indice != g.getCell(X,Y+2).getIles()->getIndice()){
+	noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+      }
+    }
+   
+  }
+
+  if(!g.CHECK_BOUND(X,Y-2,g.getDimensionX(),g.getDimensionY()) && g.getCell(X,Y-2).getEtat() == 1){
+
+    if(Ref != g.getCell(X,Y-2).getRef()){
+       noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+    }else{
+      if(indice != g.getCell(X,Y-2).getIles()->getIndice()){
+	noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+      }
+    }
+   
+  }
   
 
 
@@ -453,6 +577,90 @@ void setPotentiel(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){
     J--;
   }
 }
+
+void Complet(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x, int y,int &intI ,int &indice){
+  
+  BlockCell *tmp = g.getCell(x,y).getIles()->getWhiteCells()->getHead();
+
+  if (g.getCell(x,y).getIles()->estPleine()){
+
+    while ( tmp->getNextBlock() ){
+      int X = tmp->getCellPointer()->getPosX();
+      int Y = tmp->getCellPointer()->getPosY();
+      
+      if( !g.CHECK_BOUND(X+1,Y,g.getDimensionX(),g.getDimensionY()) && g.getCell(X+1,Y).getEtat() != 1 && g.getCell(X+1,Y).getEtat() != 2 ){
+	noircirAndRegleRiviere(g,GR,GI, X+1, Y,intI, indice);
+      }
+      if( !g.CHECK_BOUND(X-1,Y,g.getDimensionX(),g.getDimensionY()) && g.getCell(X-1,Y).getEtat() != 1 && g.getCell(X-1,Y).getEtat() != 2 ){
+	noircirAndRegleRiviere(g,GR,GI, X-1, Y,intI, indice);
+      }
+      if(!g.CHECK_BOUND(X,Y+1,g.getDimensionX(),g.getDimensionY()) &&  g.getCell(X,Y+1).getEtat() != 1 && g.getCell(X,Y+1).getEtat() != 2 ){
+	noircirAndRegleRiviere(g,GR,GI, X, Y+1,intI, indice);
+
+      }
+      if(!g.CHECK_BOUND(X,Y-1,g.getDimensionX(),g.getDimensionY()) &&  g.getCell(X,Y-1).getEtat() != 1 && g.getCell(X,Y-1).getEtat() != 2 ){
+	noircirAndRegleRiviere(g,GR,GI, X, Y-1,intI, indice);
+
+      }
+      
+    }
+
+    int X = tmp->getCellPointer()->getPosX();
+    int Y = tmp->getCellPointer()->getPosY();
+    
+    if( !g.CHECK_BOUND(X+1,Y,g.getDimensionX(),g.getDimensionY()) && g.getCell(X+1,Y).getEtat() != 1 && g.getCell(X+1,Y).getEtat() != 2 ){
+      noircirAndRegleRiviere(g,GR,GI, X+1, Y,intI, intdice);
+    }
+    if( !g.CHECK_BOUND(X-1,Y,g.getDimensionX(),g.getDimensionY()) && g.getCell(X-1,Y).getEtat() != 1 && g.getCell(X-1,Y).getEtat() != 2 ){
+      noircirAndRegleRiviere(g,GR,GI, X-1, Y,intI, intdice);
+    }
+    if( !g.CHECK_BOUND(X,Y+1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X,Y+1).getEtat() != 1 && g.getCell(X,Y+1).getEtat() != 2 ){
+	noircirAndRegleRiviere(g,GR,GI, X, Y+1,intI, indice);
+	
+    }
+    if( !g.CHECK_BOUND(X,Y-1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X,Y-1).getEtat() != 1 && g.getCell(X,Y-1).getEtat() != 2 ){
+      noircirAndRegleRiviere(g,GR,GI, X, Y-1,intI, indice);
+
+    }
+  }
+  //delete tmp;*/
+}
+
+void CroixNoircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &indiceIles,int &indiceRiviere){
+  int etatdeCellAdjacente;
+  
+  if(!g.CHECK_BOUND(x,y+1,g.getDimensionX(),g.getDimensionY())){
+    etatdeCellAdjacente = g.getCell(x,y+1).getEtat();
+  }
+  
+  
+  if( etatdeCellAdjacente == 2 ){
+
+    if(!g.CHECK_BOUND(x,y-1,g.getDimensionX(),g.getDimensionY()) && g.getCell(x,y-1).getEtat() == 2 ){
+
+      if(!g.CHECK_BOUND(x-1,y,g.getDimensionX(),g.getDimensionY()) && g.getCell(x-1,y).getEtat() == 2){
+
+	if(!g.CHECK_BOUND(x+1,y,g.getDimensionX(),g.getDimensionY()) && g.getCell(x+1,y).getEtat() == 2){
+
+	  noircirAndRegleRiviere(g,GR,GI, x, y,intI, intR);
+	}
+      }
+    }
+  } else if ( etatdeCellAdjacente == 1 ){
+
+    if(!g.CHECK_BOUND(x,y-1,g.getDimensionX(),g.getDimensionY()) && g.getCell(x,y-1).getEtat() == 1 ){
+      
+      if(!g.CHECK_BOUND(x-1,y,g.getDimensionX(),g.getDimensionY()) && g.getCell(x-1,y).getEtat() == 1){
+	
+	if(!g.CHECK_BOUND(x+1,y,g.getDimensionX(),g.getDimensionY()) && g.getCell(x+1,y).getEtat() == 1){
+
+	  blanchirAndRegleRiviere(g,GR,GI, x, y,intI, intR);
+	}
+      }
+    }
+  }
+}
+	  
 
 
 void friendsIles(Grille &g, Iles &ile, GlobalRiviere& GR,GlobalIles& GI, int& intI, int& intR){
@@ -755,8 +963,13 @@ void noircirAndRegleRiviere(Grille &g, GlobalRiviere& GR,GlobalIles& GI,int x,in
   g.getBlockCell(x,y).printBlock();
 }
 
+
 void blanchirAndRegleIles(Grille &g, GlobalRiviere& GR,GlobalIles& GI,int x,int y, int& intI, int& intR){
   blanchir(g,GR,GI,x,y,intI,intR);
+  
+  UnfriendedIles(g,GR,GI,x,y,intI,intR);
+  
+  g.GrillePrint();
   
   Cell* buf = &g.getCell(x,y);
   
@@ -767,6 +980,7 @@ void blanchirAndRegleIles(Grille &g, GlobalRiviere& GR,GlobalIles& GI,int x,int 
   
   if (buf->getIles() != NULL){
    friendsIles( g,*buf->getIles(), GR, GI, intI, intR);
+   Complet(g,GR,GI,x,y,intI,intR);
   }
   
   
@@ -777,7 +991,7 @@ void initGrille(map<string,string>& data){
  int dimX;
  int dimY;
  int indiceRiviere = 1;
- int indiceIles = 1;
+ int indiceIles = 0;
  GlobalRiviere GR;
  GlobalIles GI;
  
@@ -817,7 +1031,8 @@ void initGrille(map<string,string>& data){
    x++;
  }
  g.GrillePrint();
-  
+ 
+
  x = 0;
  y = 0;
  //--------------------------------------
@@ -832,8 +1047,9 @@ void initGrille(map<string,string>& data){
 	
      }else if(g.getCell(x,y).getEtat() == 5){
        blanchirAndRegleIles(g,GR,GI,x,y,indiceIles,indiceRiviere);
+     }else if(g.getCell(x,y).getEtat() == 4){
+       CroixNoircir(g,GR,GI,x,y,intI,intR);
      }
-     //g.getBlockCell(x,y).printBlock();
      y++;
    }
    x++;
@@ -843,11 +1059,15 @@ void initGrille(map<string,string>& data){
  cout << " ============= AFFICHAGE DE LA GRILLE APRES L'INIT DES ZONES POTENTIELS =========== "<<endl;
  g.GrillePrint();
 
+
  cout << "============= AFFICHAGE DE CONTENU DE GLOBAL ILE ====================" <<endl;
  GI.printGlobalIles();
 
- cout << "============= AFFICHAGE DE CONTENU DE GLOBAL RIVIERE ====================" <<endl;
- GR.printGlobalRiviere();
+
+  cout << "============= AFFICHAGE DE CONTENU DE GLOBAL RIVIERE ====================" <<endl;
+  GR.printGlobalRiviere();
+  g.GrillePrint();
+
 }
 
 
@@ -895,5 +1115,8 @@ void MyProgram(int argc,char** argv){
   }
 }
 
-
-
+ 
+ }
+}
+ 
+ 
