@@ -21,6 +21,8 @@ void MyProgram(int argc,char** argv);
 
 void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intR);
 
+void UnfriendedIles(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,int &intR);
+
 void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &indI);
 
 void setPotentiel(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y);

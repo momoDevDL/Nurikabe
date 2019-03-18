@@ -13,7 +13,7 @@ class ListeCell{
  public:
   ListeCell();
   ListeCell(BlockCell* _head);
-
+  // ~ListeCell();
   size_t  getSize()const;
   
   BlockCell* getHead()const;
@@ -24,6 +24,7 @@ class ListeCell{
   void fusion(BlockCell* bc,BlockCell* cell,GlobalRiviere &gb);
   bool est_Vide()const;
   void printListe()const;
+  void supprimer(BlockCell* b);
 };
 
 #endif

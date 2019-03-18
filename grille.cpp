@@ -3,16 +3,8 @@
 #include<iostream>
 using namespace std;
 
-bool CHECK_BOUND(size_t x, size_t y ,size_t dimX, size_t dimY){	
-  if(x > dimX || y > dimY){ 
-    cerr<<"une ou les  valeur(s) depasse(nt) la dimension de la grille"<<endl; 
-    return true;							
-  }
-  return false;
-}
-
 Grille::Grille():dimensionX(5),dimensionY(5),tabCell(new Cell*[5]),tabBlockCell(new BlockCell*[5]){
-  for(size_t i=0;i<5;i++){
+  for(int i=0;i<5;i++){
     tabCell[i] = new Cell[5];
     tabBlockCell[i] = new BlockCell[5];
   }
@@ -33,8 +25,16 @@ Grille::~Grille(){
     delete [] tabBlockCell[i];
     i++;
   }
-  delete tabCell;
-  delete tabBlockCell;
+  delete [] tabCell;
+  delete [] tabBlockCell;
+}
+
+bool Grille::CHECK_BOUND(size_t x, size_t y ,size_t dimX, size_t dimY)const{	
+  if(x > dimX - 1 || y > dimY - 1){ 
+    cerr<<"une ou les  valeur(s) depasse(nt) la dimension de la grille"<<endl; 
+    return true;							
+  }
+  return false;
 }
 
 size_t Grille::getDimensionX()const{return dimensionX;}
@@ -60,14 +60,14 @@ void Grille::setCellPointerInBlockCell(size_t x,size_t y){
   return;
 }
 
-void Grille::addVal(int val, size_t x,size_t y){
+void Grille::addVal(size_t val, size_t x,size_t y){
   if(!CHECK_BOUND(x,y,dimensionX,dimensionY)){
     tabCell[x][y].setCellNum(val);
     tabCell[x][y].setEtat(1);
   }
   return;
 }
-void Grille::addEtat(int etat,size_t x,size_t y){
+void Grille::addEtat(size_t etat,size_t x,size_t y){
   if(!CHECK_BOUND(x,y,dimensionX,dimensionY)){
     tabCell[x][y].setEtat(etat);
   }

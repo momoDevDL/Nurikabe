@@ -1,11 +1,20 @@
 #include"Iles.h"
+#include"prog.h"
+
 #include<iostream>
+
 Iles::Iles():whiteCells(ListeCell(NULL)){}
 
 Iles::Iles(BlockCell *b, int i):whiteCells(ListeCell(b)),remaining(b->getCellNum() -1),indice(i){}
-
+/*Iles::~Iles(){
+  delete whiteCells;
+}*/
 int Iles::getRemaining(){
   return remaining;
+}
+
+ListeCell* Iles::getWhiteCells(){
+  return &whiteCells;  
 }
 
 int Iles::getIndice(){
@@ -149,7 +158,52 @@ void Iles::friendsIles(Grille &g){
   }
 }
 
+/*void Iles::Complet(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x, int y, int &indice){
+  
+  BlockCell *tmp = whiteCells.getHead();
 
+  if (estPleine()){
+
+    while ( tmp->getNextBlock() ){
+      int X = tmp->getCellPointer()->getPosX();
+      int Y = tmp->getCellPointer()->getPosY();
+      
+      if( !g.CHECK_BOUND(X+1,Y,g.getDimensionX(),g.getDimensionY()) && g.getCell(X+1,Y).getEtat() != 1 && g.getCell(X+1,Y).getEtat() != 2 ){
+	noircir(g,GR,GI,X+1,Y,indice);
+      }
+      if( !g.CHECK_BOUND(X-1,Y,g.getDimensionX(),g.getDimensionY()) && g.getCell(X-1,Y).getEtat() != 1 && g.getCell(X-1,Y).getEtat() != 2 ){
+	noircir(g,GR,GI,X-1,Y,indice);
+      }
+      if(!g.CHECK_BOUND(X,Y+1,g.getDimensionX(),g.getDimensionY()) &&  g.getCell(X,Y+1).getEtat() != 1 && g.getCell(X,Y+1).getEtat() != 2 ){
+	noircir(g,GR,GI,X,Y+1,indice);
+
+      }
+      if(!g.CHECK_BOUND(X,Y-1,g.getDimensionX(),g.getDimensionY()) &&  g.getCell(X,Y-1).getEtat() != 1 && g.getCell(X,Y-1).getEtat() != 2 ){
+	noircir(g,GR,GI,X,Y-1,indice);
+
+      }
+      
+    }
+
+    int X = tmp->getCellPointer()->getPosX();
+    int Y = tmp->getCellPointer()->getPosY();
+    
+    if( !g.CHECK_BOUND(X+1,Y,g.getDimensionX(),g.getDimensionY()) && g.getCell(X+1,Y).getEtat() != 1 && g.getCell(X+1,Y).getEtat() != 2 ){
+      noircir(g,GR,GI,X+1,Y,indice);
+    }
+    if( !g.CHECK_BOUND(X-1,Y,g.getDimensionX(),g.getDimensionY()) && g.getCell(X-1,Y).getEtat() != 1 && g.getCell(X-1,Y).getEtat() != 2 ){
+      noircir(g,GR,GI,X-1,Y,indice);
+    }
+    if( !g.CHECK_BOUND(X,Y+1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X,Y+1).getEtat() != 1 && g.getCell(X,Y+1).getEtat() != 2 ){
+	noircir(g,GR,GI,X,Y+1,indice);
+	
+    }
+    if( !g.CHECK_BOUND(X,Y-1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X,Y-1).getEtat() != 1 && g.getCell(X,Y-1).getEtat() != 2 ){
+      noircir(g,GR,GI,X,Y-1,indice);
+
+    }
+  }
+  //delete tmp;*/
 void Iles::print(){
 
   whiteCells.printListe();
