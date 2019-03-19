@@ -223,62 +223,117 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
   
 }
  
- 
 void UnfriendedIles(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,int &intR){
 
   Cell* Ref = g.getCell(x,y).getRef();
- 
+  cout<<"REF"<<endl;
   Cell* buf = &g.getCell(x,y);
+  cout<<"buf"<<endl;
  
   while ( buf -> getRef() != NULL){
     buf = buf->getRef();
+    cout << "fucklol"<<endl;
   }
-
+  cout<<"ON EST ENTRe"<<endl;
   int indice = buf->getIles()->getIndice();
   
   int X = g.getCell(x,y).getPosX();
   int Y = g.getCell(x,y).getPosY();
 
 
-  if(!g.CHECK_BOUND(X+1,Y+1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X+1,Y+1).getEtat() == 1){
-
-    if( Ref != g.getCell(X+1,Y+1).getRef()){
-      noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
-      noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
-    }else{
-      if(indice != g.getCell(X+1,Y+1).getIles()->getIndice()){
+  if(!g.CHECK_BOUND(X+1,Y+1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X+1,Y+1).getEtat() == 1){ cout<<" IL CHECK CE CONNARD"<<x<<","<<y<<endl;
+    cout<<" IL CHECK CE CONNARD"<<X+2<<","<<Y<<endl;
+    Cell* buf = &g.getCell(X+1,Y+1);
+    while ( buf -> getRef() != NULL){
+      buf = buf->getRef();
+      cout << "fuck256"<<endl;
+    }
+    if(( Ref != g.getCell(X+1,Y+1).getRef())&&(Ref != NULL)&&(Ref->getPosX() != X+1)&&(Ref->getPosY() != Y+1)){
+      if (buf->getIles() != NULL){
 	noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
 	noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+      }
+    }else{
+      if (buf->getIles() != NULL){
+	if(indice != buf->getIles()->getIndice()){
+	  noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+	  noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+	}
       }
     }
   }
 
   if(!g.CHECK_BOUND(X+1,Y-1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X+1,Y-1).getEtat() == 1){
-    
-    if( Ref != g.getCell(X+1,Y-1).getRef()){
-      noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
-      noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
-    }else{
-      
-      if(indice != g.getCell(X+1,Y-1).getIles()->getIndice()){
+    /* cout<<"ON EST ENTRe 5"<<endl;
+       if( Ref != g.getCell(X+1,Y-1).getRef()){
+       cout<<"ON EST ENTRe 1"<<endl;
+       noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+       noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+       }else{
+       cout<<"ON EST ENTRe 7"<<endl;
+       if(indice != g.getCell(X+1,Y-1).getIles()->getIndice()){
+       cout<<"ON EST ENTRe 8"<<endl;
 
+       noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+
+       noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+
+       }
+       }*/
+    cout<<" IL CHECK CE CONNARD"<<x<<","<<y<<endl;
+    cout<<" IL CHECK CE CONNARD"<<X+2<<","<<Y<<endl;
+    Cell* buf = &g.getCell(X+1,Y-1);
+    while ( buf -> getRef() != NULL){
+      buf = buf->getRef();
+      cout << "fuckdvf"<<endl;
+    }
+    if(( Ref != g.getCell(X+1,Y-1).getRef())&&(Ref != NULL)&&(Ref->getPosX() != X+1)&&(Ref->getPosY() != Y-1)){
+      cout << "fuckdvf"<<endl;
+      if (buf->getIles() != NULL){
+	cout << "fuckdvf"<<endl;
 	noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
-
 	noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
-
+      }
+    }else{
+      cout << "fuckdvf"<<endl;
+      if (buf->getIles() != NULL){
+	cout << "fuckdvf"<<endl;
+	if(indice != buf->getIles()->getIndice()){
+	  noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+	  noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+	}
       }
     }
   }
 
   if(!g.CHECK_BOUND(X-1,Y-1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X-1,Y-1).getEtat() == 1){
     
-    if( Ref != g.getCell(X-1,Y-1).getRef()){
-      noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
-      noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
-    }else{
-      if(indice != g.getCell(X-1,Y-1).getIles()->getIndice()){
+    /*  if( Ref != g.getCell(X-1,Y-1).getRef()){
 	noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
 	noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+	}else{
+	if(indice != g.getCell(X-1,Y-1).getIles()->getIndice()){
+	noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+	noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+	}
+	}*/
+
+    Cell* buf = &g.getCell(X-1,Y-1);
+    while ( buf -> getRef() != NULL){
+      buf = buf->getRef();
+      cout << "fuckhfh"<<endl;
+    }
+    if(( Ref != g.getCell(X-1,Y-1).getRef())&&(Ref != NULL)&&(Ref->getPosX() != X-1)&&(Ref->getPosY() != Y-1)){
+      if (buf->getIles() != NULL){
+	noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+	noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+      }
+    }else{
+      if (buf->getIles() != NULL){
+	if(indice != buf->getIles()->getIndice()){
+	  noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+	  noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+	}
       }
     }
     	
@@ -286,13 +341,33 @@ void UnfriendedIles(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &
 
   if(!g.CHECK_BOUND(X-1,Y+1,g.getDimensionX(),g.getDimensionY()) && g.getCell(X-1,Y+1).getEtat() == 1 ){
 
-    if( Ref != g.getCell(X-1,Y+1).getRef()){
-      noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
-      noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
-    }else{
-      if(indice != g.getCell(X-1,Y+1).getIles()->getIndice()){
+    /*  if( Ref != g.getCell(X-1,Y+1).getRef()){
 	noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
 	noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+	}else{
+	if(indice != g.getCell(X-1,Y+1).getIles()->getIndice()){
+	noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+	noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+	}
+	}*/
+    //cout<<" IL CHECK CE CONNARD"<<x<<","<<y<<endl;
+    //cout<<" IL CHECK CE CONNARD"<<X-1<<","<<Y-1<<endl;
+    Cell* buf = &g.getCell(X-1,Y+1);
+    while ( buf -> getRef() != NULL){
+      buf = buf->getRef();
+      cout << "fuck"<<endl;
+    }
+    if(( Ref != g.getCell(X-1,Y+1).getRef())&&(Ref != NULL)&&(Ref->getPosX() != X-1)&&(Ref->getPosY() != Y+1)){
+      if (buf->getIles() != NULL){
+	noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+	noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+      }
+    }else{
+      if (buf->getIles() != NULL){
+	if(indice != buf->getIles()->getIndice()){
+	  noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+	  noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+	}
       }
     }
     	
@@ -304,23 +379,61 @@ void UnfriendedIles(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &
 
   if(!g.CHECK_BOUND(X+2,Y,g.getDimensionX(),g.getDimensionY()) && g.getCell(X+2,Y).getEtat() == 1){
     
-    if(Ref != g.getCell(X+2,Y).getRef()){
-      noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
-    }else{
-      if(indice != g.getCell(X+2,Y).getIles()->getIndice()){
+    /* if(Ref != g.getCell(X+2,Y).getRef()){
+       noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+       }else{
+       if(indice != g.getCell(X+2,Y).getIles()->getIndice()){
+       noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+       }
+       }*/
+    cout<<" IL CHECK CE CONNARD"<<x<<","<<y<<endl;
+    cout<<" IL CHECK CE CONNARD"<<X+2<<","<<Y<<endl;
+    Cell* buf = &g.getCell(X+2,Y);
+    while ( buf -> getRef() != NULL){
+      buf = buf->getRef();
+      cout << "fuck"<<endl;
+    }
+    if((Ref != g.getCell(X+2,Y).getRef())&&(Ref != NULL)&&(Ref->getPosX() != X+2)&&(Ref->getPosY() != Y)){
+      if (buf->getIles() != NULL){
 	noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+      }
+    }else{
+      if (buf->getIles() != NULL){
+	if(indice != buf->getIles()->getIndice()){
+	  
+	  noircirAndRegleRiviere(g,GR,GI,X+1,Y,intI,intR);
+	}
       }
     }
   }
  
   if(!g.CHECK_BOUND(X-2,Y,g.getDimensionX(),g.getDimensionY()) && g.getCell(X-2,Y).getEtat() == 1 ){
  
-    if(Ref != g.getCell(X-2,Y).getRef()){
+    /*if(Ref != g.getCell(X-2,Y).getRef()){
       noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
-    }else{
+      }else{
  
       if(indice != g.getCell(X-2,Y).getIles()->getIndice()){
+      noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+      }
+      }*/
+    cout<<" IL CHECK CE CONNARD"<<x<<","<<y<<endl;
+    cout<<" IL CHECK CE CONNARD"<<X+2<<","<<Y<<endl;
+    Cell* buf = &g.getCell(X-2,Y);
+    while ( buf -> getRef() != NULL){
+      buf = buf->getRef();
+      cout << "fuck"<<endl;
+    }
+    if(( Ref != g.getCell(X-2,Y).getRef())&&(Ref != NULL)&&(Ref->getPosX() != X-2)&&(Ref->getPosY() != Y)){
+      if (buf->getIles() != NULL){
 	noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+      }
+    }else{
+      if (buf->getIles() != NULL){
+	if(indice != buf->getIles()->getIndice()){
+	  
+	  noircirAndRegleRiviere(g,GR,GI,X-1,Y,intI,intR);
+	}
       }
     }
     
@@ -328,12 +441,31 @@ void UnfriendedIles(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &
  
   if(!g.CHECK_BOUND(X,Y+2,g.getDimensionX(),g.getDimensionY()) && g.getCell(X,Y+2).getEtat() == 1 ){
  
-    if(Ref != g.getCell(X,Y+2).getRef()){
-      noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
-    }else{
+    /* if(Ref != g.getCell(X,Y+2).getRef()){
+       noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+       }else{
 
-      if(indice != g.getCell(X,Y+2).getIles()->getIndice()){
+       if(indice != g.getCell(X,Y+2).getIles()->getIndice()){
+       noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+       }
+       }*/
+     cout<<" IL CHECK CE CONNARD"<<x<<","<<y<<endl;
+     cout<<" IL CHECK CE CONNARD"<<X+2<<","<<Y<<endl;
+    Cell* buf = &g.getCell(X,Y+2);
+    while ( buf -> getRef() != NULL){
+      buf = buf->getRef();
+      cout << "fuck"<<endl;
+    }
+    if(( Ref != g.getCell(X,Y+2).getRef())&&(Ref != NULL)&&(Ref->getPosX() != X)&&(Ref->getPosY() != Y+2)){
+      if (buf->getIles() != NULL){
 	noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+      }
+    }else{
+      if (buf->getIles() != NULL){
+	if(indice != buf->getIles()->getIndice()){
+	  
+	  noircirAndRegleRiviere(g,GR,GI,X,Y+1,intI,intR);
+	}
       }
     }
    
@@ -341,11 +473,30 @@ void UnfriendedIles(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &
 
   if(!g.CHECK_BOUND(X,Y-2,g.getDimensionX(),g.getDimensionY()) && g.getCell(X,Y-2).getEtat() == 1){
 
-    if(Ref != g.getCell(X,Y-2).getRef()){
+    /*if(Ref != g.getCell(X,Y-2).getRef()){
       noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
-    }else{
+      }else{
       if(indice != g.getCell(X,Y-2).getIles()->getIndice()){
+      noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+      }
+      }*/
+     cout<<" IL CHECK CE CONNARD"<<x<<","<<y<<endl;
+     cout<<" IL CHECK CE CONNARD"<<X+2<<","<<Y<<endl;
+    Cell* buf = &g.getCell(X,Y-2);
+    while ( buf -> getRef() != NULL){
+      buf = buf->getRef();
+      cout << "fuck"<<endl;
+    }
+    if(( Ref != g.getCell(X,Y-2).getRef())&&(Ref != NULL)&&(Ref->getPosX() != X)&&(Ref->getPosY() != Y-2)){
+      if (buf->getIles() != NULL){
 	noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+      }
+    }else{
+      if (buf->getIles() != NULL){
+	if(indice != buf->getIles()->getIndice()){
+	  
+	  noircirAndRegleRiviere(g,GR,GI,X,Y-1,intI,intR);
+	}
       }
     }
    
@@ -711,7 +862,7 @@ void friendsIles(Grille &g, Iles &ile, GlobalRiviere& GR,GlobalIles& GI, int& in
       cout<<ile.getRemaining()<<"ATTENTION BUG IN COMING"<<endl;
       if (ile.getRemaining() == 1){
 	
-	if ((buf->getPosX() == (buf2->getPosX() + 1)) && (buf->getPosY() == (buf2->getPosY() + 1))){
+	if ((buf2->getPosX() + 1  <= g.getDimensionX()-1)&&(buf2->getPosY() + 1  <= g.getDimensionY()-1)&&((buf->getPosX() == (buf2->getPosX() + 1)) && (buf->getPosY() == (buf2->getPosY() + 1)))){
 	  
 	  if (g.getCell(buf2->getPosX(),(buf2->getPosY() + 1)).getEtat() == 1){
 
@@ -727,7 +878,7 @@ void friendsIles(Grille &g, Iles &ile, GlobalRiviere& GR,GlobalIles& GI, int& in
 	    
 	  }
 	  
-	} else if ((buf->getPosX() == (buf2->getPosX() - 1)) && (buf->getPosY() == (buf2->getPosY() - 1))){
+	} else if ((buf2->getPosX() - 1 >= 0)&&(buf2->getPosY() - 1 >= 0)&&((buf->getPosX() == (buf2->getPosX() - 1)) && (buf->getPosY() == (buf2->getPosY() - 1)))){
 	  
 	  if (g.getCell((buf2->getPosX() - 1),buf2->getPosY()).getEtat() == 1){
 	     cout<<"c"<<endl;
@@ -739,7 +890,7 @@ void friendsIles(Grille &g, Iles &ile, GlobalRiviere& GR,GlobalIles& GI, int& in
 	    
 	  }
 	  
-	} else if ((buf->getPosX() == (buf2->getPosX() + 1)) && (buf->getPosY() == (buf2->getPosY() - 1))){
+	} else if ((buf2->getPosX() + 1 <= g.getDimensionX()-1)&&(buf2->getPosY() - 1 >= 0)&&((buf->getPosX() == (buf2->getPosX() + 1)) && (buf->getPosY() == (buf2->getPosY() - 1)))){
 	  
 	  if (g.getCell((buf2->getPosX() + 1),buf2->getPosY()).getEtat() == 1){
 	     cout<<"e"<<endl;
@@ -751,7 +902,7 @@ void friendsIles(Grille &g, Iles &ile, GlobalRiviere& GR,GlobalIles& GI, int& in
 	    
 	  }
 	  
-	} else if ((buf->getPosX() == (buf2->getPosX() - 1)) && (buf->getPosY() == (buf2->getPosY() + 1))){
+	} else if ((buf2->getPosX() - 1 >= 0)&&(buf2->getPosY() + 1 <= g.getDimensionY()-1)&&((buf->getPosX() == (buf2->getPosX() - 1)) && (buf->getPosY() == (buf2->getPosY() + 1)))){
 	  
 	  if (g.getCell((buf2->getPosX() - 1),buf2->getPosY()).getEtat() == 1){
 	     cout<<"g"<<endl;
@@ -765,7 +916,7 @@ void friendsIles(Grille &g, Iles &ile, GlobalRiviere& GR,GlobalIles& GI, int& in
 	}
       }
     }
-    
+    cout<<"alalal"<<endl;
   }
 }
 
@@ -959,6 +1110,7 @@ void blanchirAndRegleIles(Grille &g, GlobalRiviere& GR,GlobalIles& GI,int x,int 
       cout<<"toto"<<endl;
     }
     g.getBlockCell(x,y).printBlock();
+    cout<<"HALAL"<<endl;
   }
 }
 
@@ -1096,9 +1248,13 @@ void initGrille(map<string,string>& data){
 	    buf = buf->getRef();
 	  }
 	  if (buf->getIles() != NULL){
+	    cout<<"ON EST AVANT"<<endl;
 	    friendsIles( g,*buf->getIles(), GR, GI, indiceIles, indiceRiviere);
+	    cout<<"ON EST ENTRe 1"<<endl;
 	    UnfriendedIles(g,GR,GI,x,y,indiceIles,indiceRiviere);
+	    cout<<"ON EST ENTRe 2"<<endl;
 	    Complet(g,GR,GI,x,y,indiceIles,indiceRiviere);
+	    cout<<"ON EST APRES"<<endl;
 	  }
 	  g.GrillePrint();
 	}else if(g.getCell(x,y).getEtat() == 2){
