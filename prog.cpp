@@ -506,7 +506,8 @@ void UnfriendedIles(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &
 
 
 void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,int &intR){
-
+  cout<<" AYOUB "<<endl;
+  
   g.getCell(x,y).setEtat(1);
 
   bool fusion = false;
@@ -530,7 +531,7 @@ void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,i
 	}
 
       } else if((fusion) && (g.getCell(x,y-1).getIles() == NULL)){
-
+	cout<<"HAHAHAHAH"<<endl;
 	blanchir(g,GR,GI,x,y-1,intI,intR);
 	endWhile = true;
 	
@@ -562,7 +563,7 @@ void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,i
 	  
 	}
       } else if((fusion) && (g.getCell(x,y+1).getIles() == NULL)){
-
+	cout<<"HAHAHAHAH"<<endl;
 	blanchir(g,GR,GI,x,y+1,intI,intR);
 	endWhile = true;
 
@@ -595,9 +596,10 @@ void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,i
 	}
       }else if((fusion) && (g.getCell(x+1,y).getIles() == NULL)){
 	  cout<<" IL Y EST "<<endl;
+	  cout<<"HAHAeH"<<endl;
 	  blanchir(g,GR,GI,x+1,y,intI,intR);
 	  endWhile = true;
-	 
+	  cout<<"Il N Y EST PLUS"<<endl;
 	}else {
 
 	  g.getCell(x,y).setEtat(6);
@@ -626,7 +628,9 @@ void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,i
 	  
 	}
       } else if((fusion) && (g.getCell(x-1,y).getIles() == NULL)){
-	
+	cout<<"HIHIHIHIH"<<endl;
+	cout<< x <<" , "<<y<<endl;
+	g.GrillePrint();
 	blanchir(g,GR,GI,x-1,y,intI,intR);
 	endWhile = true;
 	
@@ -1238,8 +1242,8 @@ void initGrille(map<string,string>& data){
   //--------------------------------------
 
   cout << " ================== AFFICHAGE DE LA GRILLE DES BLOCKCELLS ================" <<endl;
-  int i  = 6 ;
-  while( i > 0){
+  int i  = 10;
+  while( i > 0 ){
     x = 0;
     y = 0;
     while(x < dimX){
@@ -1283,7 +1287,7 @@ void initGrille(map<string,string>& data){
       }
       x++;
     }
-   i--;
+    i--;
   }
    
    
