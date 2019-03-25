@@ -510,7 +510,7 @@ void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,i
   cout<< x << ", " << y <<endl;
 
   cout<< g.getCell(x,y).getEtat() <<endl;
-  if( g.getCell(x,y).getEtat() != 1 && g.getCell(x,y).getEtat() != 2 ){
+  //  if( g.getCell(x,y).getEtat() != 1 && g.getCell(x,y).getEtat() != 2 ){
     g.getCell(x,y).setEtat(1);
     
     bool fusion = false;
@@ -653,9 +653,8 @@ void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,i
     
       //------------------------------------------------------------------------------------------------------
     }
-  }
-  //------------------------------------------------------------------------------------------------------
 }
+  //------------------------------------------------------------------------------------------------------
 
 
   
