@@ -507,94 +507,97 @@ void UnfriendedIles(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &
 
 void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,int &intR){
   cout<<" AYOUB "<<endl;
-  
-  g.getCell(x,y).setEtat(1);
+  cout<< x << ", " << y <<endl;
 
-  bool fusion = false;
-  bool endWhile = false;
-  
-  
-  while (!endWhile){
-    //---------------------------------------------------------------------------------------------------------------
-    if ((y-1 >= 0)&&(g.getCell(x,y-1).getEtat() == 1)){
-      if (!fusion){
-	
-	Cell* buf = &g.getCell(x,y);
-	Cell* buf2 = &g.getCell(x,y-1);
-	while (buf2->getRef() != NULL){
-	  buf2 = buf2->getRef();
-	}
-	if (buf2->getIles() != NULL){
+  cout<< g.getCell(x,y).getEtat() <<endl;
+  if( g.getCell(x,y).getEtat() != 1 && g.getCell(x,y).getEtat() != 2 ){
+    g.getCell(x,y).setEtat(1);
+    
+    bool fusion = false;
+    bool endWhile = false;
+    
+    
+    while (!endWhile){
+      //---------------------------------------------------------------------------------------------------------------
+      if ((y-1 >= 0)&&(g.getCell(x,y-1).getEtat() == 1)){
+	if (!fusion){
 	  
-	  buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
-	  fusion = true;
+	  Cell* buf = &g.getCell(x,y);
+	  Cell* buf2 = &g.getCell(x,y-1);
+	  while (buf2->getRef() != NULL){
+	    buf2 = buf2->getRef();
+	  }
+	  if (buf2->getIles() != NULL){
+	    
+	    buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	    fusion = true;
+	  }
+
+	} else if((fusion) && (g.getCell(x,y-1).getIles() == NULL)){
+	  cout<<"HAHAHAHAH"<<endl;
+	  blanchir(g,GR,GI,x,y-1,intI,intR);
+	  endWhile = true;
+	
+	
+	} else {
+
+	  g.getCell(x,y).setEtat(6);
+	  endWhile = true;
+	
 	}
-
-      } else if((fusion) && (g.getCell(x,y-1).getIles() == NULL)){
-	cout<<"HAHAHAHAH"<<endl;
-	blanchir(g,GR,GI,x,y-1,intI,intR);
-	endWhile = true;
-	
-	
-      } else {
-
-	g.getCell(x,y).setEtat(6);
-	endWhile = true;
-	
-      }
       
-    } 
-    //------------------------------------------------------------------------------------------------------
-    if ((y+1 <= g.getDimensionY()-1)&&(g.getCell(x,y+1).getEtat() == 1)){
+      } 
+      //------------------------------------------------------------------------------------------------------
+      if ((y+1 <= g.getDimensionY()-1)&&(g.getCell(x,y+1).getEtat() == 1)){
      
-      if (!fusion){
+	if (!fusion){
 	
-	Cell* buf = &g.getCell(x,y);
-	Cell* buf2 = &g.getCell(x,y+1);
+	  Cell* buf = &g.getCell(x,y);
+	  Cell* buf2 = &g.getCell(x,y+1);
       
-	while (buf2->getRef() != NULL){
-	  buf2 = buf2->getRef();
-	}
+	  while (buf2->getRef() != NULL){
+	    buf2 = buf2->getRef();
+	  }
 	
-	if (buf2->getIles() != NULL){
+	  if (buf2->getIles() != NULL){
 	
-	  buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
-	  fusion = true;
+	    buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	    fusion = true;
 	  
+	  }
+	} else if((fusion) && (g.getCell(x,y+1).getIles() == NULL)){
+	  cout<<"HAHAHAHAH"<<endl;
+	  blanchir(g,GR,GI,x,y+1,intI,intR);
+	  endWhile = true;
+
+	
+	} else {
+
+	  g.getCell(x,y).setEtat(6);
+	  endWhile = true;
+
+	
 	}
-      } else if((fusion) && (g.getCell(x,y+1).getIles() == NULL)){
-	cout<<"HAHAHAHAH"<<endl;
-	blanchir(g,GR,GI,x,y+1,intI,intR);
-	endWhile = true;
-
-	
-      } else {
-
-	g.getCell(x,y).setEtat(6);
-	endWhile = true;
-
-	
       }
-    }
-    //------------------------------------------------------------------------------------------------------
-    if ((x+1 <= g.getDimensionX()-1)&&(g.getCell(x+1,y).getEtat() == 1)){
+      //------------------------------------------------------------------------------------------------------
+      if ((x+1 <= g.getDimensionX()-1)&&(g.getCell(x+1,y).getEtat() == 1)){
       
-      if (!fusion){
+	if (!fusion){
 	
-	Cell* buf = &g.getCell(x,y);
-	Cell* buf2 = &g.getCell(x+1,y);
+	  Cell* buf = &g.getCell(x,y);
+	  Cell* buf2 = &g.getCell(x+1,y);
       
-	while (buf2->getRef() != NULL){
-	  buf2 = buf2->getRef();
-	}
+	  while (buf2->getRef() != NULL){
+	    buf2 = buf2->getRef();
+	  }
 	
-	if (buf2->getIles() != NULL){
+	  if (buf2->getIles() != NULL){
 	  
-	  buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
-	  fusion = true;
+	    buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	    fusion = true;
 	 
-	}
-      }else if((fusion) && (g.getCell(x+1,y).getIles() == NULL)){
+	  }
+	}else if((fusion) && (g.getCell(x+1,y).getIles() == NULL)){
 	  cout<<" IL Y EST "<<endl;
 	  cout<<"HAHAeH"<<endl;
 	  blanchir(g,GR,GI,x+1,y,intI,intR);
@@ -608,47 +611,48 @@ void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,i
 	
 	}
       }
-    //------------------------------------------------------------------------------------------------------
+      //------------------------------------------------------------------------------------------------------
       
-    if ((x-1 >= 0)&&(g.getCell(x-1,y).getEtat() == 1)){
+      if ((x-1 >= 0)&&(g.getCell(x-1,y).getEtat() == 1)){
       
-      if (!fusion){
+	if (!fusion){
 	
-	Cell* buf = &g.getCell(x,y);
-	Cell* buf2 = &g.getCell(x-1,y);
+	  Cell* buf = &g.getCell(x,y);
+	  Cell* buf2 = &g.getCell(x-1,y);
 	
-	while (buf2->getRef() != NULL){
-	  buf2 = buf2->getRef();
-	}
+	  while (buf2->getRef() != NULL){
+	    buf2 = buf2->getRef();
+	  }
 
-	if (buf2->getIles() != NULL){
+	  if (buf2->getIles() != NULL){
 	  
-	  buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
-	  fusion = true;
+	    buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	    fusion = true;
 	  
+	  }
+	} else if((fusion) && (g.getCell(x-1,y).getIles() == NULL)){
+	  cout<<"HIHIHIHIH"<<endl;
+	  cout<< x <<" , "<<y<<endl;
+	  g.GrillePrint();
+	  blanchir(g,GR,GI,x-1,y,intI,intR);
+	  endWhile = true;
+	
+	} else {
+	  g.getCell(x,y).setEtat(6);
+	  endWhile = true;
+	
+	
 	}
-      } else if((fusion) && (g.getCell(x-1,y).getIles() == NULL)){
-	cout<<"HIHIHIHIH"<<endl;
-	cout<< x <<" , "<<y<<endl;
-	g.GrillePrint();
-	blanchir(g,GR,GI,x-1,y,intI,intR);
-	endWhile = true;
-	
-      } else {
-	g.getCell(x,y).setEtat(6);
-	endWhile = true;
-	
-	
       }
-    }
     
-    if (!endWhile){
+      if (!endWhile){
       
-      endWhile = true;
-    }
+	endWhile = true;
+      }
 
     
-    //------------------------------------------------------------------------------------------------------
+      //------------------------------------------------------------------------------------------------------
+    }
   }
   //------------------------------------------------------------------------------------------------------
 }
@@ -1242,8 +1246,12 @@ void initGrille(map<string,string>& data){
   //--------------------------------------
 
   cout << " ================== AFFICHAGE DE LA GRILLE DES BLOCKCELLS ================" <<endl;
-  int i  = 10;
-  while( i > 0 ){
+  int i = 6;
+  bool paFini = true ;
+  while( paFini ){
+    
+    paFini = false;
+    
     x = 0;
     y = 0;
     while(x < dimX){
@@ -1256,6 +1264,7 @@ void initGrille(map<string,string>& data){
 	  blanchirAndRegleIles(g,GR,GI,x,y,indiceIles,indiceRiviere);
 	}else if(g.getCell(x,y).getEtat() == 4){
 	  CroixNoircir(g,GR,GI,x,y,indiceIles,indiceRiviere);
+	  paFini = true;
 	}else if(g.getCell(x,y).getEtat() == 1){
 	  
 	  Cell* buf = &g.getCell(x,y);
