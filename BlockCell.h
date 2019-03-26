@@ -21,7 +21,7 @@ class BlockCell{
   void setRivCell(Riviere*);
   void setIlesCell(Iles*);
   int getEtatCell()const;
-  int getCellNum()const;
+  int getCellNum()const; 
   Cell* getRefCell();
   Riviere* getRivCell();
   Iles* getIlesCell();

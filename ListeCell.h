@@ -5,7 +5,7 @@
 class GlobalRiviere;
 
 class ListeCell{
-  
+ 
  private:
   BlockCell* head;
   size_t size;

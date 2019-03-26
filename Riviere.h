@@ -8,7 +8,7 @@ class GlobalRiviere;
 
 class Riviere{
  private :
-  ListeCell riviere;
+  ListeCell riviere; 
   int indiceDeCreation;
  public :
   Riviere();

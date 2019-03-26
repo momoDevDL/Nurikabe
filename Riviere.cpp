@@ -12,7 +12,7 @@ int Riviere::getIndice()const{ return indiceDeCreation; }
 void Riviere::supprimeRiv(GlobalRiviere &GR){
   
   GR.getGlobalRiv().erase(GR.getGlobalRiv().begin() + (getIndice() -1));
-
+  
   for( size_t i = getIndice() ; i < GR.getGlobalRiv().size();i++){
     indiceDeCreation -- ;
   }
