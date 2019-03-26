@@ -28,7 +28,7 @@ void BlockCell::setRivCell(Riviere* r){
 void BlockCell::setIlesCell(Iles* i){
   getCellPointer()->setIles(i);
 }
-
+  
 int BlockCell::getEtatCell()const{
   return getCellPointer()->getEtat();
 }

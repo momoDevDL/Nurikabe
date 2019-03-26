@@ -35,7 +35,7 @@ void Cell::setRiv(Riviere* r){ riv = r;}
 void Cell::setIles(Iles* i){iles = i;}
 
 
-void Cell::print(){
+void Cell::print(){    
   switch(etat){
   case 1:
     if(cellNum){

@@ -35,7 +35,7 @@ class Cell{
   void setPosX(int);
   void setPosY(int);
   void setRef(Cell*);
-  void setRiv(Riviere*);
+  void setRiv(Riviere*);     
   
   void setIles(Iles*);
 
