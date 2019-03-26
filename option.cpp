@@ -1,3 +1,4 @@
+/**/
 #include<iostream>
 #include"option.h"
 #include"grille.h"

@@ -29,7 +29,7 @@ void CellValuesTreatment(string &val,int &x,int &y,int &etat,int &num){
   num = atoi((val.substr(0,res)).c_str());
   etat = 1;
 }
-
+/* */
 void addCells(map<string,string> &data,Grille &g){
   int posX;
   int posY;

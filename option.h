@@ -1,3 +1,4 @@
+/**/
 #ifndef __OPTION_H
 #define __OPTION_H
 #include <string>

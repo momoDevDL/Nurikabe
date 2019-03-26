@@ -24,7 +24,6 @@ class Grille{
   BlockCell& getBlockCell(size_t,size_t)const;
   void setCellPointerInBlockCell(size_t,size_t);
   
-  
   //methodes
   void random_init(size_t nb_cellules_numerotee);
   void GrillePrint();

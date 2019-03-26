@@ -10,7 +10,6 @@ Grille::Grille():dimensionX(5),dimensionY(5),tabCell(new Cell*[5]),tabBlockCell(
   }
 }
 
-
 Grille::Grille(size_t dimX,size_t dimY):dimensionX(dimX),dimensionY(dimY),tabCell(new Cell*[dimX]),tabBlockCell(new BlockCell*[dimX]){
   for(size_t i=0;i<dimX;++i){
     tabCell[i]=new Cell[dimY];

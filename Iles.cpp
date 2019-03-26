@@ -8,7 +8,7 @@ Iles::Iles():whiteCells(ListeCell(NULL)){}
 Iles::Iles(BlockCell *b, int i):whiteCells(ListeCell(b)),remaining(b->getCellNum() -1),indice(i){}
 /*Iles::~Iles(){
   delete whiteCells;
-}*/
+  }**/
 int Iles::getRemaining(){
   return remaining;
 }

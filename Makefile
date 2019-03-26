@@ -22,4 +22,3 @@ clear :
 	rm $(SOURCE:.cpp=.o)
 
 
-
