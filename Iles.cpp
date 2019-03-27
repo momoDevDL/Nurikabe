@@ -45,8 +45,15 @@ void Iles::print(){
 }
 
 void Iles::addBlockCellToIles(BlockCell &b, GlobalRiviere &GR){
+  std::cout<<"#########################################"<<std::endl;
+  std::cout<<whiteCells.getSize()<<std::endl;
   whiteCells.fusion(whiteCells.getHead(), &b, GR);
+  std::cout<<whiteCells.getSize()<<std::endl;
+  /* std::cout<<whiteCells.getHead()<<std::endl;*/
   setRemaining((whiteCells.getHead()->getCellNum())-(whiteCells.getSize()));
+  std::cout<<whiteCells.getSize()<<std::endl;
+  /* std::cout<<whiteCells.getHead()->getRemaining()<<std::endl;*/
+  std::cout<<"#########################################"<<std::endl;
 }
 
 int Iles::getTailleIles()const{

@@ -8,15 +8,16 @@
 class GlobalIles{
 
  private:
-  std::vector<Iles> GlobalIle;
+  std::vector<Iles*> GlobalIle;
 
  public:
   
   GlobalIles();
   ~GlobalIles();
-  std::vector<Iles>& getGlobalIle();
-  void AddIle(Iles& I);
+  std::vector<Iles*>& getGlobalIle();
+  void AddIle(Iles* I);
   void printGlobalIles();
+  bool ToutEstComplet();
 };
 
 #endif

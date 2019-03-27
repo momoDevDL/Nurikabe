@@ -215,7 +215,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
       Riviere* r = new Riviere(&g.getBlockCell(x,y),intR);
       g.getCell(x,y).setRiv(r);
       intR++;
-      GR.AddRiviere(*r);
+      GR.AddRiviere(r);
       g.getCell(x,y).getRiv()->printRiv();
     }
 
@@ -528,8 +528,10 @@ void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,i
 	    buf2 = buf2->getRef();
 	  }
 	  if (buf2->getIles() != NULL){
-	    
+	    cout<<"*******################------------"<<endl;
+	    GI.printGlobalIles();
 	    buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
+	    GI.printGlobalIles();
 	    fusion = true;
 	  }
 
@@ -1139,7 +1141,7 @@ void Complet(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x, int y,int &intI ,
   
   BlockCell *tmp = buf->getIles()->getWhiteCells()->getHead();
   cout<<" TOTO " <<endl;
-  
+  cout<<"---------------"<<buf->getIles()->getRemaining()<<endl;
   if (buf->getIles()->estPleine()){
     cout<<" HEAD " <<endl;
     
@@ -1227,7 +1229,7 @@ void initGrille(map<string,string>& data){
 	Iles *obj = new Iles(&g.getBlockCell(x,y),indiceIles);
 	g.getCell(x,y).setIles(obj);
 	indiceIles++;
-	GI.AddIle(*obj);
+	GI.AddIle(obj);
 	setPotentiel(g,GR,GI,x,y);
 	g.GrillePrint();
       }
