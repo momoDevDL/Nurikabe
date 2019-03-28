@@ -202,7 +202,7 @@ void noircir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y, int &intR){
 	buf->getRiv()->addBlockCellToRiviere(g.getBlockCell(buf2->getPosX(),buf2->getPosY()), GR);
 
       }
-
+      
       fusion = true;
       g.getCell(x,y).getRef()->getRiv()->printRiv();
       
@@ -510,7 +510,7 @@ void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,i
   cout<< x << ", " << y <<endl;
 
   cout<< g.getCell(x,y).getEtat() <<endl;
-  //  if( g.getCell(x,y).getEtat() != 1 && g.getCell(x,y).getEtat() != 2 ){
+  if(  g.getCell(x,y).getEtat() != 2  &&  !GI.ToutEstComplet()){
     g.getCell(x,y).setEtat(1);
     
     bool fusion = false;
@@ -527,7 +527,8 @@ void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,i
 	  while (buf2->getRef() != NULL){
 	    buf2 = buf2->getRef();
 	  }
-	  if (buf2->getIles() != NULL){
+	  
+	  if (buf2->getIles() != NULL && !GI.ToutEstComplet()){
 	    cout<<"*******################------------"<<endl;
 	    GI.printGlobalIles();
 	    buf2->getIles()->addBlockCellToIles(g.getBlockCell(buf->getPosX(),buf->getPosY()), GR);
@@ -655,9 +656,9 @@ void blanchir(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y,int &intI,i
     
       //------------------------------------------------------------------------------------------------------
     }
-}
+  }
   //------------------------------------------------------------------------------------------------------
-
+}
 
   
 void setPotentiel(Grille &g,GlobalRiviere &GR,GlobalIles &GI,int x,int y){
@@ -1255,24 +1256,24 @@ void initGrille(map<string,string>& data){
     
     x = 0;
     y = 0;
-    while(x < dimX){
+    while(x < dimX && !GI.ToutEstComplet()){
       y=0;
-      while (y < dimY){
-	if(g.getCell(x,y).getEtat() == 3){
+      while (y < dimY && !GI.ToutEstComplet()){
+	if(g.getCell(x,y).getEtat() == 3 && !GI.ToutEstComplet()){
 	  noircirAndRegleRiviere(g,GR,GI,x,y,indiceIles,indiceRiviere);
 	
-	}else if(g.getCell(x,y).getEtat() == 5){
+	}else if(g.getCell(x,y).getEtat() == 5 && !GI.ToutEstComplet()){
 	  blanchirAndRegleIles(g,GR,GI,x,y,indiceIles,indiceRiviere);
-	}else if(g.getCell(x,y).getEtat() == 4){
+	}else if(g.getCell(x,y).getEtat() == 4 && !GI.ToutEstComplet()){
 	  CroixNoircir(g,GR,GI,x,y,indiceIles,indiceRiviere);
 	  paFini = true;
-	}else if(g.getCell(x,y).getEtat() == 1){
+	}else if(g.getCell(x,y).getEtat() == 1 && !GI.ToutEstComplet()){
 	  
 	  Cell* buf = &g.getCell(x,y);
 	  while (buf->getRef() != NULL){
 	    buf = buf->getRef();
 	  }
-	  if (buf->getIles() != NULL){
+	  if (buf->getIles() != NULL && !GI.ToutEstComplet()){
 	    cout<<"ON EST AVANT"<<endl;
 	    friendsIles( g,*buf->getIles(), GR, GI, indiceIles, indiceRiviere);
 	    cout<<"ON EST ENTRe 1"<<endl;
@@ -1356,8 +1357,6 @@ void MyProgram(int argc,char** argv){
     } 
   }
   if(!data.empty()){
-    initGrille(data);    
+    initGrille(data);
   }
 }
- 
- 

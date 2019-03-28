@@ -39,7 +39,7 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
       if (blockC->getRivCell() != NULL){
 	Riviere* buf = blockC->getRivCell();   //Pour la fusion de riviere
 	blockC->setRivCell(NULL);
-	buf->supprimeRiv(gb);
+	//	buf->supprimeRiv(gb);
 	
       }
     }
@@ -63,7 +63,7 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
     if (blockC->getCellPointer()->getRiv() != NULL){
       Riviere* buf = blockC->getRivCell();   //Pour la fusion de riviere
       blockC->setRivCell(NULL);
-      buf->supprimeRiv(gb);
+      // buf->supprimeRiv(gb);
       
     }
     
@@ -102,9 +102,18 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
 
 
 void ListeCell::printListe()const{
+   std::cout<<"La liste de cellule est : [";
+   BlockCell*tmp=getHead();
+  while(getSucc(tmp)){
+    cout<<"("<< tmp->getCellPointer()->getPosX()<<","<<tmp->getCellPointer()->getPosY()<<")";
+    std::cout<<" | ";
+    tmp=getSucc(tmp);
+  }
+  cout<<"("<< tmp->getCellPointer()->getPosX()<<","<<tmp->getCellPointer()->getPosY()<<")";
+  std::cout<<"]"<<endl;
   
   std::cout<<"La liste de cellule est : [";
-  BlockCell* tmp=getHead();
+  tmp=getHead();
   while(getSucc(tmp)){
     tmp->printBlockListe();
     std::cout<<" | ";
@@ -112,5 +121,7 @@ void ListeCell::printListe()const{
   }
   tmp->printBlockListe();
   std::cout<<"]"<<endl;
+  
+
 }
 

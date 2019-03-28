@@ -58,7 +58,7 @@ int Riviere::getTailleRiviere()const{
 void Riviere::printRiv(){
   
   riviere.printListe();
-  std::cout<< ">-----< indice De creation : " << indiceDeCreation << std::endl;
+  //  std::cout<< ">-----< indice De creation : " << indiceDeCreation << std::endl;
 }
 
 ListeCell* Riviere::getRiviere(){
