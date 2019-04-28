@@ -5,12 +5,34 @@ using namespace std;
 BlockCell::BlockCell():cellPointer(NULL),nextBlock(NULL){}
 
 BlockCell::BlockCell(Cell* c):cellPointer(c),nextBlock(NULL){}
+BlockCell& BlockCell::operator=(const BlockCell& bc){
+  if(this != &bc){
+    
+    cellPointer = bc.getCellPointer();
+    nextBlock = bc.getNextBlock();
+
+  }
+
+  return *this;
+}
+
+BlockCell::~BlockCell(){
+  // cellPointer = NULL;
+  //delete cellPointer;
+}
 
 BlockCell* BlockCell::getNextBlock()const{ return nextBlock;}
 Cell* BlockCell::getCellPointer()const{ return cellPointer;}
 
-void BlockCell::setNextBlockCell(BlockCell* BC){nextBlock=BC;}
-void BlockCell::setCellPointer(Cell* cell){ cellPointer=cell;}
+
+void BlockCell::setNextBlockCell(BlockCell* BC){
+  // cout<<"WE R HERE"<<endl;
+  nextBlock=BC;}
+void BlockCell::setCellPointer(Cell* c){
+  // cout << "FUVK THIs SHIT " <<endl;
+  cellPointer = c;
+  //cout << "FUVK THIs SHIT " <<endl;
+}
 
 void BlockCell::setEtatCell(int etat){
   getCellPointer()->setEtat(etat);

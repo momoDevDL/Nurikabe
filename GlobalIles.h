@@ -14,10 +14,12 @@ class GlobalIles{
   
   GlobalIles();
   ~GlobalIles();
-  std::vector<Iles*>& getGlobalIle();
+  const std::vector<Iles*>& getGlobalIle()const;
+  GlobalIles& operator=(const GlobalIles& I);
   void AddIle(Iles* I);
   void printGlobalIles();
   bool ToutEstComplet();
+  int SommeDiles();
 };
 
 #endif

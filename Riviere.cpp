@@ -3,21 +3,29 @@
 #include "GlobalRiviere.h"
 #include<iostream>
 
-Riviere::Riviere():riviere(ListeCell(NULL)),indiceDeCreation(1){}
+Riviere::Riviere(){}
+//Creation d'une nouvelle Riviere en initialisant la liste de ses elements par le
+//BlockCell correspansdant à la cellule qu'on vient de noicir 
 Riviere::Riviere(BlockCell *b, int indice):riviere(ListeCell(b)),indiceDeCreation(indice){}
 
-
+//recuperer l'ordre de la creation de la liste 
 int Riviere::getIndice()const{ return indiceDeCreation; }
 
-void Riviere::supprimeRiv(GlobalRiviere &GR){
+
+//modifier l'indice de creation de la riviere
+void Riviere::setIndice(int i){ indiceDeCreation = i;}
+
+
+
+/*void Riviere::supprimeRiv(GlobalRiviere &GR){
   
   GR.getGlobalRiv().erase(GR.getGlobalRiv().begin()+(getIndice()-1));
   
-  /*  for( size_t i = getIndice() ; i < GR.getGlobalRiv().size();i++){
+  for( size_t i = getIndice() ; i < GR.getGlobalRiv().size();i++){
     indiceDeCreation -- ;
-    }*/
-  
-}
+    }
+*/
+
 
 /*bool Riviere::A_UnSeulReferant()const{
   bool unSeulRef = true;
@@ -45,11 +53,19 @@ Cell* Riviere::getCellReferante()const{
     }
     return buf->getCellPointer();     
   }
-  }*/
+*/
 
-void Riviere::addBlockCellToRiviere(BlockCell &b, GlobalRiviere &GR){
-  riviere.fusion(riviere.getHead(), &b, GR);
+//Rajouter une cellule ç=à une riviere 
+void Riviere::addBlockCellToRiviere(BlockCell *b, GlobalRiviere &GR,GlobalIles &GI){
+  //std::cout<<" ON EST DANS ADDBLOCK"<<std::endl;
+  //std::cout<<riviere.getSize()<<std::endl;
+  riviere.fusion(riviere.getHead(), b, GR,GI);
+  //std::cout<<riviere.getSize()<<std::endl;
+  //std::cout<<"LA TAILlE DANS GR DE CETTE RIV EST : "<<GR.getGlobalRiv()[indiceDeCreation]->getRiviere()->getSize()<<std::endl;
+  GR.getGlobalRiv()[indiceDeCreation]->getRiviere()->setSize(riviere.getSize());
+  //std::cout<<"LA TAILlE DANS GR DE CETTE RIV EST : "<<GR.getGlobalRiv()[indiceDeCreation]->getRiviere()->getSize()<<std::endl;
 }
+
 
 int Riviere::getTailleRiviere()const{
   return riviere.getSize();
@@ -64,4 +80,11 @@ void Riviere::printRiv(){
 ListeCell* Riviere::getRiviere(){
   
   return &riviere;
+}
+
+//modification de la liste des elements d'une riviere
+//en affectant à sa liste une nouvelle Liste 
+void Riviere::setRiviere(ListeCell *l){
+
+  riviere = *l;
 }

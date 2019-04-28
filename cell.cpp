@@ -1,9 +1,20 @@
 #include"cell.h"
 #include<iostream>
 using namespace std;
-Cell::Cell():etat(0),cellNum(0),ref(NULL),riv(NULL),iles(NULL){}
+Cell::Cell():etat(0),cellNum(0),dejaVu(false),ref(NULL),riv(NULL),iles(NULL){}
 Cell::Cell(int e,int c):etat(e),cellNum(c){}
 
+Cell& Cell::operator=(const Cell &c){
+  if(this != &c){
+    posX = c.getPosX();
+    posY = c.getPosY();
+    etat = c.getEtat();
+    cellNum = c.getCellNum();
+    dejaVu = c.getDejaVu();
+
+  }
+  return *this;
+}
 int Cell::getEtat()const{ return etat;}
 
 int Cell::getCellNum()const{ return cellNum;}
@@ -12,11 +23,13 @@ int Cell::getPosX()const{return posX;}
 
 int Cell::getPosY()const{return posY;}
 
-Cell* Cell::getRef(){return ref;}
+Cell* Cell::getRef()const{return ref;}
 
-Riviere* Cell::getRiv(){return riv;}
+Riviere* Cell::getRiv()const{return riv;}
 
-Iles* Cell::getIles(){return iles;}
+Iles* Cell::getIles()const{return iles;}
+
+bool Cell::getDejaVu()const{return dejaVu;}
 
 
 void Cell::setPosX(int pos){posX=pos;}
@@ -27,10 +40,11 @@ void Cell::setEtat(int e){ etat=e;}
 
 void Cell::setCellNum(int cNum){cellNum=cNum;}
 
-void Cell::setRef(Cell* c){ref = c;}
+void Cell::setRef(Cell *c){ref = c;}
 
 void Cell::setRiv(Riviere* r){ riv = r;}
 
+void Cell::setDejaVu(bool v){ dejaVu = v ;}
 
 void Cell::setIles(Iles* i){iles = i;}
 
@@ -55,6 +69,9 @@ void Cell::print(){
     break;
   case 4:
     cout<<"\033[1;44m   \033[0m";
+    break;
+  case 6:
+    cout<<"\033[1;42m   \033[0m";
     break;
   }
 }

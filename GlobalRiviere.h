@@ -14,9 +14,11 @@ class GlobalRiviere{
   
   GlobalRiviere();
   ~GlobalRiviere();
-  std::vector<Riviere*>& getGlobalRiv();
+  const std::vector<Riviere*>& getGlobalRiv()const;
+  GlobalRiviere& operator=(const GlobalRiviere& R);
   void AddRiviere(Riviere *r);
   void printGlobalRiviere();
+  bool RiviereConnexe(int max);
   
 };
 

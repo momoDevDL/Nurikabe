@@ -13,22 +13,27 @@ class Iles {
  public :
   Iles();
   Iles(BlockCell* b, int i);
-  
-  int getRemaining();
+  // Iles& operator=(Iles &i);
+    
+  int getRemaining()const;
 
-  int getIndice();
+  int getIndice()const;
 
   void setIndice(int);
 
   void setRemaining(int r);
 
   ListeCell* getWhiteCells();
- 
+  
+  void setWhiteCells(ListeCell *l);
+  
+  size_t getNumCell();
+  
   bool estPleine();
   
   void print();
 
-  void addBlockCellToIles(BlockCell &b, GlobalRiviere &GI);
+  void addBlockCellToIles(BlockCell *b, GlobalRiviere &GR, GlobalIles &GI);
 
   int getTailleIles()const;
 

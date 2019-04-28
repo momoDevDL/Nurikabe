@@ -5,16 +5,19 @@ class BlockCell{
  private:
   Cell* cellPointer;
   BlockCell* nextBlock;
+ 
  public:
   //constructeurs
 
   BlockCell();
   BlockCell(Cell* c);
-
+  ~BlockCell();
+  BlockCell& operator=(const BlockCell& bc);
   BlockCell* getNextBlock()const;
   Cell* getCellPointer()const;
 
   void setNextBlockCell(BlockCell*);
+  
   void setCellPointer(Cell*);
   void setEtatCell(int etat);
   void setRefCell(Cell*);

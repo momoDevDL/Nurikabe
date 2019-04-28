@@ -11,6 +11,7 @@ class Cell{
   int posY;
   int etat;
   int cellNum;
+  bool dejaVu;
   Cell* ref;
   Riviere* riv;
   Iles* iles;
@@ -18,15 +19,17 @@ class Cell{
  public:
   Cell();
   Cell(int etat,int cellNum);
+  Cell& operator=(const Cell &c);
   //accesseur en lecture
   int getEtat()const;
   int getCellNum()const;
   int getPosX()const;
   int getPosY()const;
-  Cell* getRef();
-  Riviere* getRiv();
+  Cell* getRef()const;
+  Riviere* getRiv()const;
   
-  Iles* getIles();
+  Iles* getIles()const;
+  bool getDejaVu()const;
 
 
   //accesseur en ecriture
@@ -36,7 +39,7 @@ class Cell{
   void setPosY(int);
   void setRef(Cell*);
   void setRiv(Riviere*);     
-  
+  void setDejaVu(bool);
   void setIles(Iles*);
 
   void print();

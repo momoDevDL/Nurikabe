@@ -3,6 +3,7 @@
 #include<iostream>
 #include "BlockCell.h"
 class GlobalRiviere;
+class GlobalIles;
 
 class ListeCell{
  
@@ -11,20 +12,24 @@ class ListeCell{
   size_t size;
   
  public:
+  //Constructeurs
   ListeCell();
   ListeCell(BlockCell* _head);
-  // ~ListeCell();
+  //destructeurs
+  ~ListeCell();
+  //accesseurs
   size_t  getSize()const;
-  
+  void setSize(size_t);
+  ListeCell& operator=(const ListeCell &L);
   BlockCell* getHead()const;
-  
-  //Methodes
+  void setHead(BlockCell* b);
   BlockCell* getSucc(BlockCell*)const;
-  void addAfter(BlockCell* cell);
-  void fusion(BlockCell* bc,BlockCell* cell,GlobalRiviere &gb);
+  //Methodes
+  void add(Cell* c);
+  void fusion(BlockCell* bc,BlockCell* cell,GlobalRiviere &gb,GlobalIles &GI);
   bool est_Vide()const;
   void printListe()const;
-  void supprimer(BlockCell* b);
+  void supprimer();
 };
 
 #endif

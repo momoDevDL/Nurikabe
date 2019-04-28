@@ -3,6 +3,7 @@
 
 
 class GlobalRiviere;
+class GlobalIles;
 #include "ListeCell.h"
 #include"grille.h"
 
@@ -20,8 +21,11 @@ class Riviere{
     Cell* getCellReferante()const;*/
 
   int getIndice()const;
+  void setIndice(int);
+  void setRiviere(ListeCell *l);
 
-  void addBlockCellToRiviere(BlockCell &b, GlobalRiviere &GR);
+
+  void addBlockCellToRiviere(BlockCell *b, GlobalRiviere &GR,GlobalIles &GI);
 
   void supprimeRiv(GlobalRiviere &GR);
 
@@ -30,6 +34,7 @@ class Riviere{
   void printRiv();
 
   ListeCell* getRiviere();
+  
 
 
 };

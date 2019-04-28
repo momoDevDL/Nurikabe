@@ -1,45 +1,115 @@
+
+//----------------------Headers-------------------
 #include<iostream>
-using namespace std;
-#include"ListeCell.h"
+#include"ListeCell.h"                   
 #include"Riviere.h"
 #include"GlobalRiviere.h"
+#include"GlobalIles.h"
+using namespace std;
 
-ListeCell::ListeCell():head(NULL),size(0){}
+//------------------------------------------------
 
-ListeCell::ListeCell(BlockCell* bcell):head(bcell),size(1){}
+//Constructeurs par défaut 
+ListeCell::ListeCell():head(new BlockCell),size(1){}
 
-void ListeCell::supprimer(BlockCell* b){
-  if(b->getNextBlock() == NULL){
-    delete b;
-  }else{ 
-    supprimer(b->getNextBlock());
+//Constructeurs paramétré
+ListeCell::ListeCell(BlockCell* bcell):head(bcell){
+  size = 1 ;
+  BlockCell *tmp = head;
+  while(tmp->getNextBlock()){
+    size++;
+    tmp = tmp->getNextBlock();
   }
 }
 
-/*ListeCell::~ListeCell(){
-  supprimer(head);
-}*/
-/*void ListeCell::setNextBlock(BlockCell* thisBlock,BlockCell* NextBlock){
-  thisBlock->setNextBlockCell(NextBlock);
-}*/
+//parcourir la liste et supprimer les membres de la liste 
+void ListeCell::supprimer(){
+  BlockCell *tmp = head;
+  while(tmp){
+    tmp = tmp->getNextBlock();
+    delete head;
+    head = tmp;
+  }
+  size = 0;
+}
+
+//destructeur de liste
+ListeCell::~ListeCell(){
+  supprimer();
+}
+
+//surcharge de l'operateur d'affectation
+ListeCell& ListeCell::operator=(const ListeCell& L){
+  if (this != &L){
+    // this->supprimer();
+    size = L.getSize();
+    
+    //  head = L.getHead();
+    BlockCell *tmp = L.getHead();
+    head->setCellPointer(L.getHead()->getCellPointer());
+    while(tmp->getNextBlock()){
+      //  std::cout<<"ON EST LA"<<std::endl;
+      tmp = tmp->getNextBlock();
+      add(tmp->getCellPointer());
+    }
+    
+    //this->printListe();
+    //  std::cout<<"ON EST LA"<<std::endl;
+   
+  }
+  return *this;
+}
+
+//rajout d'un nouveau block de cellule a la fin de la liste qui contient comme valeur une cellule
+//passé en parametre
+void ListeCell::add(Cell* c){
+
+  BlockCell *added = new BlockCell(c);
+  BlockCell *tmp = head;
+
+  while(tmp->getNextBlock()){
+    tmp = tmp->getNextBlock();
+  }
+  tmp->setNextBlockCell(added);
+  
+}
+
+
 
 size_t ListeCell::getSize()const{ return size;}
+
+void ListeCell::setSize(size_t s){ size = s;} 
 
 bool ListeCell::est_Vide()const{return size==0;}
 
 BlockCell* ListeCell::getHead()const{ return head;}
 
+void ListeCell::setHead(BlockCell* b){ head = b;}
+
+
+//renvoie le membre de la liste suivant en passant une position en parametre
 BlockCell* ListeCell::getSucc(BlockCell* bc)const{ return bc->getNextBlock();}
 
-void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
+
+//la fusion de deux listes en traitant les differents cas de fusion
+// - L1 : un element L2: un element
+// - L1 : un element L2:  liste d'element
+// - L1 : liste  d'element L2: liste d'element
+//en passant aussi par parametre les deux structures globales pour rajouter le resultat de
+// la fusion 
+void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb,GlobalIles &GI){
+
   if(getSucc(blockC) == NULL){
+
     //-------------------------------------------
     if(blockC->getRefCell() == NULL){
       blockC->setRefCell(bc->getCellPointer());
+
       if (blockC->getRivCell() != NULL){
-	Riviere* buf = blockC->getRivCell();   //Pour la fusion de riviere
+
+	//	Riviere* buf = blockC->getRivCell();   //Pour la fusion de riviere
 	blockC->setRivCell(NULL);
-	//	buf->supprimeRiv(gb);
+
 	
       }
     }
@@ -48,9 +118,7 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
       bc->setNextBlockCell(blockC);
       size++;
     } else {
-      // cout<<endl;
-      // cout<<"ON EST LA"<<endl;
-      // cout<<endl;
+
       BlockCell* tmp = bc->getNextBlock();
       bc->setNextBlockCell(blockC);
       blockC->setNextBlockCell(tmp);
@@ -59,17 +127,19 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
     }
   } else {
     //-------------------------------------------
-    
+     
     if (blockC->getCellPointer()->getRiv() != NULL){
-      Riviere* buf = blockC->getRivCell();   //Pour la fusion de riviere
+      
+      //Riviere* buf = blockC->getRivCell();   //Pour la fusion de riviere
       blockC->setRivCell(NULL);
-      // buf->supprimeRiv(gb);
+      
       
     }
     
     //-------------------------------------------
-    int buf = 0;
+    int buf = 1;
     blockC->setRefCell(bc->getCellPointer());
+ 
     if (getSucc(bc) != NULL) {
       BlockCell* tmp = bc->getNextBlock();
       BlockCell* tmp1 = blockC->getNextBlock();
@@ -84,8 +154,9 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
       bc->setNextBlockCell(blockC);
       size = size + buf;
     } else {
-      BlockCell* tmp = bc;
-      BlockCell* tmp1 = blockC->getNextBlock();
+      //BlockCell* tmp = bc;
+      BlockCell* tmp1 = blockC;
+     
       tmp1->setRefCell(bc->getCellPointer());
       buf++;
       while (getSucc(tmp1) != NULL){
@@ -93,21 +164,25 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb){
 	tmp1->setRefCell(bc->getCellPointer());
 	buf++;
       }
-      tmp1->setNextBlockCell(tmp);
+    
+      tmp1->setNextBlockCell(NULL);
       bc->setNextBlockCell(blockC);
       size = size + buf;
     }
   }
 }
 
+//fonction d'affichage qui affiche les elements d'une liste donnée,
+//les coordonnées de ces elements et leur addresse memoire
 
 void ListeCell::printListe()const{
-   std::cout<<"La liste de cellule est : [";
-   BlockCell*tmp=getHead();
-  while(getSucc(tmp)){
+  std::cout<<"La liste de cellule de taille "<< size<< "est : [";
+  BlockCell*tmp= head;
+  
+  while(tmp->getNextBlock()){
     cout<<"("<< tmp->getCellPointer()->getPosX()<<","<<tmp->getCellPointer()->getPosY()<<")";
     std::cout<<" | ";
-    tmp=getSucc(tmp);
+    tmp= tmp->getNextBlock();
   }
   cout<<"("<< tmp->getCellPointer()->getPosX()<<","<<tmp->getCellPointer()->getPosY()<<")";
   std::cout<<"]"<<endl;
@@ -119,7 +194,19 @@ void ListeCell::printListe()const{
     std::cout<<" | ";
     tmp=getSucc(tmp);
   }
+  
   tmp->printBlockListe();
+  std::cout<<"]"<<endl;
+  
+  std::cout<<"La liste de cellule est : [";
+  tmp=getHead();
+  while(getSucc(tmp)){
+    std::cout<<&(*(tmp));
+    std::cout<<" | ";
+    tmp=getSucc(tmp);
+  }
+  
+  std::cout<<&(*(tmp));
   std::cout<<"]"<<endl;
   
 

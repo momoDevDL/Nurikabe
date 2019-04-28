@@ -1,24 +1,43 @@
 #include"Iles.h"
 #include"prog.h"
-
 #include<iostream>
 
-Iles::Iles():whiteCells(ListeCell(NULL)){}
+class GlobalIles;
+
+Iles::Iles(){}
 
 Iles::Iles(BlockCell *b, int i):whiteCells(ListeCell(b)),remaining(b->getCellNum() -1),indice(i){}
 /*Iles::~Iles(){
   delete whiteCells;
   }**/
-int Iles::getRemaining(){
+
+/*Iles& Iles::operator=( Iles& i){
+  if(this != &i){
+    //std::cout<<"XR"<<std::endl;
+    whiteCells = *(i.getWhiteCells());
+    // std::cout<<"X1R"<<std::endl;
+    remaining = i.getRemaining();
+    indice = i.getIndice();//
+    //this->print();
+  }
+  return *this;
+}
+*/
+
+int Iles::getRemaining()const{
   return remaining;
 }
 
-int Iles::getIndice(){
+int Iles::getIndice()const{
   return indice;
 }
 
 void Iles::setIndice(int i){
   indice = i ;
+}
+
+size_t Iles::getNumCell(){
+  return   whiteCells.getHead()->getCellPointer()->getCellNum();
 }
 
 void Iles::setRemaining(int r){
@@ -37,6 +56,10 @@ ListeCell* Iles::getWhiteCells(){
   return &whiteCells;
 }
 
+void Iles::setWhiteCells(ListeCell *l){
+  whiteCells = *l;
+}
+
 void Iles::print(){
 
   whiteCells.printListe();
@@ -44,18 +67,24 @@ void Iles::print(){
 
 }
 
-void Iles::addBlockCellToIles(BlockCell &b, GlobalRiviere &GR){
-  std::cout<<"#########################################"<<std::endl;
+void Iles::addBlockCellToIles(BlockCell* b, GlobalRiviere &GR,GlobalIles &GI){
+  //  std::cout<<"#########################################"<<std::endl;
+  this->print();
   std::cout<<whiteCells.getSize()<<std::endl;
-  whiteCells.fusion(whiteCells.getHead(), &b, GR);
+  whiteCells.fusion(whiteCells.getHead(),b, GR,GI);
   std::cout<<whiteCells.getSize()<<std::endl;
   /* std::cout<<whiteCells.getHead()<<std::endl;*/
   setRemaining((whiteCells.getHead()->getCellNum())-(whiteCells.getSize()));
-  std::cout<<whiteCells.getSize()<<std::endl;
+  GI.getGlobalIle()[indice]->setRemaining((whiteCells.getHead()->getCellNum())-(whiteCells.getSize()));
+  GI.getGlobalIle()[indice]->getWhiteCells()->setSize(whiteCells.getSize());
+  std::cout<<"WHITECELLS SIZE =======> "<<whiteCells.getSize()<<std::endl;
+  std::cout<<"WHITECELLS RemaINING =======> "<<getRemaining()<<std::endl;
+  //GI.printGlobalIles();
   /* std::cout<<whiteCells.getHead()->getRemaining()<<std::endl;*/
-  std::cout<<"#########################################"<<std::endl;
+  // std::cout<<"#########################################"<<std::endl;
 }
 
 int Iles::getTailleIles()const{
   return whiteCells.getSize();
 }
+ 

@@ -6,30 +6,31 @@
 
 class Grille{
  private:
-  size_t dimensionX;
-  size_t dimensionY;
+  int dimensionX;
+  int dimensionY;
   Cell ** tabCell;
   BlockCell ** tabBlockCell;
 
  public:
   //constructeurs
   Grille();
-  Grille(size_t dX,size_t dY);
+  Grille(int dX,int dY);
+  Grille& operator=(const Grille& g);
   //destructeur
   ~Grille();
   //accesseur en lecture
-  size_t getDimensionX()const;
-  size_t getDimensionY()const;
-  Cell& getCell(size_t,size_t)const;
-  BlockCell& getBlockCell(size_t,size_t)const;
-  void setCellPointerInBlockCell(size_t,size_t);
-  
+  int getDimensionX()const;
+  int getDimensionY()const;
+  Cell& getCell(int,int)const;
+  BlockCell& getBlockCell(int,int)const;
+  void setCellPointerInBlockCell(int,int);
+  void vider();
   //methodes
   void random_init(size_t nb_cellules_numerotee);
   void GrillePrint();
-  void addVal(size_t val,size_t x,size_t y);
-  void addEtat(size_t etat,size_t,size_t);
-  bool CHECK_BOUND(size_t,size_t,size_t,size_t)const;
+  void addVal(size_t val,int x,int y);
+  void addEtat(size_t etat,int,int);
+  bool CHECK_BOUND(int,int,int,int)const;
+  bool rempli();
 };
-
 #endif
