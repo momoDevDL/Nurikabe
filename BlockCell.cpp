@@ -25,13 +25,11 @@ BlockCell* BlockCell::getNextBlock()const{ return nextBlock;}
 Cell* BlockCell::getCellPointer()const{ return cellPointer;}
 
 
-void BlockCell::setNextBlockCell(BlockCell* BC){
-  // cout<<"WE R HERE"<<endl;
-  nextBlock=BC;}
+void BlockCell::setNextBlockCell(BlockCell* BC){nextBlock=BC;}
 void BlockCell::setCellPointer(Cell* c){
-  // cout << "FUVK THIs SHIT " <<endl;
+ 
   cellPointer = c;
-  //cout << "FUVK THIs SHIT " <<endl;
+
 }
 
 void BlockCell::setEtatCell(int etat){

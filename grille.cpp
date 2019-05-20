@@ -31,7 +31,7 @@ Grille::~Grille(){
 //fonction qui permet de detruire les elements des 2 grilles
 void Grille::vider(){
   int i=0;
-  cout<<"ON eSt Dans Vider"<<endl;
+ 
  while(i<dimensionX){
     delete[] tabCell[i];
     delete[] tabBlockCell[i];

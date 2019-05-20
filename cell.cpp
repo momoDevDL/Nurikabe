@@ -2,7 +2,7 @@
 #include<iostream>
 using namespace std;
 Cell::Cell():etat(0),cellNum(0),dejaVu(false),ref(NULL),riv(NULL),iles(NULL){}
-Cell::Cell(int e,int c):etat(e),cellNum(c){}
+Cell::Cell(int e,int c):etat(e),cellNum(c),dejaVu(false){}
 
 Cell& Cell::operator=(const Cell &c){
   if(this != &c){

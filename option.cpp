@@ -147,7 +147,7 @@ void launchConfig(char* f,map<string,string>& data){
 	if(!line.empty()){
 	  unsigned int posTag = line.find("//");
 	  if(posTag != line.size() ){
-	    line  = line.substr(0,posTag);
+	    line = line.substr(0,posTag);
 	  }
 	}
 

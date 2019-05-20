@@ -55,15 +55,13 @@ Cell* Riviere::getCellReferante()const{
   }
 */
 
-//Rajouter une cellule ç=à une riviere 
+//Rajouter une cellule à une riviere 
 void Riviere::addBlockCellToRiviere(BlockCell *b, GlobalRiviere &GR,GlobalIles &GI){
-  //std::cout<<" ON EST DANS ADDBLOCK"<<std::endl;
-  //std::cout<<riviere.getSize()<<std::endl;
+  
   riviere.fusion(riviere.getHead(), b, GR,GI);
-  //std::cout<<riviere.getSize()<<std::endl;
-  //std::cout<<"LA TAILlE DANS GR DE CETTE RIV EST : "<<GR.getGlobalRiv()[indiceDeCreation]->getRiviere()->getSize()<<std::endl;
+
   GR.getGlobalRiv()[indiceDeCreation]->getRiviere()->setSize(riviere.getSize());
-  //std::cout<<"LA TAILlE DANS GR DE CETTE RIV EST : "<<GR.getGlobalRiv()[indiceDeCreation]->getRiviere()->getSize()<<std::endl;
+  
 }
 
 

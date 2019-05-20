@@ -41,20 +41,19 @@ ListeCell::~ListeCell(){
 //surcharge de l'operateur d'affectation
 ListeCell& ListeCell::operator=(const ListeCell& L){
   if (this != &L){
-    // this->supprimer();
+   
     size = L.getSize();
     
-    //  head = L.getHead();
+    
     BlockCell *tmp = L.getHead();
     head->setCellPointer(L.getHead()->getCellPointer());
     while(tmp->getNextBlock()){
-      //  std::cout<<"ON EST LA"<<std::endl;
+      
       tmp = tmp->getNextBlock();
       add(tmp->getCellPointer());
     }
     
-    //this->printListe();
-    //  std::cout<<"ON EST LA"<<std::endl;
+ 
    
   }
   return *this;
@@ -154,7 +153,7 @@ void ListeCell::fusion(BlockCell* bc,BlockCell* blockC,GlobalRiviere &gb,GlobalI
       bc->setNextBlockCell(blockC);
       size = size + buf;
     } else {
-      //BlockCell* tmp = bc;
+      
       BlockCell* tmp1 = blockC;
      
       tmp1->setRefCell(bc->getCellPointer());
@@ -197,6 +196,8 @@ void ListeCell::printListe()const{
   
   tmp->printBlockListe();
   std::cout<<"]"<<endl;
+
+  // affichage de l'adresse memoire de chaque cellule dans la liste
   
   std::cout<<"La liste de cellule est : [";
   tmp=getHead();
