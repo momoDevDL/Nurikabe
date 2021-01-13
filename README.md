@@ -11,20 +11,20 @@ Pour lancer le jeu :
 	- Tapez "make" pour compiler les fichiers source du projet et créer l'executable.
 	
 	- Puis vous pouvez lancer l'execution d'une grille avec l'option "-cfg" ou "CONFIG"
-	de la maniere suivante:
+	qui se trouve dans le dossier "cfg" de la maniere suivante:
 	
-	       "./Nurikabe -cfg facile6.cfg "
+	       "./Nurikabe -cfg cfg/facile6.cfg "
 	       
 	Cette façon permet de passer un fichier de configuration contenant les infos nécessaire
 	pour la création de la grille.
 
 	Vous pouvez soit utiliser les fichiers "*.cfg" existant déjà dans le dossier
-	ou bien créer vos propres grilles .
+	ou bien créer vos propres grilles.
 
 	Les fichiers de config sont classés par 3 catégorie :
 	
 	----->facile6.cfg    ----->medium3.cfg  ---->hard15.cfg
-	----->facile14.cfg   ----->medium5.cfg  ---->hard2.cfg 
+	----->facile14.cfg   ----->medium5.cfg  ---->hard1.cfg 
 	----->facile10.cfg   ----->medium8.cfg
 	
 	Ces grilles sont tous Résolvable .
